@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>admin_hub tools: CIDR, JWT, hash, password, time, Base64, GUID, headers, ports</title>
+<meta name="description" content="Free browser-based admin tools: CIDR calculator, JWT decoder, hash generator, password generator, time converter, Base64, GUID, email header analyzer and port reference, regex tester, JSON formatter, chmod calculator, URL encoder, cron explainer, UAC decoder, SPF/DMARC explainers, Markdown previewer, text diff, case converter and IPv6 tool.">
+<link rel="stylesheet" href="style.css">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="admin_hub">
+<meta property="og:title" content="admin_hub tools: CIDR, JWT, hash, password, time, Base64, GUID, headers, ports">
+<meta property="og:description" content="Free browser-based admin tools: CIDR calculator, JWT decoder, hash generator, password generator, time converter, Base64, GUID, email header analyzer and port reference, regex tester, JSON formatter, ">
+<meta property="og:image" content="https://example.com/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="admin_hub tools: CIDR, JWT, hash, password, time, Base64, GUID, headers, ports">
+<meta name="twitter:description" content="Free browser-based admin tools: CIDR calculator, JWT decoder, hash generator, password generator, time converter, Base64, GUID, email header analyzer and port reference, regex tester, JSON formatter, ">
+<meta name="twitter:image" content="https://example.com/og-default.png">
+</head>
+<body>
+<div class="wrap">
+<header><a class="brand" href="index.html">admin_hub</a><nav aria-label="Main"><a href="tools.html">tools</a><a href="cheat-sheets.html">cheat-sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a><a href="explainers.html">explainers</a><a href="news.html">news</a><a href="start-here.html">start-here</a><a href="about.html">about</a></nav><button class="btn sbtn" type="button" data-search aria-label="Search the site" title="Search (Ctrl+K)">search</button></header>
+<main>
+<h1>Free tools for admins.</h1>
+<p class="dim">Everything runs in your browser. Nothing you enter is sent anywhere.</p><nav aria-label="Tools" style="margin-top:12px"><a href="#cidr-calculator">cidr</a><a href="#jwt-decoder">jwt</a><a href="#hash-generator">hash</a><a href="#password-generator">password</a><a href="#time-converter">time</a><a href="#base64-tool">base64</a><a href="#guid-generator">guid</a><a href="#email-header-analyzer">email</a><a href="#port-reference">port</a><a href="#regex-tester">regex</a><a href="#json-formatter">json</a><a href="#chmod-calculator">chmod</a><a href="#url-encoder">url</a><a href="#cron-explainer">cron</a><a href="#uac-decoder">uac</a><a href="#spf-explainer">spf</a><a href="#dmarc-explainer">dmarc</a><a href="#markdown-previewer">markdown</a><a href="#text-diff">text</a><a href="#case-converter">case</a><a href="#ipv6-tool">ipv6</a></nav>
+<section class="tool" id="cidr-calculator"><h2>cidr-calculator</h2><p class="dim">Enter an IPv4 address with prefix length and get network, broadcast, mask and host range.</p><input id="cidr" class="q" type="text" placeholder="192.168.1.10/24" autocomplete="off" spellcheck="false"><div id="cidr-out" aria-live="polite"></div></section><section class="tool" id="jwt-decoder"><h2>jwt-decoder</h2><p class="dim">Paste a JSON Web Token to read its header and claims. Decoding happens in your browser; the signature is not verified.</p><textarea id="jwt" class="q" placeholder="eyJ0eXAiOiJKV1QiLCJhbGciOi..." spellcheck="false"></textarea><div id="jwt-out" aria-live="polite"></div></section><div class="ad" role="complementary" aria-label="Advertisement">Ad slot 728x90</div><section class="tool" id="hash-generator"><h2>hash-generator</h2><p class="dim">Type or paste text to get its SHA-1, SHA-256, SHA-384 and SHA-512 hashes, computed locally in your browser.</p><textarea id="hash" class="q" placeholder="Text to hash" spellcheck="false"></textarea><div id="hash-out" aria-live="polite"></div></section>
+
+<section class="tool" id="password-generator"><h2>password-generator</h2><p class="dim">Random passwords from your browser's secure random generator. Nothing is stored or sent.</p>
+<div class="ctl"><label>length <b id="pw-n">20</b><input id="pw-len" type="range" min="8" max="64" value="20"></label>
+<label><input type="checkbox" id="pw-l" checked>a-z</label><label><input type="checkbox" id="pw-u" checked>A-Z</label><label><input type="checkbox" id="pw-d" checked>0-9</label><label><input type="checkbox" id="pw-s" checked>symbols</label>
+<button class="btn" id="pw-go" type="button">generate</button><button class="btn" id="pw-cp" type="button">copy</button></div>
+<pre id="pw-val"></pre><div id="pw-out" aria-live="polite"></div></section>
+<section class="tool" id="time-converter"><h2>time-converter</h2><p class="dim">Convert Unix seconds, Unix milliseconds, Windows FILETIME (Active Directory values such as lastLogon and pwdLastSet) or a date string.</p>
+<input id="time" class="q" type="text" placeholder="1790000000, 133900000000000000 or 2026-09-24T12:00:00Z" autocomplete="off" spellcheck="false"><div id="time-out" aria-live="polite"></div></section>
+<section class="tool" id="base64-tool"><h2>base64-tool</h2><p class="dim">Encode text as Base64, build a PowerShell -EncodedCommand string, or decode Base64 as UTF-8 and UTF-16LE to inspect encoded commands.</p>
+<textarea id="b64" class="q" placeholder="Text or Base64 string" spellcheck="false"></textarea><div id="b64-out" aria-live="polite"></div></section>
+
+<section class="tool" id="guid-generator"><h2>guid-generator</h2><p class="dim">Random version 4 GUIDs, generated in your browser.</p>
+<div class="ctl"><label>count<input id="g-n" class="n" type="number" min="1" max="50" value="1"></label>
+<label><input type="checkbox" id="g-u">uppercase</label><label><input type="checkbox" id="g-b">braces</label><label><input type="checkbox" id="g-h">no hyphens</label>
+<button class="btn" id="g-go" type="button">generate</button><button class="btn" id="g-cp" type="button">copy</button></div>
+<pre id="g-val"></pre></section>
+<section class="tool" id="email-header-analyzer"><h2>email-header-analyzer</h2><p class="dim">Paste the full raw headers of an email to see the sender fields, SPF, DKIM and DMARC results and the delivery path. Processed locally.</p>
+<textarea id="eh" class="q" placeholder="Received: from ...&#10;From: ...&#10;Authentication-Results: ..." spellcheck="false"></textarea><div id="eh-out" aria-live="polite"></div></section>
+<section class="tool" id="port-reference"><h2>port-reference</h2><p class="dim">Common TCP and UDP ports for admins. Search by number, service or keyword.</p>
+<input id="pt" class="q" type="text" placeholder="3389, kerberos, mail, ldap ..." autocomplete="off" spellcheck="false"><div id="pt-out" class="tw"></div></section>
+
+<section class="tool" id="regex-tester"><h2>regex-tester</h2><p class="dim">Test a JavaScript regular expression against text and see matches and capture groups. Flags such as i, m and s are supported; g is always on.</p>
+<div class="ctl"><input id="rx-p" class="q" style="flex:1 1 220px;width:auto" type="text" placeholder="pattern, for example (\d+)\.(\d+)" autocomplete="off" spellcheck="false"><input id="rx-f" class="n" type="text" value="g" aria-label="flags" spellcheck="false"></div>
+<textarea id="rx-t" class="q" placeholder="Text to test" spellcheck="false"></textarea><div id="rx-out" aria-live="polite"></div></section>
+<section class="tool" id="json-formatter"><h2>json-formatter</h2><p class="dim">Validate JSON and get a formatted and a minified version.</p>
+<textarea id="js" class="q" placeholder='{"name":"value"}' spellcheck="false"></textarea><div id="js-out" aria-live="polite"></div></section>
+<section class="tool" id="chmod-calculator"><h2>chmod-calculator</h2><p class="dim">Set Linux file permissions with checkboxes or type an octal value such as 755.</p>
+<table class="perm"><thead><tr><th></th><th>read</th><th>write</th><th>execute</th></tr></thead><tbody><tr><td>owner</td><td><input type="checkbox" id="ch-0" aria-label="owner read"></td><td><input type="checkbox" id="ch-1" aria-label="owner write"></td><td><input type="checkbox" id="ch-2" aria-label="owner execute"></td></tr><tr><td>group</td><td><input type="checkbox" id="ch-3" aria-label="group read"></td><td><input type="checkbox" id="ch-4" aria-label="group write"></td><td><input type="checkbox" id="ch-5" aria-label="group execute"></td></tr><tr><td>other</td><td><input type="checkbox" id="ch-6" aria-label="other read"></td><td><input type="checkbox" id="ch-7" aria-label="other write"></td><td><input type="checkbox" id="ch-8" aria-label="other execute"></td></tr></tbody></table>
+<div class="ctl" style="margin-top:14px"><label>octal<input id="ch-o" class="n" type="text" maxlength="3" value="755" spellcheck="false"></label></div><div id="ch-out" aria-live="polite"></div></section>
+<section class="tool" id="url-encoder"><h2>url-encoder</h2><p class="dim">Percent-encode or decode text for use in URLs.</p>
+<textarea id="url" class="q" placeholder="Text or an encoded string" spellcheck="false"></textarea><div id="url-out" aria-live="polite"></div></section>
+<section class="tool" id="cron-explainer"><h2>cron-explainer</h2><p class="dim">Enter a standard five-field cron expression, or a shortcut such as @daily, and see what each field means.</p>
+<input id="cr" class="q" type="text" placeholder="*/5 * * * *" autocomplete="off" spellcheck="false"><div id="cr-out" aria-live="polite"></div></section>
+
+<section class="tool" id="uac-decoder"><h2>uac-decoder</h2><p class="dim">Decode an Active Directory userAccountControl value, in decimal or hex, into its flags.</p>
+<input id="uac" class="q" type="text" placeholder="514, 66048 or 0x202" autocomplete="off" spellcheck="false"><div id="uac-out" aria-live="polite"></div></section>
+<section class="tool" id="spf-explainer"><h2>spf-explainer</h2><p class="dim">Paste an SPF record (the TXT value) and get each part explained, including a count of DNS lookups.</p>
+<textarea id="spf" class="q" placeholder="v=spf1 include:spf.protection.outlook.com ~all" spellcheck="false"></textarea><div id="spf-out" aria-live="polite"></div></section>
+<section class="tool" id="dmarc-explainer"><h2>dmarc-explainer</h2><p class="dim">Paste a DMARC record (the TXT value of _dmarc) and see the policy, alignment and reporting settings.</p>
+<textarea id="dm" class="q" placeholder="v=DMARC1; p=none; rua=mailto:dmarc@example.com" spellcheck="false"></textarea><div id="dm-out" aria-live="polite"></div></section>
+
+<section class="tool" id="markdown-previewer"><h2>markdown-previewer</h2><p class="dim">Type or paste Markdown and see it rendered live. Supports headings, bold, italics, links, lists, code and tables.</p>
+<textarea id="md" class="q" placeholder="# Heading&#10;&#10;- item one&#10;- item two" spellcheck="false"></textarea><div id="md-out" class="mdout"></div></section>
+<section class="tool" id="text-diff"><h2>text-diff</h2><p class="dim">Compare two blocks of text line by line to see what changed, for example two config file versions.</p>
+<div class="ctl" style="align-items:stretch"><textarea id="d1" class="q" style="flex:1" placeholder="Original" spellcheck="false"></textarea><textarea id="d2" class="q" style="flex:1" placeholder="Changed" spellcheck="false"></textarea></div><div id="diff-out"></div></section>
+<section class="tool" id="case-converter"><h2>case-converter</h2><p class="dim">Convert text between camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE and Title Case.</p>
+<textarea id="cs" class="q" placeholder="some example text" spellcheck="false"></textarea><div id="cs-out" aria-live="polite"></div></section>
+<section class="tool" id="ipv6-tool"><h2>ipv6-tool</h2><p class="dim">Expand a shortened IPv6 address to its full form, or compress a full address to its shortest form.</p>
+<input id="v6" class="q" type="text" placeholder="2001:db8::8a2e:370:7334" autocomplete="off" spellcheck="false"><div id="v6-out" aria-live="polite"></div></section>
+</main>
+<footer><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a><a href="#" data-consent-open>cookie settings</a><span>2026 admin_hub</span></footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const msg=t=>{const p=document.createElement("p");p.className="dim";p.textContent=t;return p};
+const lab=t=>{const p=msg(t);p.style.margin="16px 0 0";return p};
+const pre=t=>{const e=document.createElement("pre");e.textContent=t;return e};
+const kv=rows=>{const d=document.createElement("dl");d.className="kv";rows.forEach(r=>{const a=document.createElement("dt"),b=document.createElement("dd");a.textContent=r[0];b.textContent=r[1];d.append(a,b)});return d};
+function ip2n(s){const p=s.split(".");if(p.length!==4)return null;let n=0;for(const x of p){if(!/^\d{1,3}$/.test(x)||+x>255)return null;n=n*256+ +x}return n}
+const n2ip=n=>[n>>>24,(n>>>16)&255,(n>>>8)&255,n&255].join(".");
+$("cidr").addEventListener("input",e=>{
+const o=$("cidr-out");o.replaceChildren();const v=e.target.value.trim();if(!v)return;
+const m=v.match(/^([\d.]+)\/(\d{1,2})$/);const ip=m?ip2n(m[1]):null;const L=m?+m[2]:0;
+if(!m||ip===null||L>32){o.append(msg("Enter an IPv4 address with prefix, for example 192.168.1.10/24"));return}
+const mask=L===0?0:(0xFFFFFFFF<<(32-L))>>>0,net=(ip&mask)>>>0,wc=(~mask)>>>0,bc=(net|wc)>>>0,tot=2**(32-L);
+const usable=L>=31?(L===31?2:1):tot-2,first=L>=31?net:net+1,last=L>=31?bc:bc-1;
+o.append(kv([["Network",n2ip(net)+"/"+L],["Netmask",n2ip(mask)],["Wildcard",n2ip(wc)],["Broadcast",n2ip(bc)],["First host",n2ip(first)],["Last host",n2ip(last)],["Usable hosts",usable.toLocaleString("en")],["Total addresses",tot.toLocaleString("en")]]))});
+const b64u=s=>{s=s.replace(/-/g,"+").replace(/_/g,"/");while(s.length%4)s+="=";return decodeURIComponent(Array.from(atob(s),c=>"%"+c.charCodeAt(0).toString(16).padStart(2,"0")).join(""))};
+$("jwt").addEventListener("input",e=>{
+const o=$("jwt-out");o.replaceChildren();const t=e.target.value.trim().replace(/^Bearer\s+/i,"");if(!t)return;
+try{const p=t.split(".");if(p.length<2)throw 0;const h=JSON.parse(b64u(p[0])),c=JSON.parse(b64u(p[1]));
+o.append(lab("Header"),pre(JSON.stringify(h,null,2)),lab("Payload"),pre(JSON.stringify(c,null,2)));
+const ts=["iat","nbf","exp"].filter(k=>typeof c[k]==="number").map(k=>k+": "+new Date(c[k]*1000).toISOString());
+if(ts.length)o.append(lab("Timestamps (UTC)"),pre(ts.join("\n")))}
+catch(_){o.append(msg("This does not look like a valid JWT. Expected parts separated by dots."))}});
+$("hash").addEventListener("input",async e=>{
+const o=$("hash-out"),v=e.target.value;o.replaceChildren();if(!v)return;
+const d=new TextEncoder().encode(v),rows=[];
+for(const a of ["SHA-1","SHA-256","SHA-384","SHA-512"]){const h=await crypto.subtle.digest(a,d);rows.push([a,Array.from(new Uint8Array(h),b=>b.toString(16).padStart(2,"0")).join("")])}
+if(e.target.value===v){o.replaceChildren(kv(rows))}});
+
+const rint=n=>{const a=new Uint32Array(1),lim=Math.floor(4294967296/n)*n;do crypto.getRandomValues(a);while(a[0]>=lim);return a[0]%n};
+const SETS={l:"abcdefghijklmnopqrstuvwxyz",u:"ABCDEFGHIJKLMNOPQRSTUVWXYZ",d:"0123456789",s:"!@#$%^&*()-_=+[]{};:,.?"};
+function pw(){
+const L=+$("pw-len").value;$("pw-n").textContent=L;
+const on=Object.keys(SETS).filter(k=>$("pw-"+k).checked),o=$("pw-out");o.replaceChildren();
+if(!on.length){$("pw-val").textContent="";o.append(msg("Select at least one character type."));return}
+const pool=on.map(k=>SETS[k]).join("");let p;
+do{p=Array.from({length:L},()=>pool[rint(pool.length)]).join("")}while(!on.every(k=>[...p].some(c=>SETS[k].includes(c))));
+$("pw-val").textContent=p;
+const bits=Math.round(L*Math.log2(pool.length));
+o.append(kv([["Entropy",bits+" bits"],["Strength",bits<50?"weak":bits<70?"fair":bits<100?"strong":"very strong"]]))}
+["pw-go","pw-len","pw-l","pw-u","pw-d","pw-s"].forEach(i=>$(i).addEventListener(i==="pw-go"?"click":"input",pw));
+$("pw-cp").addEventListener("click",async e=>{try{await navigator.clipboard.writeText($("pw-val").textContent);e.target.textContent="copied";setTimeout(()=>e.target.textContent="copy",1200)}catch(_){}});
+pw();
+const FT=11644473600000n;
+$("time").addEventListener("input",e=>{
+const o=$("time-out");o.replaceChildren();const v=e.target.value.trim();if(!v)return;
+let ms;
+if(/^\d+$/.test(v)){
+if(v==="0"||v==="9223372036854775807"){o.append(msg("Active Directory uses this value to mean never or not set."));return}
+if(v.length<=11)ms=+v*1000;else if(v.length<=14)ms=+v;else if(v.length>=17)ms=Number(BigInt(v)/10000n-FT);else{o.append(msg("Unsupported length. Use seconds (10 digits), milliseconds (13 digits) or FILETIME (18 digits)."));return}
+}else ms=Date.parse(v);
+const d=new Date(ms);
+if(!Number.isFinite(ms)||isNaN(d)){o.append(msg("Could not read this value. Try a Unix timestamp, a FILETIME or a date like 2026-09-24T12:00:00Z."));return}
+o.append(kv([["ISO (UTC)",d.toISOString()],["Local time",d.toString()],["Unix seconds",String(Math.floor(ms/1000))],["Unix milliseconds",String(ms)],["Windows FILETIME",String((BigInt(ms)+FT)*10000n)]]))});
+const toB64=b=>btoa(Array.from(b,x=>String.fromCharCode(x)).join(""));
+$("b64").addEventListener("input",e=>{
+const o=$("b64-out"),v=e.target.value;o.replaceChildren();if(!v)return;
+const u8=new TextEncoder().encode(v),u16=new Uint8Array(v.length*2);
+for(let i=0;i<v.length;i++){const c=v.charCodeAt(i);u16[2*i]=c&255;u16[2*i+1]=c>>8}
+o.append(lab("Encode (UTF-8)"),pre(toB64(u8)),lab("Encode for PowerShell -EncodedCommand (UTF-16LE)"),pre(toB64(u16)));
+try{let t=v.replace(/\s+/g,"").replace(/-/g,"+").replace(/_/g,"/");while(t.length%4)t+="=";
+const b=Uint8Array.from(atob(t),c=>c.charCodeAt(0));
+o.append(lab("Decode as UTF-8"),pre(new TextDecoder().decode(b)));
+if(b.length%2===0)o.append(lab("Decode as UTF-16LE (PowerShell)"),pre(new TextDecoder("utf-16le").decode(b)))}
+catch(_){o.append(msg("No decoded view: the input is not valid Base64."))}});
+
+function guid(){const n=Math.min(50,Math.max(1,+$("g-n").value||1)),up=$("g-u").checked,br=$("g-b").checked,nh=$("g-h").checked;
+$("g-val").textContent=Array.from({length:n},()=>{let g=crypto.randomUUID();if(nh)g=g.replace(/-/g,"");if(up)g=g.toUpperCase();return br?"{"+g+"}":g}).join("\n")}
+["g-go","g-n","g-u","g-b","g-h"].forEach(i=>$(i).addEventListener(i==="g-go"?"click":"input",guid));
+$("g-cp").addEventListener("click",async e=>{try{await navigator.clipboard.writeText($("g-val").textContent);e.target.textContent="copied";setTimeout(()=>e.target.textContent="copy",1200)}catch(_){}});
+guid();
+function hdrs(t){const H=[];for(const l of t.replace(/\r/g,"").split("\n")){if(!l.trim()&&H.length)break;if(/^\s/.test(l)&&H.length)H[H.length-1][1]+=" "+l.trim();else{const i=l.indexOf(":");if(i>0)H.push([l.slice(0,i).trim(),l.slice(i+1).trim()])}}return H}
+$("eh").addEventListener("input",e=>{
+const o=$("eh-out");o.replaceChildren();const v=e.target.value;if(!v.trim())return;
+const H=hdrs(v);if(!H.length){o.append(msg("No headers found. Paste the full raw message headers."));return}
+const get=n=>H.filter(h=>h[0].toLowerCase()===n).map(h=>h[1]),one=n=>get(n)[0]||"";
+const dom=s=>{const m=s.match(/@([\w.-]+)/);return m?m[1].toLowerCase():""};
+const rows=[["From","from"],["To","to"],["Subject","subject"],["Date","date"],["Message-ID","message-id"],["Return-Path","return-path"],["Reply-To","reply-to"]].filter(r=>one(r[1])).map(r=>[r[0],one(r[1])]);
+const ar=get("authentication-results").join(" "),res=k=>{const m=ar.match(new RegExp("\\b"+k+"=(\\w+)","i"));return m?m[1].toLowerCase():"not found"};
+rows.push(["SPF",res("spf")],["DKIM",res("dkim")],["DMARC",res("dmarc")]);
+o.append(kv(rows));
+const n=[],f=dom(one("from")),rp=dom(one("return-path")),rt=dom(one("reply-to"));
+if(f&&rp&&f!==rp)n.push("From domain ("+f+") differs from the Return-Path domain ("+rp+"). Normal for mailing services, but worth a look.");
+if(f&&rt&&f!==rt)n.push("Reply-To domain ("+rt+") differs from the From domain ("+f+").");
+["spf","dkim","dmarc"].forEach(k=>{const r=res(k);if(r!=="pass"&&r!=="not found")n.push(k.toUpperCase()+" result: "+r)});
+if(n.length)o.append(lab("Notes"),pre(n.join("\n")));
+let prev=null;
+const hops=get("received").reverse().map((r,i)=>{const fr=(r.match(/from\s+(\S+)/i)||[])[1]||"?",by=(r.match(/by\s+(\S+)/i)||[])[1]||"?",d=Date.parse((r.split(";").pop()||"").trim());
+const dl=prev!==null&&!isNaN(d)?Math.round((d-prev)/1000)+"s":"-";if(!isNaN(d))prev=d;return (i+1)+"  delay "+dl+"  from "+fr+"  by "+by});
+if(hops.length)o.append(lab("Delivery path (oldest first)"),pre(hops.join("\n")));
+o.append(lab("These checks are hints, not proof. Everything is processed in your browser."))});
+const PORTS=[["20-21","TCP","FTP","Cleartext; prefer SFTP or FTPS"],["22","TCP","SSH / SFTP","Remote shell; use keys and restrict by IP"],["23","TCP","Telnet","Cleartext; avoid"],["25","TCP","SMTP","Server-to-server mail transfer"],["53","TCP/UDP","DNS","Zone transfers use TCP"],["67-68","UDP","DHCP","Server 67, client 68"],["69","UDP","TFTP","No authentication"],["80","TCP","HTTP","Unencrypted web"],["88","TCP/UDP","Kerberos","Active Directory authentication"],["110","TCP","POP3","Cleartext mail retrieval"],["123","UDP","NTP","Time sync; Kerberos needs accurate time"],["135","TCP","RPC Endpoint Mapper","Windows RPC; do not expose to the internet"],["137-139","TCP/UDP","NetBIOS","Legacy name and session services"],["143","TCP","IMAP","Use STARTTLS or port 993"],["161-162","UDP","SNMP","Use v3; v1 and v2c community strings are weak"],["389","TCP/UDP","LDAP","Cleartext unless signed or STARTTLS"],["443","TCP","HTTPS","Encrypted web"],["445","TCP","SMB","Windows file sharing; never expose to the internet"],["464","TCP/UDP","Kerberos password change","kpasswd"],["465","TCP","SMTPS","SMTP over implicit TLS"],["500","UDP","IKE","IPsec key exchange"],["514","UDP","Syslog","Often unencrypted"],["587","TCP","SMTP submission","Client mail submission with STARTTLS"],["636","TCP","LDAPS","LDAP over TLS"],["853","TCP","DNS over TLS",""],["873","TCP","rsync",""],["993","TCP","IMAPS","IMAP over TLS"],["995","TCP","POP3S","POP3 over TLS"],["1194","UDP","OpenVPN","Default port"],["1433","TCP","Microsoft SQL Server","Default instance"],["1521","TCP","Oracle Database","Default listener"],["1812-1813","UDP","RADIUS","Authentication and accounting"],["2049","TCP/UDP","NFS",""],["3268-3269","TCP","Global Catalog","3269 uses TLS"],["3306","TCP","MySQL / MariaDB",""],["3389","TCP/UDP","RDP","Remote Desktop; do not expose directly to the internet"],["4500","UDP","IPsec NAT-T","NAT traversal"],["5060-5061","TCP/UDP","SIP","5061 uses TLS"],["5432","TCP","PostgreSQL",""],["5900","TCP","VNC","Often weakly protected"],["5985-5986","TCP","WinRM","5985 HTTP, 5986 HTTPS; PowerShell remoting"],["6379","TCP","Redis","Do not expose to the internet"],["8080","TCP","HTTP alternate","Proxies and dev servers"],["8443","TCP","HTTPS alternate",""],["9200","TCP","Elasticsearch","HTTP API"],["9389","TCP","AD Web Services","Used by the AD PowerShell module"],["27017","TCP","MongoDB",""],["51820","UDP","WireGuard","Default port"]];
+function ports(){
+const q=$("pt").value.trim().toLowerCase(),o=$("pt-out");o.replaceChildren();
+const hit=r=>{if(!q)return true;if(/^\d+$/.test(q)){const a=r[0].split("-").map(Number);return +q>=a[0]&&+q<=(a[1]||a[0])}return r.join(" ").toLowerCase().includes(q)};
+const L=PORTS.filter(hit);
+if(!L.length){o.append(msg("No match in this list."));return}
+const t=document.createElement("table");t.className="tbl";
+const h=t.createTHead().insertRow();["Port","Proto","Service","Note"].forEach(x=>{const c=document.createElement("th");c.textContent=x;h.append(c)});
+const b=t.createTBody();L.forEach(r=>{const tr=b.insertRow();r.forEach(x=>{tr.insertCell().textContent=x})});
+o.append(t)}
+$("pt").addEventListener("input",ports);ports();
+
+function rx(){
+const o=$("rx-out");o.replaceChildren();const p=$("rx-p").value,f=$("rx-f").value,t=$("rx-t").value;if(!p)return;
+let re;try{re=new RegExp(p,f.includes("g")?f:f+"g")}catch(e){o.append(msg("Invalid pattern or flags: "+e.message));return}
+const r=[];let m,c=0;
+while(c<200&&(m=re.exec(t))!==null){c++;r.push(["Match "+c+" at "+m.index,m[0]===""?"(empty match)":m[0]]);for(let i=1;i<m.length;i++)r.push(["  group "+i,m[i]===undefined?"(no match)":m[i]]);if(m[0]==="")re.lastIndex++}
+o.append(r.length?kv(r):msg("No matches."))}
+["rx-p","rx-f","rx-t"].forEach(i=>$(i).addEventListener("input",rx));
+$("js").addEventListener("input",e=>{const o=$("js-out");o.replaceChildren();const v=e.target.value;if(!v.trim())return;
+try{const j=JSON.parse(v);o.append(lab("Valid JSON. Formatted:"),pre(JSON.stringify(j,null,2)),lab("Minified:"),pre(JSON.stringify(j)))}
+catch(x){o.append(msg("Invalid JSON: "+x.message))}});
+const CH=Array.from({length:9},(_,i)=>$("ch-"+i)),BIT=[4,2,1];
+function chOut(){const d=[0,0,0];CH.forEach((c,i)=>{if(c.checked)d[Math.floor(i/3)]+=BIT[i%3]});
+const oct=d.join(""),sym=CH.map((c,i)=>c.checked?"rwx"[i%3]:"-").join("");$("ch-o").value=oct;
+$("ch-out").replaceChildren(kv([["Octal",oct],["Symbolic",sym],["Command","chmod "+oct+" filename"]]))}
+function setOct(v){CH.forEach((c,i)=>{c.checked=(+v[Math.floor(i/3)]&BIT[i%3])>0});chOut()}
+CH.forEach(c=>c.addEventListener("change",chOut));
+$("ch-o").addEventListener("input",e=>{const v=e.target.value.trim();if(/^[0-7]{3}$/.test(v))setOct(v)});
+setOct("755");
+$("url").addEventListener("input",e=>{const o=$("url-out"),v=e.target.value;o.replaceChildren();if(!v)return;
+o.append(lab("encodeURIComponent (for a single value)"),pre(encodeURIComponent(v)),lab("encodeURI (for a full URL)"),pre(encodeURI(v)));
+try{o.append(lab("Decoded (plus signs read as spaces)"),pre(decodeURIComponent(v.replace(/\+/g," "))))}catch(_){o.append(lab("Decoded: the input is not valid percent-encoding."))}});
+const MN=["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],DN=["Sun","Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+const SP={"@yearly":"0 0 1 1 *","@annually":"0 0 1 1 *","@monthly":"0 0 1 * *","@weekly":"0 0 * * 0","@daily":"0 0 * * *","@midnight":"0 0 * * *","@hourly":"0 * * * *"};
+function fld(v,u,pl,min,max,map){
+const nm=n=>map?map[+n]:n,ok=n=>+n>=min&&+n<=max;let m;
+if(v==="*")return "every "+u;
+if(m=v.match(/^\*\/(\d+)$/))return +m[1]>0?"every "+m[1]+" "+pl:"invalid step";
+if(m=v.match(/^(\d+)-(\d+)$/))return ok(m[1])&&ok(m[2])?"from "+nm(m[1])+" to "+nm(m[2]):"out of range";
+if(/^\d+(,\d+)*$/.test(v)){const a=v.split(",");return a.every(ok)?a.map(nm).join(", "):"out of range"}
+return "complex expression, not explained here"}
+$("cr").addEventListener("input",e=>{const o=$("cr-out");o.replaceChildren();let v=e.target.value.trim().replace(/\s+/g," ");if(!v)return;
+if(v==="@reboot"){o.append(msg("Runs once when the system starts."));return}
+if(SP[v])v=SP[v];
+const p=v.split(" ");if(p.length!==5){o.append(msg("Enter five fields: minute hour day-of-month month day-of-week."));return}
+o.append(kv([["Minute",fld(p[0],"minute","minutes",0,59)],["Hour",fld(p[1],"hour","hours",0,23)],["Day of month",fld(p[2],"day","days",1,31)],["Month",fld(p[3],"month","months",1,12,MN)],["Day of week",fld(p[4],"day of the week","days of the week",0,7,DN)]]));
+if(p[2]!=="*"&&p[4]!=="*")o.append(lab("When both day of month and day of week are set, cron runs if either one matches."))});
+
+const UAC=[[2,"ACCOUNTDISABLE","Account is disabled"],[8,"HOMEDIR_REQUIRED","Home directory required"],[16,"LOCKOUT","Account is locked out (check lockoutTime, this flag is not reliable in AD)"],[32,"PASSWD_NOTREQD","No password required"],[64,"PASSWD_CANT_CHANGE","User cannot change the password"],[128,"ENCRYPTED_TEXT_PWD_ALLOWED","Reversible password encryption allowed"],[512,"NORMAL_ACCOUNT","Normal user account"],[2048,"INTERDOMAIN_TRUST_ACCOUNT","Interdomain trust account"],[4096,"WORKSTATION_TRUST_ACCOUNT","Computer account"],[8192,"SERVER_TRUST_ACCOUNT","Domain controller account"],[65536,"DONT_EXPIRE_PASSWORD","Password never expires"],[131072,"MNS_LOGON_ACCOUNT","MNS logon account"],[262144,"SMARTCARD_REQUIRED","Smart card required for interactive logon"],[524288,"TRUSTED_FOR_DELEGATION","Trusted for Kerberos delegation"],[1048576,"NOT_DELEGATED","Sensitive account, cannot be delegated"],[2097152,"USE_DES_KEY_ONLY","Use only DES encryption types"],[4194304,"DONT_REQ_PREAUTH","Kerberos pre-authentication not required"],[8388608,"PASSWORD_EXPIRED","Password has expired"],[16777216,"TRUSTED_TO_AUTH_FOR_DELEGATION","Trusted to authenticate for delegation"]];
+$("uac").addEventListener("input",e=>{const o=$("uac-out");o.replaceChildren();const v=e.target.value.trim();if(!v)return;
+if(!/^(\d+|0x[0-9a-f]+)$/i.test(v)){o.append(msg("Enter a number such as 514 or 0x202."));return}
+const n=Number(v);if(!Number.isSafeInteger(n)||n>0xFFFFFFFF){o.append(msg("Value out of range."));return}
+const on=UAC.filter(f=>(n&f[0])!==0);
+o.append(kv([["Decimal",String(n)],["Hex","0x"+n.toString(16)]]));
+o.append(lab("Flags set"),on.length?pre(on.map(f=>f[1]+" ("+f[0]+"): "+f[2]).join("\n")):msg("No known flags set."));
+const w=[],has=k=>on.some(f=>f[1]===k);
+if(has("DONT_REQ_PREAUTH"))w.push("Pre-authentication is off. The account can be attacked with AS-REP roasting.");
+if(has("PASSWD_NOTREQD"))w.push("The account may have an empty password.");
+if(has("TRUSTED_FOR_DELEGATION")&&!has("SERVER_TRUST_ACCOUNT"))w.push("Unconstrained delegation on a non-domain-controller account is a known risk.");
+if(has("DONT_EXPIRE_PASSWORD"))w.push("Password never expires. Fine for some service accounts, but review these.");
+if(w.length)o.append(lab("Notes"),pre(w.join("\n")))});
+const clean=v=>v.trim().replace(/^"|"$/g,"").replace(/"\s*"/g,"");
+$("spf").addEventListener("input",e=>{const o=$("spf-out");o.replaceChildren();const v=clean(e.target.value);if(!v)return;
+const t=v.split(/\s+/);if(t[0].toLowerCase()!=="v=spf1"){o.append(msg("An SPF record must start with v=spf1."));return}
+const Q={"+":"pass","-":"fail","~":"softfail","?":"neutral"};let lk=0,all="";const rows=[];
+t.slice(1).forEach(x=>{let q="+",m=x;if(/^[+\-~?]/.test(x)){q=x[0];m=x.slice(1)}
+const k=m.split(/[:=\/]/)[0].toLowerCase(),i=m.search(/[:=]/),arg=i>=0?m.slice(i+1):"this domain";let d;
+if(["include","a","mx","ptr","exists","redirect"].includes(k))lk++;
+if(k==="all"){all=q;d="All other senders: "+Q[q]}
+else if(k==="include")d="Also allow what "+arg+" authorizes ("+Q[q]+")";
+else if(k==="ip4"||k==="ip6")d="Allow the address range "+arg+" ("+Q[q]+")";
+else if(k==="a")d="Allow the A and AAAA records of "+arg+" ("+Q[q]+")";
+else if(k==="mx")d="Allow the mail servers (MX) of "+arg+" ("+Q[q]+")";
+else if(k==="redirect")d="Use the SPF policy of "+arg+" instead";
+else if(k==="exists")d="Allow if "+arg+" resolves ("+Q[q]+")";
+else if(k==="ptr")d="Reverse DNS check, discouraged ("+Q[q]+")";
+else if(k==="exp")d="Explanation text from "+arg;
+else d="Unknown term";
+rows.push([x,d])});
+o.append(kv(rows));
+const n=["DNS lookups counted in this record: "+lk+" (limit is 10, included records add more)."];
+if(lk>10)n.push("More than 10 lookups. Receivers will return a permanent error for this record.");
+if(all==="+")n.push("+all allows anyone to send as this domain. Change it.");
+else if(all==="")n.push("No all mechanism or redirect at the end: unlisted senders get a neutral result.");
+o.append(lab("Notes"),pre(n.join("\n")))});
+$("dm").addEventListener("input",e=>{const o=$("dm-out");o.replaceChildren();const v=clean(e.target.value);if(!v)return;
+const g={};v.split(";").forEach(p=>{const i=p.indexOf("=");if(i>0)g[p.slice(0,i).trim().toLowerCase()]=p.slice(i+1).trim()});
+if((g.v||"").toUpperCase()!=="DMARC1"){o.append(msg("A DMARC record must start with v=DMARC1."));return}
+const P={none:"monitor only, no action on failing mail",quarantine:"treat failing mail as suspicious",reject:"reject failing mail"},pol=x=>x+": "+(P[x.toLowerCase()]||"unknown value");
+const r=[["Version","DMARC1"],["Policy (p)",g.p?pol(g.p):"missing (required)"]];
+if(g.sp)r.push(["Subdomain policy (sp)",pol(g.sp)]);
+r.push(["Percentage (pct)",g.pct?g.pct+"% of failing mail is subject to the policy":"100 (default)"],["DKIM alignment (adkim)",(g.adkim||"").toLowerCase()==="s"?"strict":"relaxed"],["SPF alignment (aspf)",(g.aspf||"").toLowerCase()==="s"?"strict":"relaxed"],["Aggregate reports (rua)",g.rua||"none"],["Forensic reports (ruf)",g.ruf||"none"]);
+o.append(kv(r));
+const n=[];if(!g.p)n.push("The p tag is required.");else if(g.p.toLowerCase()==="none")n.push("p=none only monitors. Move to quarantine and then reject once the reports look clean.");
+if(!g.rua)n.push("No rua address, so you will not receive aggregate reports.");
+if(g.pct&&+g.pct<100)n.push("pct is below 100, so part of the failing mail is not covered by the policy.");
+if(n.length)o.append(lab("Notes"),pre(n.join("\n")))});
+
+function esc(s){return s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]))}
+function mdInline(s){s=esc(s);s=s.replace(/`([^`]+)`/g,"<code>$1</code>");s=s.replace(/\*\*([^*]+)\*\*/g,"<b>$1</b>");s=s.replace(/\*([^*]+)\*/g,"<i>$1</i>");s=s.replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2" rel="noopener">$1</a>');return s}
+function md(src){
+var lines=src.replace(/\r/g,"").split("\n"),out=[],i=0,list=null;
+function closeList(){if(list){out.push("</"+list+">");list=null}}
+while(i<lines.length){var l=lines[i];
+if(/^```/.test(l)){closeList();var code=[];i++;while(i<lines.length&&!/^```/.test(lines[i])){code.push(lines[i]);i++}out.push("<pre><code>"+esc(code.join("\n"))+"</code></pre>");i++;continue}
+var h=l.match(/^(#{1,6})\s+(.*)/);if(h){closeList();out.push("<h"+h[1].length+">"+mdInline(h[2])+"</h"+h[1].length+">");i++;continue}
+if(/^\|.*\|\s*$/.test(l)&&lines[i+1]&&/^\|[\s:|-]+\|\s*$/.test(lines[i+1])){closeList();
+var head=l.split("|").slice(1,-1).map(function(x){return x.trim()}),rows=[];i+=2;
+while(i<lines.length&&/^\|.*\|\s*$/.test(lines[i])){rows.push(lines[i].split("|").slice(1,-1).map(function(x){return x.trim()}));i++}
+var t="<table class=\"tbl\"><thead><tr>"+head.map(function(x){return "<th>"+mdInline(x)+"</th>"}).join("")+"</tr></thead><tbody>"+rows.map(function(r){return "<tr>"+r.map(function(x){return "<td>"+mdInline(x)+"</td>"}).join("")+"</tr>"}).join("")+"</tbody></table>";
+out.push(t);continue}
+var li=l.match(/^\s*[-*]\s+(.*)/);if(li){if(list!=="ul"){closeList();out.push("<ul>");list="ul"}out.push("<li>"+mdInline(li[1])+"</li>");i++;continue}
+var oli=l.match(/^\s*\d+\.\s+(.*)/);if(oli){if(list!=="ol"){closeList();out.push("<ol>");list="ol"}out.push("<li>"+mdInline(oli[1])+"</li>");i++;continue}
+closeList();
+if(l.trim()==""){i++;continue}
+out.push("<p>"+mdInline(l)+"</p>");i++}
+closeList();return out.join("\n")}
+$("md").addEventListener("input",e=>{$("md-out").innerHTML=md(e.target.value)});$("md").value="# Hello\n\nThis is **bold**, *italic* and `code`.\n\n- one\n- two\n\n[a link](https://example.com)";$("md-out").innerHTML=md($("md").value);
+function diffLines(a,b){var A=a.split("\n"),B=b.split("\n"),n=A.length,m=B.length,dp=Array.from({length:n+1},()=>new Array(m+1).fill(0));
+for(let i=n-1;i>=0;i--)for(let j=m-1;j>=0;j--)dp[i][j]=A[i]===B[j]?dp[i+1][j+1]+1:Math.max(dp[i+1][j],dp[i][j+1]);
+var i=0,j=0,out=[];while(i<n&&j<m){if(A[i]===B[j]){out.push([" ",A[i]]);i++;j++}else if(dp[i+1][j]>=dp[i][j+1]){out.push(["-",A[i]]);i++}else{out.push(["+",B[j]]);j++}}
+while(i<n){out.push(["-",A[i]]);i++}while(j<m){out.push(["+",B[j]]);j++}return out}
+function drawDiff(){var o=$("diff-out"),a=$("d1").value,b=$("d2").value;o.replaceChildren();if(!a&&!b)return;
+var pre=document.createElement("pre");pre.className="dtxt";
+diffLines(a,b).forEach(r=>{var s=document.createElement("span");s.className=r[0]==="+"?"da":r[0]==="-"?"dr":"dc";s.textContent=r[0]+" "+r[1]+"\n";pre.append(s)});
+o.append(pre);var add=0,rem=0;diffLines(a,b).forEach(r=>{if(r[0]==="+")add++;if(r[0]==="-")rem++});
+var sum=document.createElement("p");sum.className="dim";sum.textContent=add+" added, "+rem+" removed";o.prepend(sum)}
+["d1","d2"].forEach(id=>$(id).addEventListener("input",drawDiff));
+function words(s){return s.trim().split(/[\s_\-]+|(?<=[a-z0-9])(?=[A-Z])/).filter(Boolean).map(w=>w.toLowerCase())}
+$("cs").addEventListener("input",e=>{var o=$("cs-out"),v=e.target.value;o.replaceChildren();if(!v.trim())return;var w=words(v);
+var cap=w.map(x=>x[0].toUpperCase()+x.slice(1));
+o.append(kv([["camelCase",w[0]+cap.slice(1).join("")],["PascalCase",cap.join("")],["snake_case",w.join("_")],["kebab-case",w.join("-")],["CONSTANT_CASE",w.join("_").toUpperCase()],["Title Case",cap.join(" ")]]))});
+function v6full(s){var parts=s.split("::");var head=parts[0]?parts[0].split(":").filter(Boolean):[],tail=parts.length>1&&parts[1]?parts[1].split(":").filter(Boolean):[];
+if(parts.length>2)return null;var total=8,fill=total-head.length-tail.length;if(parts.length===1){if(head.length!==8)return null;fill=0}else if(fill<0)return null;
+var groups=head.concat(Array(fill).fill("0")).concat(tail);if(groups.length!==8)return null;
+for(var g of groups)if(!/^[0-9a-fA-F]{1,4}$/.test(g))return null;
+return groups.map(g=>g.padStart(4,"0").toLowerCase())}
+function v6compress(groups){var g=groups.map(x=>x.replace(/^0+(?=.)/,""));var best=[-1,-1],i=0;
+while(i<8){if(g[i]==="0"){var j=i;while(j<8&&g[j]==="0")j++;if(j-i>best[1]-best[0])best=[i,j];i=j}else i++}
+if(best[1]-best[0]<2)return g.join(":");
+return g.slice(0,best[0]).join(":")+"::"+g.slice(best[1]).join(":")}
+$("v6").addEventListener("input",e=>{var o=$("v6-out"),v=e.target.value.trim();o.replaceChildren();if(!v)return;
+var full=v6full(v);if(!full){o.append(msg("Not a valid IPv6 address."));return}
+o.append(kv([["Expanded",full.join(":")],["Compressed",v6compress(full)]]))});
+</script>
+<script src="consent.js" defer></script><script src="search-index.js" defer></script><script src="search.js" defer></script></body></html>
