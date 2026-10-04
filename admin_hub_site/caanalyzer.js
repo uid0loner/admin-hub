@@ -203,6 +203,8 @@ function hygiene(pols){
 }
 
 /* ---------- render ---------- */
+function remember(k,o){try{if(localStorage.getItem("ah_cockpit_on")!=="1")return;var d=JSON.parse(localStorage.getItem("ah_cockpit")||"{}");o.ts=Date.now();d[k]=o;localStorage.setItem("ah_cockpit",JSON.stringify(d))}catch(e){}}
+
 var TAG={enforced:"s-info","partial":"s-high","report-only":"s-high",missing:"s-crit"};
 var state={pols:null,name:""};
 function render(){
@@ -211,6 +213,7 @@ function render(){
   var n={enforced:0,partial:0,"report-only":0,missing:0};ev.forEach(function(e){n[e.status]++});
   var on=pols.filter(function(p){return p.state==="on"}).length;
   $("ca-status").textContent=plural(pols.length,"policy")+" read from "+state.name+".";
+  remember("ca",{enforced:n.enforced,total:ev.length,policies:pols.length,missing:ev.filter(function(e){return e.status==="missing"||e.status==="report-only"}).map(function(e){return e.check.title})});
   var v=el("div","verdict v-"+(n.missing>=4?"crit":n.missing||n["report-only"]?"high":n.partial?"med":"info"));
   v.append(el("b",null,n.enforced+" of "+ev.length+" baseline protections enforced"),el("span",null,[n.partial&&n.partial+" partial",n["report-only"]&&n["report-only"]+" report-only",n.missing&&n.missing+" missing"].filter(Boolean).join(" · ")||"nothing missing"));
   out.append(v);

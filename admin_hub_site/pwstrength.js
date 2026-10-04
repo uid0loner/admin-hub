@@ -150,4 +150,32 @@ toggle.addEventListener("click", function(){
   if(inp.type==="password"){ inp.type="text"; toggle.textContent="hide"; }
   else { inp.type="password"; toggle.textContent="show"; }
 });
+
+/* ---------- optional breach check (k-anonymity: only 5 hash characters are sent) ---------- */
+var hb=$("pw-hibp"),ho=$("pw-hibp-out");
+function sha1hex(text){
+  return crypto.subtle.digest("SHA-1",new TextEncoder().encode(text)).then(function(buf){
+    return Array.prototype.map.call(new Uint8Array(buf),function(b){return ("0"+b.toString(16)).slice(-2)}).join("").toUpperCase();
+  });
+}
+if(hb){
+  hb.addEventListener("click",function(){
+    var v=inp.value;
+    if(!v){ho.textContent="Type a password first.";return}
+    if(!(window.crypto&&crypto.subtle)){ho.textContent="This browser cannot compute the hash here.";return}
+    hb.disabled=true;ho.className="";ho.textContent="Checking ...";
+    sha1hex(v).then(function(h){
+      var prefix=h.slice(0,5),suffix=h.slice(5);
+      return fetch("https://api.pwnedpasswords.com/range/"+prefix).then(function(r){
+        if(!r.ok)throw new Error("status "+r.status);return r.text();
+      }).then(function(body){
+        var hit=0;body.split(/\r?\n/).forEach(function(line){var p=line.split(":");if(p[0]&&p[0].trim().toUpperCase()===suffix)hit=parseInt(p[1],10)||0});
+        if(hit){ho.className="mlabel vbad";ho.textContent="Found "+hit.toLocaleString("en-US")+" times in breach data. Do not use this password anywhere."}
+        else{ho.className="mlabel vgood";ho.textContent="Not found in the breach data. That does not make it strong: see the numbers above."}
+      });
+    }).catch(function(){ho.className="";ho.textContent="The breach service could not be reached. A firewall or blocker may be in the way."})
+      .then(function(){hb.disabled=false});
+  });
+  inp.addEventListener("input",function(){ho.textContent="";ho.className=""});
+}
 })();

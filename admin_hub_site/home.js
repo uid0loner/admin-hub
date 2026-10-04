@@ -10,18 +10,35 @@ var ch="01<>/{}$#ｱｲｳｴｵｶｷｸｹｺ";
 var t=setInterval(function(){x.fillStyle="rgba(7,5,26,.12)";x.fillRect(0,0,c.width,c.height);x.fillStyle="#b45cff";x.font=fs+"px monospace";
 for(var j=0;j<n;j++){x.fillText(ch[Math.floor(Math.random()*ch.length)],j*fs,y[j]*fs);y[j]=y[j]*fs>c.height&&Math.random()>.975?0:y[j]+1}},50);
 setTimeout(function(){c.style.opacity="0"},5400);setTimeout(function(){clearInterval(t);c.remove()},6000)}
-var C={help:function(){say("commands: help, ls, open <name>, search <text>, whoami, matrix, clear")},
+function answer(v){
+  var A=window.siteAnswers?window.siteAnswers(v):[];
+  if(!A.length)return false;
+  A.slice(0,3).forEach(function(a){
+    say("["+a.k+"] "+a.t,"echo");
+    (a.rows||[]).forEach(function(r){say("  "+r[0]+": "+r[1])});
+    if(a.text)say("  "+a.text);
+    if(a.href)say("  more: open "+a.href.replace(/\.html.*$/,""));
+  });
+  return true;
+}
+var C={help:function(){say("commands: help, ls, tools, open <name>, search <text>, scan <domain>, map, sim, cockpit, crt, whoami, matrix, clear");say("or just type a value: an IP or CIDR, a domain, an error code, a port, a timestamp, a JWT, uuid, pw 24")},
+tools:function(){say("signin-analyzer  ca-analyzer  domain-check  attack-map  incident-sim  aadsts-lookup  diagnose  incident-runbook  script-generator  dns-lookup  status-center  subnet-calculator  cvss-calculator  password-strength  product-lifecycle  patch-tuesday  license-comparison");say("open one with: open <name>")},
+scan:function(a){a=(a||"").trim().toLowerCase().replace(/^https?:\/\//,"").replace(/\/.*$/,"");if(!/^([a-z0-9-]+\.)+[a-z]{2,}$/.test(a)){say("usage: scan <domain>, for example: scan example.com");return}say("checking "+a+" ...");go("domain-check.html#d="+a)},
+cockpit:function(){say("opening your cockpit ...");go("cockpit.html")},
+map:function(){say("opening the attack map ...");go("attack-map.html")},
+sim:function(){say("opening the incident simulator ...");go("incident-sim.html")},
+crt:function(){var onNow=document.documentElement.classList.toggle("crt");try{if(onNow)localStorage.setItem("ah_crt","1");else localStorage.removeItem("ah_crt")}catch(e){}say(onNow?"CRT mode on. Type crt again to switch it off.":"CRT mode off.")},
 ls:function(){say(Object.keys(SEC).join("  "))},
 help2:null,
 whoami:function(){say("IT admin and security nerd. Building tools for people who run Microsoft 365 and Entra ID.")},
 sudo:function(){say("nice try. this incident will be reported.")},
 clear:function(){out.replaceChildren()},matrix:matrix,
 open:function(a){if(!a){say("usage: open <name>, for example: open cidr");return}
-if(SEC[a]){go(SEC[a]);return}var r=window.siteSearch?window.siteSearch(a,1):[];if(r.length){say("opening "+r[0][0]+" ...");go(r[0][1])}else say("nothing found for "+a)},
+if(SEC[a]){go(SEC[a]);return}if(/^[a-z0-9-]+$/.test(a)&&(window.SITE_INDEX||[]).some(function(e){return e[1]===a+".html"})){say("opening "+a+" ...");go(a+".html");return}var r=window.siteSearch?window.siteSearch(a,1):[];if(r.length){say("opening "+r[0][0]+" ...");go(r[0][1])}else say("nothing found for "+a)},
 search:function(a){if(window.openPalette)window.openPalette(a||"");else say("search is not available")}};
 inp.addEventListener("keydown",function(e){
 if(e.key==="Enter"){var v=inp.value.trim();inp.value="";if(!v)return;H.push(v);hi=H.length;say("$ "+v,"echo");
-var p=v.split(/\s+/),c=p.shift().toLowerCase(),f=C.hasOwnProperty(c)?C[c]:null;if(f)f(p.join(" "));else say("command not found: "+c+". type help")}
+var p=v.split(/\s+/),c=p.shift().toLowerCase(),f=C.hasOwnProperty(c)?C[c]:null;if(f)f(p.join(" "));else if(!answer(v))say("command not found: "+c+". type help")}
 else if(e.key==="ArrowUp"){if(hi>0){hi--;inp.value=H[hi];e.preventDefault()}}
 else if(e.key==="ArrowDown"){if(hi<H.length){hi++;inp.value=H[hi]||"";e.preventDefault()}}});
 say("type help. press Ctrl+K anywhere and paste an IP, a CIDR, a JWT, an error code or a timestamp.");

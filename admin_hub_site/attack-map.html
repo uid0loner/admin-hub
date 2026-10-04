@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Attack map: M365 and AD kill chain with your controls | admin_hub</title><meta name="description" content="An interactive map of 23 attack techniques against Microsoft 365, Entra ID and Active Directory. Switch on your controls and see which routes from first phish to ransomware stay open."><link rel="stylesheet" href="style.css?v=15"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Attack map: M365 and AD kill chain with your controls | admin_hub</title><meta name="description" content="An interactive map of 23 attack techniques against Microsoft 365, Entra ID and Active Directory. Switch on your controls and see which routes from first phish to ransomware stay open."><link rel="stylesheet" href="style.css?v=17"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="admin_hub">
 <meta property="og:title" content="Attack map: M365 and AD kill chain with your controls | admin_hub">
@@ -25,6 +25,11 @@
 <div class="amap" id="am-map" role="group" aria-label="Attack techniques by stage"></div>
 <div class="amdetail" id="am-detail" aria-live="polite"></div>
 
+<h2 style="margin-top:44px">what to fix first</h2>
+<p class="dim">Ranked by how many open routes each control removes, per control you have to switch on. Some controls only close a technique together with another one, so they are offered as a pair.</p>
+<div id="am-moves"></div>
+<details id="am-roadwrap" style="margin-top:16px"><summary id="am-roadsum">full roadmap</summary><ol class="road" id="am-road"></ol><div class="ctl" style="margin-top:12px"><button class="btn ghost" id="am-roaddl" type="button">Download roadmap (.md)</button></div></details>
+
 <h2 style="margin-top:44px">your controls</h2>
 <p class="dim">Tick what is really enforced for everyone, not what is planned or in report-only mode. Start from a preset:</p>
 <div class="ctl" id="am-presets"></div>
@@ -42,5 +47,5 @@
 
 </main>
 <footer><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a><a href="#" data-consent-open>cookie settings</a><span>2026 admin_hub</span></footer></div>
-<script src="attackmap.js?v=15" defer></script>
-<script src="shell.js?v=15" defer></script><script src="consent.js?v=15" defer></script><script src="reveal.js?v=15" defer></script><script src="pwa.js?v=15" defer></script><script src="search-index.js?v=15" defer></script><script src="search.js?v=15" defer></script></body></html>
+<script src="attackmap.js?v=17" defer></script>
+<script src="shell.js?v=17" defer></script><script src="consent.js?v=17" defer></script><script src="reveal.js?v=17" defer></script><script src="pwa.js?v=17" defer></script><script src="search-index.js?v=17" defer></script><script src="search.js?v=17" defer></script></body></html>

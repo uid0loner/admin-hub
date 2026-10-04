@@ -31,6 +31,8 @@ var DATA=[
   ["SharePoint Server 2019", "2026-07-15", "sharepoint-server-2019"]
 ];
 
+window.AH_LIFECYCLE=DATA;
+if(!$("pl-body"))return;   // loaded by the cockpit for its data only
 var ASOF = new Date("2026-10-01T00:00:00Z");
 $("pl-asof").textContent = ASOF.toLocaleDateString("en-US", {year:"numeric", month:"long", day:"numeric"});
 

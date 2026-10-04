@@ -177,8 +177,11 @@ function audit(domain){
 }
 
 /* ---------- render ---------- */
+function remember(k,o){try{if(localStorage.getItem("ah_cockpit_on")!=="1")return;var d=JSON.parse(localStorage.getItem("ah_cockpit")||"{}");o.ts=Date.now();d[k]=o;localStorage.setItem("ah_cockpit",JSON.stringify(d))}catch(e){}}
+
 var SEVN={crit:"critical",high:"high",med:"medium",low:"low",info:"info"},SEVC={crit:"crit",high:"high",med:"med",low:"info",info:"info"};
 function render(R){
+  remember("domain",{name:R.domain,grade:R.grade,score:R.score,spoof:R.spoof[0],issues:R.findings.filter(function(f){return f.sev==="crit"||f.sev==="high"}).map(function(f){return f.title}).slice(0,3)});
   var out=$("dc-out");out.replaceChildren();
   var v=el("div","gradebox g-"+R.grade);
   v.append(el("div","grade",R.grade));
