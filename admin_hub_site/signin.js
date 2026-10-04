@@ -365,6 +365,7 @@ function chart(ev){
   return box;
 }
 
+function remember(k,o){try{if(localStorage.getItem("ah_cockpit_on")!=="1")return;var d=JSON.parse(localStorage.getItem("ah_cockpit")||"{}");o.ts=Date.now();d[k]=o;localStorage.setItem("ah_cockpit",JSON.stringify(d))}catch(e){}}
 var state={parsed:null,map:null,result:null,name:""};
 
 function render(){
@@ -378,6 +379,7 @@ function render(){
   var ok=ev.filter(function(e){return e.res==="ok"}).length,fail=ev.filter(function(e){return e.res==="fail"}).length;
   var counts={crit:0,high:0,med:0,info:0};F.forEach(function(f){counts[f.sev]++});
   var worst=F.length?F[0].sev:"none";
+  remember("signin",{worst:worst,counts:counts,events:ev.length,from:ev[0].t,to:ev[ev.length-1].t,top:F.slice(0,3).map(function(f){return f.title})});
 
   var verdict=el("div","verdict v-"+worst);
   verdict.append(el("b",null,worst==="crit"?"Act now":worst==="high"?"Needs attention":worst==="med"?"Worth a look":worst==="info"?"Nothing alarming":"Nothing found"));

@@ -134,4 +134,28 @@ $("ob-out").textContent=buildOffboard();
 $("bk-out").textContent="# Paste at least one line above, then click \"generate script\".";
 $("mb-out").textContent=buildMailbox();
 $("ca-out").textContent=buildCA();
+
+/* ---------- tenant export for the analyzers ---------- */
+(function(){
+  var out=document.getElementById("ex-out");if(!out)return;
+  var days=document.getElementById("ex-days"),ca=document.getElementById("ex-ca"),si=document.getElementById("ex-si");
+  function build(){
+    var d=Math.min(Math.max(parseInt(days.value,10)||7,1),30),scopes=[],L=[];
+    if(ca.checked)scopes.push('"Policy.Read.All"');
+    if(si.checked)scopes.push('"AuditLog.Read.All"');
+    if(!scopes.length){out.textContent="# Tick at least one export.";return}
+    L.push("# Read-only export for the admin_hub analyzers. Writes JSON files into the current folder.","# Requires PowerShell 7 and the Microsoft.Graph module.","","Connect-MgGraph -Scopes "+scopes.join(",")+" -NoWelcome","");
+    if(ca.checked)L.push("# Conditional Access policies -> ca-analyzer","Get-MgIdentityConditionalAccessPolicy -All |","    ConvertTo-Json -Depth 10 |","    Out-File ca-policies.json -Encoding utf8","");
+    if(si.checked)L.push("# Interactive sign-ins of the last "+d+" day"+(d===1?"":"s")+" -> signin-analyzer",
+      '$since = (Get-Date).ToUniversalTime().AddDays(-'+d+').ToString("yyyy-MM-ddTHH:mm:ssZ")',
+      'Get-MgAuditLogSignIn -Filter "createdDateTime ge $since" -All |',
+      "    Select-Object CreatedDateTime, UserPrincipalName, AppDisplayName, IPAddress, ClientAppUsed, UserAgent, AuthenticationRequirement, Status, Location, DeviceDetail |",
+      "    ConvertTo-Json -Depth 6 |","    Out-File signins.json -Encoding utf8","");
+    L.push("Disconnect-MgGraph | Out-Null",'Write-Host "Done. Drop the files into the analyzers, then delete them."');
+    out.textContent=L.join("\n");
+  }
+  [days,ca,si].forEach(function(e){e.addEventListener("input",build);e.addEventListener("change",build)});
+  document.getElementById("ex-cp").addEventListener("click",function(){var b=this;if(navigator.clipboard)navigator.clipboard.writeText(out.textContent).then(function(){b.textContent="copied";setTimeout(function(){b.textContent="copy"},1200)})});
+  build();
+})();
 })();

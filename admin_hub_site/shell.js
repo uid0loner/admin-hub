@@ -1,7 +1,8 @@
 (function(){
 "use strict";
-var GO={h:"index.html",t:"tools.html",c:"cheat-sheets.html",l:"checklists.html",o:"glossary.html",e:"explainers.html",n:"news.html",s:"start-here.html",a:"about.html"};
-var KEYS=[[["/","Ctrl+K"],"search everything"],[["g","h"],"home"],[["g","t"],"tools"],[["g","c"],"cheat-sheets"],[["g","l"],"checklists"],[["g","o"],"glossary"],[["g","e"],"explainers"],[["g","n"],"news"],[["g","s"],"start-here"],[["g","g"],"top of page"],[["G"],"bottom of page"],[["j","k"],"scroll down / up"],[["?"],"this help"],[["Esc"],"close"]];
+try{if(localStorage.getItem("ah_crt"))document.documentElement.classList.add("crt")}catch(e){}
+var GO={h:"index.html",t:"tools.html",c:"cheat-sheets.html",l:"checklists.html",o:"glossary.html",e:"explainers.html",n:"news.html",s:"start-here.html",a:"about.html",k:"cockpit.html"};
+var KEYS=[[["/","Ctrl+K"],"search everything"],[["g","h"],"home"],[["g","t"],"tools"],[["g","c"],"cheat-sheets"],[["g","l"],"checklists"],[["g","o"],"glossary"],[["g","e"],"explainers"],[["g","n"],"news"],[["g","s"],"start-here"],[["g","k"],"cockpit"],[["g","g"],"top of page"],[["G"],"bottom of page"],[["j","k"],"scroll down / up"],[["?"],"this help"],[["Esc"],"close"]];
 var pending=false,timer=null,sl=null,mode=null,kh=null;
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e}
 function typing(t){var n=t&&t.tagName;return n==="INPUT"||n==="TEXTAREA"||n==="SELECT"||(t&&t.isContentEditable)}

@@ -732,3 +732,51 @@ select.sel{max-width:100%;min-width:0}
 #is-end h2{margin-top:32px}
 @media (max-width:860px){.simgrid{grid-template-columns:1fr}.isfeed{height:260px}}
 @media (prefers-reduced-motion:reduce){.choice:hover:not(:disabled){transform:none}}
+
+/* attack-map: what to fix first */
+.moverow{display:grid;grid-template-columns:minmax(0,1.3fr) auto;gap:6px 18px;align-items:center;padding:14px 16px;margin-top:10px;border:1px solid var(--line);border-left:3px solid var(--line);border-radius:8px;background:var(--panel)}
+.moverow.top{border-color:var(--violet);border-left-color:var(--hot);box-shadow:0 0 30px -10px rgba(180,92,255,.7)}
+.moverow .kick{display:block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--hot);margin-bottom:2px}
+.moverow b{display:block;color:var(--text)}
+.moverow p{grid-column:1/-1;margin:0;color:var(--dim);font-size:.86rem}
+.moverow .btn{grid-column:1/-1;justify-self:start}
+.movefx{text-align:right}
+.mnum{display:block;font-size:1.35rem;font-weight:700;color:var(--blue);white-space:nowrap}
+.movefx small{color:var(--dim);font-size:.72rem}
+.road{margin:14px 0 0;padding-left:26px}
+.road li{margin:0 0 10px;color:var(--dim)}
+.road li b{display:block;color:var(--text);font-weight:400}
+.roadbar{display:inline-block;width:160px;height:6px;border-radius:3px;background:var(--line);vertical-align:middle;margin-right:10px;overflow:hidden}
+.roadbar i{display:block;height:100%;background:linear-gradient(90deg,var(--hot),var(--violet));border-radius:3px}
+@media (max-width:560px){.moverow{grid-template-columns:1fr}.movefx{text-align:left}}
+/* CRT mode (type crt in the home terminal) */
+html.crt::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;background:repeating-linear-gradient(transparent 0 2px,rgba(0,0,0,.22) 2px 3px),radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55));mix-blend-mode:multiply}
+html.crt body{text-shadow:0 0 6px rgba(120,160,255,.45)}
+html.crt .wrap{animation:crt-flicker 6s steps(1) infinite}
+@keyframes crt-flicker{0%,97%,100%{opacity:1}98%{opacity:.93}99%{opacity:.98}}
+@media (prefers-reduced-motion:reduce){html.crt .wrap{animation:none}}
+@media print{html.crt::after{display:none}}
+
+/* cockpit */
+.cpbar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:18px 0 6px}
+.cockpit{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px;margin-top:14px}
+.cptile{position:relative;margin:0;padding:16px 18px 18px;border:1px solid var(--line);border-radius:10px;background:linear-gradient(180deg,rgba(77,163,255,.05),transparent 45%),var(--panel);display:flex;flex-direction:column;gap:6px;min-width:0}
+.cptile.empty{border-style:dashed}
+.cptile.empty .btn{align-self:flex-start;margin-top:4px}
+.cph{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.cph .kick{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--violet)}
+.cpopen{font-size:.76rem;color:var(--blue)}
+.cpopen:hover{color:var(--text)}
+.cpbig{font-size:2.1rem;line-height:1.15;font-weight:700;color:var(--text)}
+.cpbig.hot{color:var(--hot);text-shadow:0 0 18px rgba(255,79,216,.55)}.cpbig.or{color:#ff9d4d}.cpbig.bl{color:var(--blue);text-shadow:0 0 18px rgba(77,163,255,.5)}.cpbig.vi{color:var(--violet)}
+.cpbig.gA,.cpbig.gB{color:var(--blue)}.cpbig.gC{color:var(--violet)}.cpbig.gD{color:#ff9d4d}.cpbig.gF{color:var(--hot)}
+.cptile p{margin:0;color:var(--text);font-size:.88rem}
+.cptile p.dim,.cptile .cpl{color:var(--dim)}
+.cplist{margin:2px 0 0;padding-left:18px;color:var(--dim);font-size:.82rem}
+.cplist a{color:var(--blue)}
+.cpage{margin-top:auto;padding-top:6px;color:var(--dim);font-size:.72rem}
+.cptile .meter{margin-top:4px}
+
+/* glossary entries share the class name of the hero terminal: give them their own plain look */
+.term:not(:has(>.bar)){background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none;overflow:visible;padding:14px 0}
+.term:not(:has(>.bar)) p{color:var(--dim);max-width:86ch}
