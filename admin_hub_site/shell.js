@@ -18,7 +18,7 @@ function help(){
 document.addEventListener("keydown",function(e){
   if(e.ctrlKey||e.metaKey||e.altKey)return;
   if(e.key==="Escape"&&kh){help();return}
-  if(typing(e.target)||document.getElementById("spal"))return;
+  if(typing(e.target)||document.getElementById("spal")||document.getElementById("langmenu"))return;
   var k=e.key;
   if(pending){
     clearTimeout(timer);setMode(false);
@@ -48,4 +48,49 @@ if(window.matchMedia&&matchMedia("(min-width:761px) and (hover:hover)").matches)
   net();tick();scr();setInterval(tick,1000);
   addEventListener("online",net);addEventListener("offline",net);addEventListener("scroll",scr,{passive:true});addEventListener("resize",scr);
 }
+
+/* ---------- language picker (the translator itself loads on demand) ---------- */
+var LG=[["en","English"],["de","Deutsch"],["es","Espa\u00f1ol"],["it","Italiano"],["pt","Portugu\u00eas"],["pl","Polski"]];
+var hdr=document.querySelector("header"),sb=hdr&&hdr.querySelector(".sbtn"),cur="en",lb=null,menu=null;
+try{cur=localStorage.getItem("ah_lang")||"en"}catch(e){}
+if(!LG.some(function(l){return l[0]===cur}))cur="en";
+function loadTr(cb){
+  if(window.ahTranslate){cb();return}
+  var me=document.querySelector('script[src*="shell.js"]'),v=me&&me.getAttribute("src").match(/\?v=\d+/),sc=document.createElement("script");
+  sc.src="translate.js"+(v?v[0]:"");sc.onload=cb;document.head.append(sc);
+}
+function closeMenu(){if(menu){menu.remove();menu=null;lb.setAttribute("aria-expanded","false")}}
+if(sb){
+  lb=el("button","btn sbtn lang",cur.toUpperCase());lb.type="button";lb.setAttribute("aria-haspopup","true");lb.setAttribute("aria-expanded","false");
+  lb.setAttribute("aria-label","Language: translate this page");lb.setAttribute("translate","no");lb.title="Translate this page";
+  hdr.insertBefore(lb,sb);
+  lb.addEventListener("click",function(e){
+    e.stopPropagation();
+    if(menu){closeMenu();return}
+    menu=el("div");menu.id="langmenu";menu.setAttribute("role","menu");menu.setAttribute("translate","no");
+    LG.forEach(function(l){
+      var b=el("button",null,l[1]);b.type="button";b.lang=l[0];b.setAttribute("role","menuitemradio");b.setAttribute("aria-checked",l[0]===cur?"true":"false");
+      b.addEventListener("click",function(){
+        cur=l[0];lb.textContent=cur.toUpperCase();closeMenu();
+        if(cur==="en"&&!window.ahTranslate){try{localStorage.removeItem("ah_lang")}catch(e){}return}
+        loadTr(function(){window.ahTranslate.set(cur,true)});
+      });
+      menu.append(b);
+    });
+    menu.append(el("small",null,"Translated on your device. The site itself is written in English."));
+    hdr.append(menu);lb.setAttribute("aria-expanded","true");
+    var on=menu.querySelector('[aria-checked="true"]');if(on)on.focus();
+  });
+  document.addEventListener("click",function(e){if(menu&&!menu.contains(e.target))closeMenu()});
+  document.addEventListener("keydown",function(e){
+    if(!menu)return;
+    if(e.key==="Escape"){closeMenu();lb.focus()}
+    else if(e.key==="ArrowDown"||e.key==="ArrowUp"){
+      e.preventDefault();var items=[].slice.call(menu.querySelectorAll("button")),i=items.indexOf(document.activeElement);
+      items[(i+(e.key==="ArrowDown"?1:items.length-1))%items.length].focus();
+    }
+  });
+  document.addEventListener("ahlang",function(e){cur=e.detail.lang;lb.textContent=cur.toUpperCase()});
+}
+if(cur!=="en")loadTr(function(){window.ahTranslate.set(cur,false)});
 })();
