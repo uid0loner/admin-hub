@@ -675,3 +675,19 @@ select.sel{max-width:100%;min-width:0}
 .minilist li{display:flex;gap:10px;align-items:center;padding:4px 0}
 @media (max-width:760px){.duo{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.mini path.o{animation:none}.fcard:hover{transform:none}}
+
+/* ---------- language picker and on-device translation bar ---------- */
+.lang{min-width:3.4em;justify-content:center;border-color:var(--line);color:var(--dim)}
+.lang::after{content:none}
+#langmenu{position:absolute;top:calc(100% + 6px);right:0;z-index:50;width:236px;padding:6px;background:var(--panel);border:1px solid var(--violet);border-radius:8px;box-shadow:0 12px 40px -8px rgba(180,92,255,.5)}
+#langmenu button{display:block;width:100%;text-align:left;background:none;border:0;border-radius:5px;padding:8px 10px;color:var(--text);font:inherit;cursor:pointer}
+#langmenu button:hover,#langmenu button:focus-visible{background:rgba(180,92,255,.18);outline:none}
+#langmenu button[aria-checked="true"]{color:var(--blue)}
+#langmenu button[aria-checked="true"]::before{content:"\25CF  ";color:var(--hot);font-size:.7em}
+#langmenu small{display:block;padding:8px 10px 4px;margin-top:4px;border-top:1px solid var(--line);color:var(--dim);font-size:.72rem;line-height:1.4}
+#trbar{position:fixed;left:16px;bottom:40px;z-index:46;max-width:min(440px,calc(100vw - 32px));display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:10px 34px 10px 14px;background:var(--panel);border:1px solid var(--violet);border-left-width:3px;border-radius:8px;box-shadow:0 10px 36px -8px rgba(180,92,255,.55);font-size:.82rem;color:var(--text)}
+#trbar small{flex-basis:100%;color:var(--dim);font-size:.74rem}
+#trbar a,#trbar button{background:none;border:0;padding:0;font:inherit;color:var(--blue);text-decoration:underline;cursor:pointer}
+#trbar .x{position:absolute;top:4px;right:8px;text-decoration:none;color:var(--dim);font-size:1.1rem;line-height:1}
+@media (max-width:760px){header{grid-template-columns:1fr auto auto}#trbar{bottom:16px}}
+@media print{#trbar,.lang,#langmenu{display:none!important}}
