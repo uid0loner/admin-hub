@@ -5,17 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>admin_hub tools: CIDR, JWT, hash, password, time, Base64, GUID, headers, ports</title>
 <meta name="description" content="Free browser-based admin tools: CIDR calculator, JWT decoder, hash generator, password generator, time converter, Base64, GUID, email header analyzer and port reference, regex tester, JSON formatter, chmod calculator, URL encoder, cron explainer, UAC decoder, SPF/DMARC explainers, Markdown previewer, text diff, case converter and IPv6 tool.">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="admin_hub">
 <meta property="og:title" content="admin_hub tools: CIDR, JWT, hash, password, time, Base64, GUID, headers, ports">
 <meta property="og:description" content="Free browser-based admin tools: CIDR calculator, JWT decoder, hash generator, password generator, time converter, Base64, GUID, email header analyzer and port reference, regex tester, JSON formatter, ">
-<meta property="og:image" content="https://example.com/og-default.png">
+<meta property="og:image" content="https://admin-hub.xyz/og-default.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="admin_hub tools: CIDR, JWT, hash, password, time, Base64, GUID, headers, ports">
 <meta name="twitter:description" content="Free browser-based admin tools: CIDR calculator, JWT decoder, hash generator, password generator, time converter, Base64, GUID, email header analyzer and port reference, regex tester, JSON formatter, ">
-<meta name="twitter:image" content="https://example.com/og-default.png">
+<meta name="twitter:image" content="https://admin-hub.xyz/og-default.png">
 </head>
 <body>
 <div class="wrap">
@@ -23,7 +23,7 @@
 <main>
 <h1>Free tools for admins.</h1>
 <p class="dim">Everything runs in your browser. Nothing you enter is sent anywhere.</p><nav aria-label="Tools" style="margin-top:12px"><a href="#cidr-calculator">cidr</a><a href="#jwt-decoder">jwt</a><a href="#hash-generator">hash</a><a href="#password-generator">password</a><a href="#time-converter">time</a><a href="#base64-tool">base64</a><a href="#guid-generator">guid</a><a href="#email-header-analyzer">email</a><a href="#port-reference">port</a><a href="#regex-tester">regex</a><a href="#json-formatter">json</a><a href="#chmod-calculator">chmod</a><a href="#url-encoder">url</a><a href="#cron-explainer">cron</a><a href="#uac-decoder">uac</a><a href="#spf-explainer">spf</a><a href="#dmarc-explainer">dmarc</a><a href="#markdown-previewer">markdown</a><a href="#text-diff">text</a><a href="#case-converter">case</a><a href="#ipv6-tool">ipv6</a></nav>
-<section class="tool" id="cidr-calculator"><h2>cidr-calculator</h2><p class="dim">Enter an IPv4 address with prefix length and get network, broadcast, mask and host range.</p><input id="cidr" class="q" type="text" placeholder="192.168.1.10/24" autocomplete="off" spellcheck="false"><div id="cidr-out" aria-live="polite"></div></section><section class="tool" id="jwt-decoder"><h2>jwt-decoder</h2><p class="dim">Paste a JSON Web Token to read its header and claims. Decoding happens in your browser; the signature is not verified.</p><textarea id="jwt" class="q" placeholder="eyJ0eXAiOiJKV1QiLCJhbGciOi..." spellcheck="false"></textarea><div id="jwt-out" aria-live="polite"></div></section><div class="ad" role="complementary" aria-label="Advertisement">Ad slot 728x90</div><section class="tool" id="hash-generator"><h2>hash-generator</h2><p class="dim">Type or paste text to get its SHA-1, SHA-256, SHA-384 and SHA-512 hashes, computed locally in your browser.</p><textarea id="hash" class="q" placeholder="Text to hash" spellcheck="false"></textarea><div id="hash-out" aria-live="polite"></div></section>
+<section class="tool" id="cidr-calculator"><h2>cidr-calculator</h2><p class="dim">Enter an IPv4 address with prefix length and get network, broadcast, mask and host range.</p><input id="cidr" class="q" type="text" placeholder="192.168.1.10/24" autocomplete="off" spellcheck="false"><div id="cidr-out" aria-live="polite"></div></section><section class="tool" id="jwt-decoder"><h2>jwt-decoder</h2><p class="dim">Paste a JSON Web Token to read its header and claims. Decoding happens in your browser; the signature is not verified.</p><textarea id="jwt" class="q" placeholder="eyJ0eXAiOiJKV1QiLCJhbGciOi..." spellcheck="false"></textarea><div id="jwt-out" aria-live="polite"></div></section><section class="tool" id="hash-generator"><h2>hash-generator</h2><p class="dim">Type or paste text to get its SHA-1, SHA-256, SHA-384 and SHA-512 hashes, computed locally in your browser.</p><textarea id="hash" class="q" placeholder="Text to hash" spellcheck="false"></textarea><div id="hash-out" aria-live="polite"></div></section>
 
 <section class="tool" id="password-generator"><h2>password-generator</h2><p class="dim">Random passwords from your browser's secure random generator. Nothing is stored or sent.</p>
 <div class="ctl"><label>length <b id="pw-n">20</b><input id="pw-len" type="range" min="8" max="64" value="20"></label>
@@ -285,7 +285,7 @@ closeList();
 if(l.trim()==""){i++;continue}
 out.push("<p>"+mdInline(l)+"</p>");i++}
 closeList();return out.join("\n")}
-$("md").addEventListener("input",e=>{$("md-out").innerHTML=md(e.target.value)});$("md").value="# Hello\n\nThis is **bold**, *italic* and `code`.\n\n- one\n- two\n\n[a link](https://example.com)";$("md-out").innerHTML=md($("md").value);
+$("md").addEventListener("input",e=>{$("md-out").innerHTML=md(e.target.value)});$("md").value="# Hello\n\nThis is **bold**, *italic* and `code`.\n\n- one\n- two\n\n[a link](https://admin-hub.xyz)";$("md-out").innerHTML=md($("md").value);
 function diffLines(a,b){var A=a.split("\n"),B=b.split("\n"),n=A.length,m=B.length,dp=Array.from({length:n+1},()=>new Array(m+1).fill(0));
 for(let i=n-1;i>=0;i--)for(let j=m-1;j>=0;j--)dp[i][j]=A[i]===B[j]?dp[i+1][j+1]+1:Math.max(dp[i+1][j],dp[i][j+1]);
 var i=0,j=0,out=[];while(i<n&&j<m){if(A[i]===B[j]){out.push([" ",A[i]]);i++;j++}else if(dp[i+1][j]>=dp[i][j+1]){out.push(["-",A[i]]);i++}else{out.push(["+",B[j]]);j++}}
@@ -313,4 +313,4 @@ $("v6").addEventListener("input",e=>{var o=$("v6-out"),v=e.target.value.trim();o
 var full=v6full(v);if(!full){o.append(msg("Not a valid IPv6 address."));return}
 o.append(kv([["Expanded",full.join(":")],["Compressed",v6compress(full)]]))});
 </script>
-<script src="consent.js" defer></script><script src="search-index.js" defer></script><script src="search.js" defer></script></body></html>
+<script src="consent.js" defer></script><script src="reveal.js" defer></script><script src="pwa.js" defer></script><script src="search-index.js" defer></script><script src="search.js" defer></script></body></html>

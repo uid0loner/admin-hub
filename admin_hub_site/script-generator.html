@@ -1,0 +1,60 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Script generator | admin_hub</title><meta name="description" content="Fill in a form and get a ready-to-run PowerShell / Microsoft Graph script: offboarding, bulk user creation, mailbox permissions and Conditional Access policies."><link rel="stylesheet" href="style.css"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="admin_hub">
+<meta property="og:title" content="Script generator | admin_hub">
+<meta property="og:description" content="Fill in a form and get a ready-to-run PowerShell / Microsoft Graph script: offboarding, bulk user creation, mailbox permissions and Conditional Access policies.">
+<meta property="og:image" content="https://admin-hub.xyz/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Script generator | admin_hub">
+<meta name="twitter:description" content="Fill in a form and get a ready-to-run PowerShell / Microsoft Graph script: offboarding, bulk user creation, mailbox permissions and Conditional Access policies.">
+<meta name="twitter:image" content="https://admin-hub.xyz/og-default.png">
+</head><body><div class="wrap"><header><a class="brand" href="index.html">admin_hub</a><nav aria-label="Main"><a href="tools.html">tools</a><a href="cheat-sheets.html">cheat-sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a><a href="explainers.html">explainers</a><a href="news.html">news</a><a href="start-here.html">start-here</a><a href="about.html">about</a></nav><button class="btn sbtn" type="button" data-search aria-label="Search the site" title="Search (Ctrl+K)">search</button></header><main><h1>Script generator</h1>
+<p class="dim">Fill in the fields, get a ready-to-run script. Nothing you enter leaves your browser — these are built client-side from the templates below. Review every generated script before running it against production.</p>
+<nav aria-label="Generators" style="margin-top:12px"><a href="#offboard-gen">offboarding</a><a href="#bulk-gen">bulk users</a><a href="#mailbox-gen">mailbox permissions</a><a href="#ca-gen">conditional access</a></nav>
+
+<section class="tool" id="offboard-gen"><h2>offboarding script</h2><p class="dim">Generates a Microsoft Graph PowerShell script to offboard one user. Pick what it should do, then copy the result.</p>
+<label class="fl">User principal name<input id="ob-upn" class="q" type="text" placeholder="jane.doe@contoso.com" autocomplete="off" spellcheck="false"></label>
+<div class="optlist">
+<label><input type="checkbox" id="ob-block" checked> Block sign-in (accountEnabled = false)</label>
+<label><input type="checkbox" id="ob-revoke" checked> Revoke all refresh tokens and sessions</label>
+<label><input type="checkbox" id="ob-lic" checked> Remove all assigned licenses</label>
+<label><input type="checkbox" id="ob-groups"> Remove from all Entra ID group memberships</label>
+<label><input type="checkbox" id="ob-mailbox"> Convert mailbox to shared (requires Exchange Online module)</label>
+<label><input type="checkbox" id="ob-gal"> Hide from the global address list</label>
+<label><input type="checkbox" id="ob-manager"> Add a manager as mail-forwarding target: <input id="ob-fwd" class="q" style="width:220px;display:inline-block;padding:6px 10px" type="text" placeholder="manager@contoso.com" autocomplete="off" spellcheck="false"></label>
+</div>
+<button class="btn" id="ob-go" type="button">generate script</button><button class="btn" id="ob-cp" type="button">copy</button>
+<pre id="ob-out"></pre></section>
+
+<section class="tool" id="bulk-gen"><h2>bulk user creation</h2><p class="dim">Paste one user per line as <code>Display Name,UPN,Password</code>. Generates a Graph PowerShell loop that creates every account with a forced password change at next sign-in.</p>
+<textarea id="bk-in" class="q" spellcheck="false" placeholder="Jane Doe,jane.doe@contoso.com,Temp-Passw0rd!
+John Smith,john.smith@contoso.com,Temp-Passw0rd!"></textarea>
+<label class="fl">Usage location (required for license assignment, ISO 3166-1 alpha-2)<input id="bk-loc" class="q" type="text" placeholder="DE" value="DE" autocomplete="off" spellcheck="false" style="width:120px"></label>
+<button class="btn" id="bk-go" type="button">generate script</button><button class="btn" id="bk-cp" type="button">copy</button>
+<pre id="bk-out"></pre></section>
+
+<section class="tool" id="mailbox-gen"><h2>mailbox permission grant</h2><p class="dim">Generates an Exchange Online PowerShell script granting mailbox access from one mailbox to another.</p>
+<label class="fl">Target mailbox (the one being accessed)<input id="mb-target" class="q" type="text" placeholder="team-shared@contoso.com" autocomplete="off" spellcheck="false"></label>
+<label class="fl">Grantee (who gets access)<input id="mb-grantee" class="q" type="text" placeholder="jane.doe@contoso.com" autocomplete="off" spellcheck="false"></label>
+<div class="optlist">
+<label><input type="checkbox" id="mb-full" checked> Full Access</label>
+<label><input type="checkbox" id="mb-auto" checked> Auto-map the mailbox in Outlook (uncheck for a manually-added mailbox)</label>
+<label><input type="checkbox" id="mb-sendas"> Send As</label>
+<label><input type="checkbox" id="mb-sob"> Send on Behalf</label>
+</div>
+<button class="btn" id="mb-go" type="button">generate script</button><button class="btn" id="mb-cp" type="button">copy</button>
+<pre id="mb-out"></pre></section>
+
+<section class="tool" id="ca-gen"><h2>conditional access policy</h2><p class="dim">Builds the Graph PowerShell to create a Conditional Access policy. Test it in the <a href="conditional-access-simulator.html">simulator</a> before deploying, and always create new policies in report-only mode first.</p>
+<label class="fl">Policy name<input id="ca-name" class="q" type="text" placeholder="Require MFA for all users" autocomplete="off" spellcheck="false"></label>
+<label class="fl">Include users / groups (object IDs, comma-separated, or leave blank for All users)<input id="ca-users" class="q" type="text" placeholder="All" autocomplete="off" spellcheck="false"></label>
+<label class="fl">Exclude users / groups (object IDs, comma-separated — always exclude at least one break-glass account)<input id="ca-exclude" class="q" type="text" placeholder="00000000-0000-0000-0000-000000000000" autocomplete="off" spellcheck="false"></label>
+<label class="fl">Target cloud apps (App IDs, comma-separated, or leave blank for All apps)<input id="ca-apps" class="q" type="text" placeholder="All" autocomplete="off" spellcheck="false"></label>
+<div class="optlist">
+<label><input type="checkbox" id="ca-mfa" checked> Require multi-factor authentication</label>
+<label><input type="checkbox" id="ca-compliant"> Require device to be marked compliant</label>
+<label><input type="checkbox" id="ca-legacy"> Block legacy authentication clients</label>
+</div>
+<label class="fl">State<select id="ca-state" class="q" style="width:auto"><option value="enabledForReportingButNotEnforced" selected>Report-only</option><option value="enabled">Enabled</option><option value="disabled">Disabled</option></select></label>
+<button class="btn" id="ca-go" type="button">generate script</button><button class="btn" id="ca-cp" type="button">copy</button>
+<pre id="ca-out"></pre></section></main><footer><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a><a href="#" data-consent-open>cookie settings</a><span>2026 admin_hub</span></footer></div><script src="consent.js" defer></script><script src="reveal.js" defer></script><script src="pwa.js" defer></script><script src="scriptgen.js" defer></script><script src="search-index.js" defer></script><script src="search.js" defer></script></body></html>
