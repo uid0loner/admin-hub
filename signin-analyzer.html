@@ -1,0 +1,50 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Sign-in log analyzer for Entra ID | admin_hub</title><meta name="description" content="Drop an Entra ID sign-in log export and get a threat-hunting report in your browser: password spray, MFA fatigue, country switches, legacy authentication, scripted clients. Nothing is uploaded."><link rel="stylesheet" href="style.css"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="admin_hub">
+<meta property="og:title" content="Sign-in log analyzer for Entra ID | admin_hub">
+<meta property="og:description" content="Drop an Entra ID sign-in log export and get a threat-hunting report in your browser: password spray, MFA fatigue, country switches, legacy authentication, scripted clients. Nothing is uploaded.">
+<meta property="og:image" content="https://admin-hub.xyz/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sign-in log analyzer for Entra ID | admin_hub">
+<meta name="twitter:description" content="Drop an Entra ID sign-in log export and get a threat-hunting report in your browser: password spray, MFA fatigue, country switches, legacy authentication, scripted clients. Nothing is uploaded.">
+<meta name="twitter:image" content="https://admin-hub.xyz/og-default.png">
+</head><body><div class="wrap"><header><a class="brand" href="index.html">admin_hub</a><nav aria-label="Main"><a href="tools.html" aria-current="page">tools</a><a href="cheat-sheets.html">cheat-sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a><a href="explainers.html">explainers</a><a href="news.html">news</a><a href="start-here.html">start-here</a><a href="about.html">about</a></nav><button class="btn sbtn" type="button" data-search aria-label="Search the site" title="Search (Ctrl+K)">search <kbd>Ctrl K</kbd></button></header><main>
+
+<p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<a href="tools.html">tools</a>/<b>signin-analyzer</b><span class="cs">$</span></p>
+<h1>signin-analyzer</h1>
+<p class="dim">Drop an Entra ID sign-in log export. You get a triage report: what looks like an attack, which accounts are affected, what to do next, and a KQL query to keep hunting. The file is read by your browser and never uploaded, so it also works offline.</p>
+
+<label class="drop" id="sa-drop"><input type="file" id="sa-file" accept=".csv,.json,.txt,text/csv,application/json"><b>Drop a sign-in log here, or click to choose a file</b><span>CSV from the Entra admin center or Log Analytics, or JSON from Microsoft Graph</span></label>
+<div class="ctl" style="margin-top:14px"><button class="btn" id="sa-sample" type="button">Load sample data</button><button class="btn ghost" id="sa-sample-dl" type="button">Download the sample CSV</button></div>
+<p id="sa-status" class="dim" aria-live="polite" style="margin-top:6px"></p>
+<details id="sa-mapwrap" hidden><summary>column mapping</summary><p class="dim" style="margin-top:8px">Columns are matched by name. If your export uses different headers, point each field at the right column and the report re-runs.</p><div id="sa-map"></div></details>
+
+<div id="sa-out" hidden></div>
+
+<h2 style="margin-top:56px">getting the export</h2>
+<div class="tw"><table class="tbl"><thead><tr><th>Source</th><th>How</th></tr></thead><tbody>
+<tr><td>Entra admin center</td><td>Monitoring &amp; health, Sign-in logs, set the date range, Download, CSV. Interactive and non-interactive sign-ins are separate files; analyse them one at a time.</td></tr>
+<tr><td>Microsoft Graph PowerShell</td><td><code>Get-MgAuditLogSignIn -All | ConvertTo-Json -Depth 6 | Out-File signins.json</code> (PowerShell 7, needs AuditLog.Read.All)</td></tr>
+<tr><td>Log Analytics / Sentinel</td><td><code>SigninLogs | where TimeGenerated &gt; ago(7d)</code>, then Export, CSV (all columns)</td></tr>
+</tbody></table></div>
+
+<h2 style="margin-top:40px">what it checks</h2>
+<div class="tw"><table class="tbl"><thead><tr><th>Check</th><th>Triggers when</th></tr></thead><tbody>
+<tr><td>Password spray</td><td>One IP fails with a wrong password, lockout or unknown user against 5 or more accounts. Critical if that IP then signs in successfully.</td></tr>
+<tr><td>Password guessing</td><td>10 or more wrong-password or lockout events on one account. Critical if an address with 3 or more of those failures later succeeds.</td></tr>
+<tr><td>Country switch</td><td>Two successful sign-ins by one account from different countries and different IPs within 2 hours.</td></tr>
+<tr><td>MFA fatigue</td><td>5 or more failed or denied MFA prompts (500121) for one account. Critical if a sign-in succeeds during or within an hour after.</td></tr>
+<tr><td>Legacy authentication</td><td>Any sign-in over IMAP, POP, SMTP, ActiveSync or "Other clients". High if any succeed.</td></tr>
+<tr><td>Scripted clients</td><td>User agents of HTTP libraries and tools (python-requests, axios, curl, BAV2ROPC and similar). High if any succeed.</td></tr>
+<tr><td>Rare countries</td><td>Countries with under 2% of successful sign-ins, once there are at least 50 successes.</td></tr>
+<tr><td>Single-factor success</td><td>Successful sign-ins where the authentication requirement was single-factor.</td></tr>
+<tr><td>Disabled and unknown accounts</td><td>Attempts on disabled accounts (50057), or 5 or more different non-existent usernames (50034).</td></tr>
+<tr><td>Conditional Access blocks</td><td>Sign-ins stopped by policy (53003, 53000, 53001). The password was correct in these cases.</td></tr>
+</tbody></table></div>
+<p class="note">These are heuristics, the same first-pass questions an analyst asks of a sign-in log. They produce leads, not verdicts: a VPN looks like a country switch, a forgotten phone looks like password guessing. Location is only as good as the IP geolocation in the export, and compared at country level. A check that needs a column your export lacks is listed as not checked instead of silently passing. This is no replacement for Entra ID Protection or a SIEM that watches continuously.</p>
+<p class="rel">Related: <a href="aadsts-lookup.html">AADSTS error lookup</a> <a href="incident-runbook.html">incident runbook generator</a> <a href="compromised-account-response-checklist.html">compromised account checklist</a> <a href="kql-cheat-sheet.html">KQL cheat sheet</a></p>
+
+</main>
+<footer><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a><a href="#" data-consent-open>cookie settings</a><span>2026 admin_hub</span></footer></div>
+<script src="signin.js" defer></script>
+<script src="shell.js" defer></script><script src="consent.js" defer></script><script src="reveal.js" defer></script><script src="pwa.js" defer></script><script src="search-index.js" defer></script><script src="search.js" defer></script></body></html>
