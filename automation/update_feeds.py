@@ -113,10 +113,14 @@ def shell(site, title, desc, h1, inner, script=""):
     tpl = (site / "404.html").read_text(encoding="utf-8")
     head = re.search(r"<header>.*?</header>", tpl, re.S).group(0)
     foot = re.search(r"<footer>.*?</footer>", tpl, re.S).group(0)
-    scr = '<script src="consent.js" defer></script><script src="search-index.js" defer></script><script src="search.js" defer></script>'
+    # mark the current section in the top bar and add the prompt-style breadcrumb
+    head = re.sub(r' aria-current="page"', "", head)
+    head = head.replace('<a href="%s.html">' % h1, '<a href="%s.html" aria-current="page">' % h1, 1)
+    crumb = '<p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<b>%s</b><span class="cs">$</span></p>\n' % h1
+    scr = '<script src="shell.js" defer></script><script src="consent.js" defer></script><script src="reveal.js" defer></script><script src="pwa.js" defer></script><script src="search-index.js" defer></script><script src="search.js" defer></script>'
     return ('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'
-            '<title>%s | admin_hub</title><meta name="description" content="%s"><link rel="stylesheet" href="style.css"></head><body><div class="wrap">%s<main><h1>%s</h1>%s</main>%s</div>%s%s</body></html>'
-            % (e(title), e(desc), head, h1, inner, foot, script, scr))
+            '<title>%s | admin_hub</title><meta name="description" content="%s"><link rel="stylesheet" href="style.css"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png"></head><body><div class="wrap">%s<main>%s<h1>%s</h1>%s</main>%s</div>%s%s</body></html>'
+            % (e(title), e(desc), head, crumb, h1, inner, foot, script, scr))
 
 
 AD = ''
