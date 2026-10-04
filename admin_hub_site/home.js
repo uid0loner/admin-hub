@@ -24,5 +24,5 @@ if(e.key==="Enter"){var v=inp.value.trim();inp.value="";if(!v)return;H.push(v);h
 var p=v.split(/\s+/),c=p.shift().toLowerCase(),f=C.hasOwnProperty(c)?C[c]:null;if(f)f(p.join(" "));else say("command not found: "+c+". type help")}
 else if(e.key==="ArrowUp"){if(hi>0){hi--;inp.value=H[hi];e.preventDefault()}}
 else if(e.key==="ArrowDown"){if(hi<H.length){hi++;inp.value=H[hi]||"";e.preventDefault()}}});
-say("type help. press Ctrl+K anywhere on the site to search everything.");
+say("type help. press Ctrl+K anywhere and paste an IP, a CIDR, a JWT, an error code or a timestamp.");
 })();

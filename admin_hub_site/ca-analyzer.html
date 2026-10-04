@@ -1,0 +1,35 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Conditional Access policy analyzer | admin_hub</title><meta name="description" content="Paste your Conditional Access policies as JSON and get a gap analysis in the browser: missing baseline protections, report-only and excluded identities, and every policy translated into plain language."><link rel="stylesheet" href="style.css?v=13"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="admin_hub">
+<meta property="og:title" content="Conditional Access policy analyzer | admin_hub">
+<meta property="og:description" content="Paste your Conditional Access policies as JSON and get a gap analysis in the browser: missing baseline protections, report-only and excluded identities, and every policy translated into plain language.">
+<meta property="og:image" content="https://admin-hub.xyz/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Conditional Access policy analyzer | admin_hub">
+<meta name="twitter:description" content="Paste your Conditional Access policies as JSON and get a gap analysis in the browser: missing baseline protections, report-only and excluded identities, and every policy translated into plain language.">
+<meta name="twitter:image" content="https://admin-hub.xyz/og-default.png">
+</head><body><div class="wrap"><header><a class="brand" href="index.html">admin_hub</a><nav aria-label="Main"><a href="tools.html" aria-current="page">tools</a><a href="cheat-sheets.html">cheat-sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a><a href="explainers.html">explainers</a><a href="news.html">news</a><a href="start-here.html">start-here</a><a href="about.html">about</a></nav><button class="btn sbtn" type="button" data-search aria-label="Search the site" title="Search (Ctrl+K)">search <kbd>Ctrl K</kbd></button></header><main>
+
+<p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<a href="tools.html">tools</a>/<b>ca-analyzer</b><span class="cs">$</span></p>
+<h1>ca-analyzer</h1>
+<p class="dim">Paste your Conditional Access policies and find out what they really enforce. Ten baseline protections are checked, the usual gaps are flagged (report-only, exclusions, trusted locations), and every policy is rewritten as one plain sentence. The JSON is parsed in your browser and never uploaded.</p>
+
+<label class="drop" id="ca-drop"><input type="file" id="ca-file" accept=".json,.txt,application/json"><b>Drop the policy export here, or click to choose a file</b><span>JSON from Microsoft Graph or Get-MgIdentityConditionalAccessPolicy</span></label>
+<textarea id="ca-text" class="q" placeholder='... or paste the JSON here: {"value":[{"displayName":"Require MFA", ...}]}' spellcheck="false" style="margin-top:14px"></textarea>
+<div class="ctl" style="margin-top:12px"><button class="btn" id="ca-run" type="button">Analyse pasted JSON</button><button class="btn ghost" id="ca-sample" type="button">Load sample policies</button></div>
+<p id="ca-status" class="dim" aria-live="polite" style="margin-top:6px"></p>
+
+<div id="ca-out" hidden></div>
+
+<h2 style="margin-top:56px">getting the export</h2>
+<div class="tw"><table class="tbl"><thead><tr><th>Source</th><th>How</th></tr></thead><tbody>
+<tr><td>Graph PowerShell</td><td><code>Get-MgIdentityConditionalAccessPolicy -All | ConvertTo-Json -Depth 10 | Out-File ca.json</code> (needs Policy.Read.All)</td></tr>
+<tr><td>Graph Explorer</td><td><code>GET https://graph.microsoft.com/v1.0/identity/conditionalAccess/policies</code>, then copy the response</td></tr>
+</tbody></table></div>
+<p class="note">The export contains object IDs of users and groups but no names, passwords or secrets. Groups and users therefore appear as counts ("3 groups"): this page cannot look up who is in them, which is exactly the part you should review by hand. The checks read the policy definitions only. They cannot see Security Defaults, per-user MFA, authentication method settings or whether your named locations are sensible, and they do not simulate a specific sign-in: for that, use the What If tool in the Entra admin center.</p>
+<p class="rel">Related: <a href="attack-map.html">attack map</a> <a href="conditional-access-explained.html">Conditional Access explained</a> <a href="conditional-access-simulator.html">CA simulator</a> <a href="signin-analyzer.html">sign-in analyzer</a> <a href="entra-id-hardening-checklist.html">Entra ID hardening</a></p>
+
+</main>
+<footer><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a><a href="#" data-consent-open>cookie settings</a><span>2026 admin_hub</span></footer></div>
+<script src="caanalyzer.js?v=13" defer></script>
+<script src="shell.js?v=13" defer></script><script src="consent.js?v=13" defer></script><script src="reveal.js?v=13" defer></script><script src="pwa.js?v=13" defer></script><script src="search-index.js?v=13" defer></script><script src="search.js?v=13" defer></script></body></html>

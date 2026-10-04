@@ -1,0 +1,46 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Attack map: M365 and AD kill chain with your controls | admin_hub</title><meta name="description" content="An interactive map of 23 attack techniques against Microsoft 365, Entra ID and Active Directory. Switch on your controls and see which routes from first phish to ransomware stay open."><link rel="stylesheet" href="style.css?v=13"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="admin_hub">
+<meta property="og:title" content="Attack map: M365 and AD kill chain with your controls | admin_hub">
+<meta property="og:description" content="An interactive map of 23 attack techniques against Microsoft 365, Entra ID and Active Directory. Switch on your controls and see which routes from first phish to ransomware stay open.">
+<meta property="og:image" content="https://admin-hub.xyz/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Attack map: M365 and AD kill chain with your controls | admin_hub">
+<meta name="twitter:description" content="An interactive map of 23 attack techniques against Microsoft 365, Entra ID and Active Directory. Switch on your controls and see which routes from first phish to ransomware stay open.">
+<meta name="twitter:image" content="https://admin-hub.xyz/og-default.png">
+</head><body><div class="wrap"><header><a class="brand" href="index.html">admin_hub</a><nav aria-label="Main"><a href="tools.html" aria-current="page">tools</a><a href="cheat-sheets.html">cheat-sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a><a href="explainers.html">explainers</a><a href="news.html">news</a><a href="start-here.html">start-here</a><a href="about.html">about</a></nav><button class="btn sbtn" type="button" data-search aria-label="Search the site" title="Search (Ctrl+K)">search <kbd>Ctrl K</kbd></button></header><main>
+
+<p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<a href="tools.html">tools</a>/<b>attack-map</b><span class="cs">$</span></p>
+<h1>attack-map</h1>
+<p class="dim">How Microsoft 365 and Active Directory environments actually get breached, as one map: 23 techniques in five stages, from the first phish to the ransom note. Switch on the controls you have and watch which routes stay open.</p>
+
+<div class="amscore" aria-live="polite">
+  <div class="stat"><span class="stat-k">open attack routes</span><b class="stat-v hot" id="am-paths">0</b><span class="stat-s" id="am-pathsub"></span></div>
+  <div class="stat"><span class="stat-k">exposed</span><b class="stat-v hot" id="am-exp">0</b><span class="stat-s">nothing in the way</span></div>
+  <div class="stat"><span class="stat-k">reduced</span><b class="stat-v or" id="am-par">0</b><span class="stat-s">harder, not closed</span></div>
+  <div class="stat"><span class="stat-k">closed</span><b class="stat-v bl" id="am-cov">0</b><span class="stat-s">technique blocked</span></div>
+  <div class="stat"><span class="stat-k">coverage</span><b class="stat-v" id="am-score">0%</b><div class="meter"><div class="meter-fill vgood" id="am-bar"></div></div><span class="stat-s" id="am-count"></span></div>
+</div>
+
+<div class="amap" id="am-map" role="group" aria-label="Attack techniques by stage"></div>
+<div class="amdetail" id="am-detail" aria-live="polite"></div>
+
+<h2 style="margin-top:44px">your controls</h2>
+<p class="dim">Tick what is really enforced for everyone, not what is planned or in report-only mode. Start from a preset:</p>
+<div class="ctl" id="am-presets"></div>
+<div id="am-controls"></div>
+<div class="ctl"><button class="btn" id="am-share" type="button">Copy link to this configuration</button><a class="btn ghost" href="ca-analyzer.html">Derive it from your Conditional Access export</a></div>
+
+<h2 style="margin-top:44px">how to read this</h2>
+<div class="tw"><table class="tbl"><thead><tr><th>State</th><th>Meaning</th></tr></thead><tbody>
+<tr><td>exposed</td><td>None of the controls that matter for this technique is on.</td></tr>
+<tr><td>reduced</td><td>Something makes it harder or easier to detect, but an attacker can still succeed. Several techniques can never be more than reduced.</td></tr>
+<tr><td>closed</td><td>A control, or a combination of controls, blocks the technique as described. An open route is a chain from an entry point to an impact that passes only through techniques that are not closed.</td></tr>
+</tbody></table></div>
+<p class="note">This is a model, and a deliberately simple one. Real controls have exclusions, break-glass accounts and misconfigurations, and real attackers combine techniques in ways a map with 23 nodes cannot show. Use it to find the gaps worth an afternoon, and to explain to someone why MFA alone is not the end of the story. Technique IDs link to MITRE ATT&amp;CK and were checked against ATT&amp;CK v19; the stage names are ours, not MITRE tactics.</p>
+<p class="rel">Related: <a href="ca-analyzer.html">CA policy analyzer</a> <a href="signin-analyzer.html">sign-in analyzer</a> <a href="security-self-check.html">security self-check</a> <a href="war-stories.html">war stories</a></p>
+
+</main>
+<footer><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a><a href="#" data-consent-open>cookie settings</a><span>2026 admin_hub</span></footer></div>
+<script src="attackmap.js?v=13" defer></script>
+<script src="shell.js?v=13" defer></script><script src="consent.js?v=13" defer></script><script src="reveal.js?v=13" defer></script><script src="pwa.js?v=13" defer></script><script src="search-index.js?v=13" defer></script><script src="search.js?v=13" defer></script></body></html>
