@@ -1,0 +1,45 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Incident simulator: tabletop exercises you can play alone | admin_hub</title><meta name="description" content="Two interactive incident response exercises: a business email compromise on a Friday afternoon and ransomware at 3 a.m. Make the calls, watch the clock, get a debrief on every decision."><link rel="stylesheet" href="style.css?v=15"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="admin_hub">
+<meta property="og:title" content="Incident simulator: tabletop exercises you can play alone | admin_hub">
+<meta property="og:description" content="Two interactive incident response exercises: a business email compromise on a Friday afternoon and ransomware at 3 a.m. Make the calls, watch the clock, get a debrief on every decision.">
+<meta property="og:image" content="https://admin-hub.xyz/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Incident simulator: tabletop exercises you can play alone | admin_hub">
+<meta name="twitter:description" content="Two interactive incident response exercises: a business email compromise on a Friday afternoon and ransomware at 3 a.m. Make the calls, watch the clock, get a debrief on every decision.">
+<meta name="twitter:image" content="https://admin-hub.xyz/og-default.png">
+</head><body><div class="wrap"><header><a class="brand" href="index.html">admin_hub</a><nav aria-label="Main"><a href="tools.html">tools</a><a href="cheat-sheets.html">cheat-sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a><a href="explainers.html" aria-current="page">explainers</a><a href="news.html">news</a><a href="start-here.html">start-here</a><a href="about.html">about</a></nav><button class="btn sbtn" type="button" data-search aria-label="Search the site" title="Search (Ctrl+K)">search <kbd>Ctrl K</kbd></button></header><main>
+
+<p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<a href="explainers.html">explainers</a>/<b>incident-sim</b><span class="cs">$</span></p>
+<h1>incident-sim</h1>
+<p class="dim">A tabletop exercise you can run alone, in ten minutes. The alerts come in, you decide, the clock moves, and what you did not do comes back later. At the end every decision is debriefed. Nothing here is a trick question: each option is something real admins do under pressure.</p>
+
+<section id="is-pick" style="margin-top:22px">
+  <h2>choose a scenario</h2>
+  <div class="duo" id="is-list"></div>
+</section>
+
+<section id="is-play" hidden style="margin-top:22px">
+  <h2 id="is-title"></h2>
+  <div class="stats" style="--cols:3;margin-top:0"><div class="stat"><span class="stat-k">clock</span><b class="stat-v" id="is-clock" translate="no"></b></div><div class="stat"><span class="stat-k">decision</span><b class="stat-v" id="is-step" translate="no"></b></div><div class="stat"><span class="stat-k">time spent</span><b class="stat-v" id="is-elapsed"></b></div></div>
+  <div class="simgrid">
+    <div class="isfeed" id="is-feed" role="log" aria-label="Event feed" tabindex="0"></div>
+    <div class="isside">
+      <p class="isq" id="is-q" aria-live="polite"></p>
+      <div id="is-choices"></div>
+      <div id="is-fb" hidden aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<section id="is-end" hidden style="margin-top:22px"></section>
+
+<h2 style="margin-top:56px">how to use this with a team</h2>
+<p class="dim">Put it on a screen, read each situation aloud, and make people commit to an answer before anyone clicks. The disagreements are the exercise. Afterwards ask the one question that matters: could we actually have done the best option here, tonight, with our access and our phone list?</p>
+<p class="note">The scenarios are composites of common real incidents, simplified so they fit ten minutes. Company, people and figures are invented. Real incidents are messier: evidence is ambiguous, tools fail, and the right order depends on your environment. The scoring reflects widely shared incident response practice, not a formal standard, and reasonable responders will argue with some of it. That argument is welcome.</p>
+<p class="rel">Related: <a href="incident-runbook.html">incident runbook generator</a> <a href="war-stories.html">war stories</a> <a href="attack-map.html">attack map</a> <a href="phish-or-legit.html">phish or legit</a></p>
+
+</main>
+<footer><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a><a href="#" data-consent-open>cookie settings</a><span>2026 admin_hub</span></footer></div>
+<script src="incidentsim.js?v=15" defer></script>
+<script src="shell.js?v=15" defer></script><script src="consent.js?v=15" defer></script><script src="reveal.js?v=15" defer></script><script src="pwa.js?v=15" defer></script><script src="search-index.js?v=15" defer></script><script src="search.js?v=15" defer></script></body></html>

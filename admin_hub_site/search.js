@@ -46,6 +46,8 @@ function answers(q){
       }else A.push({k:"ip address",t:s,rows:[["type",ipKind(o)],["as integer",String(ip4(o))],["as hex","0x"+ip4(o).toString(16).toUpperCase().padStart(8,"0")]],href:"subnet-calculator.html",go:"open the subnet calculator"});
     }
   }
+  if(/^(?=.{4,253}$)([a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,24}$/i.test(s)&&!/\.(html?|js|css|json|png|txt|md|csv|exe|dll|ps1|log)$/i.test(s))
+    A.push({k:"domain",t:s.toLowerCase(),text:"Audit SPF, DMARC, DKIM, MTA-STS and DNSSEC for this domain from live DNS.",href:"domain-check.html#d="+s.toLowerCase(),go:"run the domain check"});
   if(/^CVSS:3\.[01]\//i.test(s)){var c=cvss(s);if(c)A.push({k:"cvss 3.1",t:c[0].toFixed(1)+" "+c[1],rows:[["vector",s.toUpperCase()]],href:"cvss-calculator.html#"+s.toUpperCase(),go:"open in the CVSS calculator"})}
   if(/^eyJ[\w-]+\.[\w-]+\.[\w-]*$/.test(s)){
     var parts=s.split("."),h=b64json(parts[0]),pl=b64json(parts[1]);
@@ -106,7 +108,7 @@ document.head.appendChild(s)}
 function open(q){if(ov)return;css();prev=document.activeElement;
 ov=document.createElement("div");ov.id="spal";
 var bx=document.createElement("div");bx.className="bx";bx.setAttribute("role","dialog");bx.setAttribute("aria-modal","true");bx.setAttribute("aria-label","Search");
-inp=document.createElement("input");inp.type="text";inp.placeholder="Search, or paste an IP, CIDR, JWT, error code, timestamp ...";inp.setAttribute("role","combobox");inp.setAttribute("aria-expanded","true");inp.setAttribute("aria-controls","spal-list");inp.setAttribute("autocomplete","off");inp.spellcheck=false;
+inp=document.createElement("input");inp.type="text";inp.placeholder="Search, or paste an IP, domain, JWT, error code, timestamp ...";inp.setAttribute("role","combobox");inp.setAttribute("aria-expanded","true");inp.setAttribute("aria-controls","spal-list");inp.setAttribute("autocomplete","off");inp.spellcheck=false;
 ul=document.createElement("ul");ul.id="spal-list";ul.setAttribute("role","listbox");
 an=document.createElement("div");an.id="spal-an";an.setAttribute("aria-live","polite");
 var ft=document.createElement("div");ft.className="ft";ft.textContent="Enter to open, arrows to move, Esc to close. Click a blue value to copy it.";
