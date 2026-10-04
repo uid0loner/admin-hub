@@ -1,0 +1,45 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Incident runbook generator | admin_hub</title><meta name="description" content="Answer a few questions about what's happening and get a tailored, step-by-step incident response runbook you can check off and print."><link rel="stylesheet" href="style.css"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="admin_hub">
+<meta property="og:title" content="Incident runbook generator | admin_hub">
+<meta property="og:description" content="Answer a few questions about what's happening and get a tailored, step-by-step incident response runbook you can check off and print.">
+<meta property="og:image" content="https://admin-hub.xyz/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Incident runbook generator | admin_hub">
+<meta name="twitter:description" content="Answer a few questions about what's happening and get a tailored, step-by-step incident response runbook you can check off and print.">
+<meta name="twitter:image" content="https://admin-hub.xyz/og-default.png">
+</head><body><div class="wrap"><header><a class="brand" href="index.html">admin_hub</a><nav aria-label="Main"><a href="tools.html">tools</a><a href="cheat-sheets.html">cheat-sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a><a href="explainers.html">explainers</a><a href="news.html">news</a><a href="start-here.html">start-here</a><a href="about.html">about</a></nav><button class="btn sbtn" type="button" data-search aria-label="Search the site" title="Search (Ctrl+K)">search</button></header><main>
+
+<h1>incident-runbook</h1>
+<p class="dim">It's happening right now and you need steps, not theory. Pick what you're dealing with, answer a couple of questions, and get a runbook built for your situation — ordered, checkable, printable.</p>
+
+<div id="rb-form">
+  <div class="sim">
+    <label style="grid-column:1/-1">What's happening?<select class="sel" id="rb-type">
+      <option value="phish-click">Someone clicked a phishing link or opened a malicious attachment</option>
+      <option value="compromised">An account looks compromised (unusual sign-ins, sent mail you didn't send)</option>
+      <option value="ransomware">Files are encrypted / a ransom note appeared</option>
+      <option value="lost-device">A laptop or phone was lost or stolen</option>
+      <option value="data-leak">Data may have been exposed (sent to the wrong person, public share, etc.)</option>
+      <option value="malware">Malware or a suspicious process was found on a device</option>
+    </select></label>
+  </div>
+
+  <div id="rb-questions"></div>
+
+  <div class="ctl" style="margin-top:20px"><button class="btn" id="rb-go" type="button">Build runbook</button></div>
+</div>
+
+<div id="rb-result" style="display:none">
+  <h2 style="margin-top:32px"><span id="rb-title"></span></h2>
+  <div class="ctl"><b id="pg"></b><button class="btn" id="rs" type="button">reset checkmarks</button><button class="btn" id="pr" type="button">print</button><button class="btn ghost" id="rb-restart" type="button">start over</button></div>
+  <div id="cl"></div>
+</div>
+
+<p class="note">A generated starting point based on common practice, not a substitute for your own incident response plan, your insurer's requirements, or legal advice on breach notification. For a fixed reference instead of a generator, see the <a href="compromised-account-response-checklist.html">compromised account checklist</a> or <a href="backup-disaster-recovery-checklist.html">backup &amp; disaster recovery checklist</a>.</p>
+<p class="rel">Related: <a href="diagnose.html">troubleshooting wizard</a> <a href="war-stories.html">war stories</a> <a href="ransomware-backup-gap.html">ransomware &amp; the backup gap</a></p>
+
+</main>
+<footer><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a><a href="#" data-consent-open>cookie settings</a><span>2026 admin_hub</span></footer></div>
+<script src="runbook.js" defer></script>
+<script src="consent.js" defer></script><script src="reveal.js" defer></script><script src="pwa.js" defer></script><script src="search-index.js" defer></script><script src="search.js" defer></script></body></html>
