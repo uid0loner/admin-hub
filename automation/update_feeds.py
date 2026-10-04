@@ -119,7 +119,7 @@ def shell(site, title, desc, h1, inner, script=""):
             % (e(title), e(desc), head, h1, inner, foot, script, scr))
 
 
-AD = '<div class="ad" role="complementary" aria-label="Advertisement">Ad slot 728x90</div>'
+AD = ''
 FILTER = """<script>
 var q=document.getElementById("q"),L=[].slice.call(document.querySelectorAll("%s")),H=[].slice.call(document.querySelectorAll(".ltr")),M=document.getElementById("ms");
 function run(){var t=q.value.trim().toLowerCase(),ms=M&&M.checked;
