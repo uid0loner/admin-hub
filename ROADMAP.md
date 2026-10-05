@@ -7,10 +7,9 @@ Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not par
 
 Content is on hold until the look and the structure are where they should be. The colour scheme stays.
 
-1. Components: tables (aligned numbers, sticky headers), findings, buttons (one primary action per screen), forms, chips, focus states, small pictograms per category
-2. Motion where it explains something: result reveal, page transitions, a better command palette
-3. start-here, about and 404 rewritten in the new style
-4. Mobile and accessibility pass, print styles
+1. Motion where it explains something: result reveal, page transitions, a better command palette
+2. start-here, about and 404 rewritten in the new style
+3. Mobile and accessibility pass, print styles
 
 ## After the design
 
@@ -37,6 +36,7 @@ Content is on hold until the look and the structure are where they should be. Th
 
 ## Done
 
+- 2026-10-05: design 5, components: one focus ring, quiet form fields, one button shape, visible links in running text, inline code, tables, findings with a chevron, snippets with the copy button next to the title, pictograms on the home page, stamp v38
 - 2026-10-05: design 4, tool frame: the eight analyzer pages show an example result next to the input, with a section menu; the preview gives way to the real result, stamp v37
 - 2026-10-05: design 3, home page: three starting points, directory tiles, live strip in two columns, a third shorter. The grouped tool list moved to the tools page, which now has a filter. Note for later rounds: the "new here" list on the home page holds 6 items, and the counts live in the tiles (data-count) and in start-here and about, stamp v35
 - 2026-10-05: design 2, hub pages: cheat sheets, checklists and explainers as grouped directories with a filter, stamp v33

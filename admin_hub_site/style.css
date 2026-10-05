@@ -979,3 +979,59 @@ table.perm{display:block;overflow-x:auto;max-width:100%}
 .tplink:hover,.tplink:focus-visible{background:rgba(77,163,255,.09)}
 main h2[id^="s-"],main [id$="-out"]{scroll-margin-top:84px}
 @media (max-width:860px){.tframe{grid-template-columns:1fr}}
+
+/* ============ DESIGN 5: components ============ */
+[hidden]{display:none!important}
+/* focus: one ring everywhere */
+:where(a,button,input,select,textarea,summary,[tabindex]):focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+/* form fields: quiet until used */
+.q,select.sel,input.sel,input.n{border-color:var(--line);box-shadow:none;transition:border-color .15s ease,background-color .15s ease}
+.q{padding:12px 14px}
+.q:hover,select.sel:hover,input.sel:hover,input.n:hover{border-color:#3d3590}
+.q:focus,.q:focus-visible,select.sel:focus,select.sel:focus-visible,input.sel:focus,input.sel:focus-visible,input.n:focus,input.n:focus-visible{border-color:var(--violet);box-shadow:none;outline:2px solid rgba(180,92,255,.4);outline-offset:1px}
+.drop:hover,.drop.over,.drop:focus-within{box-shadow:none}
+/* buttons: one shape, three weights */
+.btn,a.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:38px;padding:7px 14px;line-height:1.2;font-weight:500;border-radius:6px}
+.btn:active{transform:translateY(1px)}
+.btn.ghost{border-color:var(--line);color:var(--dim)}
+.btn.ghost:hover{border-color:var(--blue);color:var(--blue);background:transparent}
+/* chips */
+.jump a,.chipbtn{font-family:var(--mono);font-size:.8rem;padding:4px 13px;border:1px solid var(--line);border-radius:99px;color:var(--dim);background:rgba(13,11,43,.6);transition:border-color .15s ease,color .15s ease;box-shadow:none}
+.jump a:hover,.jump a:focus-visible,.chipbtn:hover,.chipbtn:focus-visible{border-color:var(--violet);color:var(--text);box-shadow:none}
+/* links inside running text */
+main :is(p,li,td,dd) a:where(:not([class])):where(:not(.feed a,.crumb a,.jl a,.cplist a,.minilist a,.rel a,.fline a)){color:var(--blue);text-decoration:underline;text-decoration-color:rgba(77,163,255,.4);text-decoration-thickness:1px;text-underline-offset:3px;transition:text-decoration-color .15s ease}
+main :is(p,li,td,dd) a:where(:not([class])):where(:not(.feed a,.crumb a,.jl a,.cplist a,.minilist a,.rel a,.fline a)):hover{text-decoration-color:var(--blue)}
+/* inline code */
+:not(pre)>code{font-size:.87em;background:rgba(77,163,255,.09);border:1px solid rgba(77,163,255,.16);border-radius:4px;padding:.5px 5px;overflow-wrap:anywhere}
+pre{line-height:1.55;border-radius:8px}
+/* tables */
+.tbl th,.tbl td{padding:9px 12px}
+.tbl tbody tr{transition:background-color .12s ease}
+.tbl tbody tr:hover{background:rgba(77,163,255,.045)}
+.tbl td:first-child{font-weight:500}
+/* findings */
+.finding{border-radius:8px}
+.finding summary{align-items:center;cursor:pointer}
+.finding summary::after,.finding[open] summary::after{content:"";flex:none;width:8px;height:8px;margin:0 4px 0 auto;border-right:1.5px solid var(--dim);border-bottom:1.5px solid var(--dim);transform:rotate(45deg) translate(-2px,-2px);transition:transform .15s ease}
+.finding[open] summary::after{transform:rotate(-135deg) translate(-2px,-2px)}
+.finding[open] summary{border-bottom:1px solid var(--line);margin-bottom:14px}
+.finding h3.fh{font-family:var(--mono);font-size:.8rem;font-weight:500;color:var(--dim);margin:22px 0 6px}
+.finding .steps{margin-top:4px}
+/* cheat sheet snippets: title and copy on one line */
+#snips .snip{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 14px;align-items:start;padding:16px 16px 16px;border-radius:8px}
+#snips .snip h3{grid-column:1;grid-row:1;font-family:var(--sans);font-weight:600;font-size:1.02rem;color:var(--text);margin:0}
+#snips .snip>.btn{grid-column:2;grid-row:1;min-height:28px;padding:2px 12px;font-size:.76rem;border-color:var(--line);color:var(--dim)}
+#snips .snip>.btn:hover{border-color:var(--blue);color:var(--blue)}
+#snips .snip p{grid-column:1/-1;grid-row:2;margin:3px 0 11px;font-size:.93rem}
+#snips .snip pre{grid-column:1/-1;grid-row:3;margin:0;font-size:.84rem}
+/* scrollbar: no gradient */
+::-webkit-scrollbar-thumb{background:#2a2466;border-radius:10px;border:2px solid var(--bg)}
+::-webkit-scrollbar-thumb:hover{background:#3d3590}
+/* pictograms on the home page */
+.job h2{display:flex;align-items:center;gap:10px}
+.jico{flex:none;width:22px;height:22px;fill:none;stroke:var(--blue);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.j2 .jico{stroke:var(--violet)}.j3 .jico{stroke:var(--hot)}
+.sbtn,.lang{min-height:32px;padding:5px 12px}
+.seg .btn{min-height:32px}
+.job>p{min-height:3.1em}
+#ob-fwd{max-width:100%;min-width:0}label:has(>#ob-fwd){flex-wrap:wrap}
