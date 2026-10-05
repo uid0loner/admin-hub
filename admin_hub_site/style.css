@@ -780,3 +780,4 @@ html.crt .wrap{animation:crt-flicker 6s steps(1) infinite}
 /* glossary entries share the class name of the hero terminal: give them their own plain look */
 .term:not(:has(>.bar)){background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none;overflow:visible;padding:14px 0}
 .term:not(:has(>.bar)) p{color:var(--dim);max-width:86ch}
+.stat-v{overflow-wrap:anywhere}
