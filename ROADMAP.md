@@ -5,7 +5,6 @@ Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not par
 
 ## Next
 
-- Tool: Conditional Access policy builder
 - Tool: firewall rule reviewer
 - Guided "audit my tenant in an hour" flow
 - Two more war stories

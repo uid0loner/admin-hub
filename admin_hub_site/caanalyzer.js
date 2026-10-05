@@ -85,7 +85,7 @@ function norm(p){
 }
 
 /* ---------- plain language ---------- */
-function plural(n,w){return n+" "+w+(n===1?"":"s")}
+function plural(n,w){return n+" "+(n===1?w:/[^aeiou]y$/.test(w)?w.slice(0,-1)+"ies":w+"s")}
 function who(p){
   var parts=[];
   if(p.allUsers)parts.push("all users");
@@ -300,4 +300,5 @@ drop.addEventListener("drop",function(e){readFile(e.dataTransfer.files[0])});
 $("ca-run").addEventListener("click",function(){if(ta.value.trim())load(ta.value,"pasted JSON");else $("ca-status").textContent="Paste the JSON first, or drop a file."});
 $("ca-sample").addEventListener("click",function(){ta.value=sample();load(ta.value,"sample policies (fictional tenant)")});
 if(location.hash==="#sample"){ta.value=sample();load(ta.value,"sample policies (fictional tenant)")}
+if(location.hash==="#built"){try{var bt=sessionStorage.getItem("ah_ca_built");if(bt){ta.value=bt;load(bt,"the policy builder")}}catch(e){}}
 })();

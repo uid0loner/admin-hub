@@ -1,0 +1,50 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Conditional Access policy builder | admin_hub</title><meta name="description" content="Pick from 16 proven Conditional Access policies, enter your break-glass group, and get a PowerShell script that creates them in report-only mode, with a lockout check before you run it."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=43"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="admin_hub">
+<meta property="og:title" content="Conditional Access policy builder | admin_hub">
+<meta property="og:description" content="Pick from 16 proven Conditional Access policies, enter your break-glass group, and get a PowerShell script that creates them in report-only mode, with a lockout check before you run it.">
+<meta property="og:image" content="https://admin-hub.xyz/og-ca-policy-builder.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Conditional Access policy builder | admin_hub">
+<meta name="twitter:description" content="Pick from 16 proven Conditional Access policies, enter your break-glass group, and get a PowerShell script that creates them in report-only mode, with a lockout check before you run it.">
+<meta name="twitter:image" content="https://admin-hub.xyz/og-ca-policy-builder.png">
+<link rel="canonical" href="https://admin-hub.xyz/ca-policy-builder.html"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Conditional Access policy builder", "url": "https://admin-hub.xyz/ca-policy-builder.html", "description": "Pick from 16 proven Conditional Access policies, enter your break-glass group, and get a PowerShell script that creates them in report-only mode, with a lockout check before you run it.", "applicationCategory": "SecurityApplication", "operatingSystem": "Any", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "inLanguage": "en"}</script>
+</head><body><a class="skip" href="#main">skip to content</a><div class="wrap"><header><a class="brand" href="index.html">admin_hub</a><nav aria-label="Main"><a href="tools.html" aria-current="page">tools</a><a href="cheat-sheets.html">cheat-sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a><a href="explainers.html">explainers</a><a href="news.html">news</a><a href="start-here.html">start-here</a><a href="about.html">about</a></nav><button class="btn sbtn" type="button" data-search aria-label="Search the site" title="Search (Ctrl+K)">search <kbd>Ctrl K</kbd></button></header><main id="main" tabindex="-1">
+
+<p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<a href="tools.html">tools</a>/<b>ca-policy-builder</b><span class="cs">$</span></p>
+<h1>ca-policy-builder</h1>
+<p class="dim">Pick the Conditional Access policies you want, tell the page which group holds your emergency accounts, and take away a script that creates them in report-only mode. Before you run anything, the page tells you who this set could lock out. Nothing you enter leaves your browser.</p>
+<nav class="jump toc" aria-label="On this page"><a href="#s-tenant">your tenant</a><a href="#s-policies">policies</a><a href="#cb-out">result</a><a href="#s-rollout">rolling it out</a></nav>
+
+<h2 id="s-tenant">your tenant</h2>
+<div class="cbset">
+<label class="fl">Break-glass group, object ID<input id="cb-bg" class="q" type="text" placeholder="0a1b2c3d-1111-2222-3333-444455556666" autocomplete="off" spellcheck="false"><small>Excluded from every policy. Two emergency accounts belong in it.</small></label>
+<label class="fl">Create the policies as<select id="cb-state" class="q"><option value="report">report-only (recommended)</option><option value="off">off</option><option value="on">on</option></select><small>Report-only logs what would happen and blocks nobody.</small></label>
+<label class="fl">Name prefix<input id="cb-prefix" class="q" type="text" value="CA" maxlength="12" autocomplete="off" spellcheck="false"><small>Policies are named like CA001 - Block legacy authentication.</small></label>
+</div>
+
+<h2 id="s-policies">policies</h2>
+<div class="ctl cbpre"><span class="dim">start from</span><button class="chipbtn" type="button" data-preset="starter">starter, 4</button><button class="chipbtn" type="button" data-preset="recommended">recommended, 9</button><button class="chipbtn" type="button" data-preset="strict">strict, 14</button><button class="chipbtn" type="button" data-preset="none">clear</button><span id="cb-count" class="dim" aria-live="polite"></span></div>
+<div id="cb-list"></div>
+<div class="cbopts">
+<label class="cbopt" id="cb-o2" hidden><input type="checkbox" id="cb-strong"> Admins need phishing-resistant MFA, not just any MFA</label>
+<label class="cbopt" id="cb-o15" hidden>Unmanaged devices sign in again after <input id="cb-hours" class="q" type="number" min="1" max="720" value="8" inputmode="numeric"> hours</label>
+<div class="cbopt" id="cb-o16" hidden><label>Countries <select id="cb-cmode" class="q"><option value="allow">allow only these</option><option value="block">block these</option></select></label><label>Two-letter codes <input id="cb-countries" class="q" type="text" placeholder="DE, AT, CH" autocomplete="off" spellcheck="false"></label></div>
+</div>
+
+<div id="cb-out" aria-live="polite"></div>
+
+<h2 id="s-rollout" style="margin-top:56px">rolling it out</h2>
+<ol class="prose">
+<li><b>Break-glass first.</b> Two cloud-only Global Administrator accounts with long random passwords, stored offline, in one security group. Set an alert on every sign-in of these accounts.</li>
+<li><b>Create in report-only.</b> Run the script. Nothing changes for users yet.</li>
+<li><b>Read the logs for a week.</b> Entra, Sign-in logs, open a sign-in, tab Report-only. Look for Failure: those are the people and devices the policy would have blocked.</li>
+<li><b>Fix what you find.</b> Register MFA methods, replace scripts that use a user password, enrol devices, add named exceptions.</li>
+<li><b>Switch on one policy at a time.</b> Start with the block on legacy authentication and MFA for admins. Leave a day between policies so you know which one caused a call.</li>
+<li><b>Check the result.</b> Export the policies and run them through the <a href="ca-analyzer.html">CA analyzer</a>, and test single sign-ins in the <a href="conditional-access-simulator.html">simulator</a>.</li>
+</ol>
+<p class="note">The policies follow the templates Microsoft publishes in the Entra admin center, with a break-glass exclusion added to each. Conditional Access needs Entra ID P1, the two risk policies need P2. This page cannot see your tenant: whether a policy fits depends on your users, devices and existing policies. Read more in <a href="conditional-access-explained.html">Conditional Access explained</a> and the <a href="entra-id-hardening-checklist.html">Entra ID hardening checklist</a>.</p>
+</main>
+<footer><div class="fcol"><b>analyze</b><a href="license-optimizer.html">sign-in analyzer</a><a href="ca-analyzer.html">CA analyzer</a><a href="phish-analyzer.html">phish analyzer</a><a href="domain-check.html">domain check</a></div><div class="fcol"><b>plan and practise</b><a href="attack-map.html">attack map</a><a href="cockpit.html">cockpit</a><a href="incident-sim.html">incident simulator</a><a href="patch-tuesday.html">patch tuesday</a></div><div class="fcol"><b>reference</b><a href="tools.html">all tools</a><a href="cheat-sheets.html">cheat sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a></div><div class="fcol"><b>site</b><a href="about.html">about</a><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a></div><p class="fline">admin_hub, 2026. The tools run in your browser.</p></footer></div>
+<script src="cabuilder.js?v=43" defer></script>
+<script src="shell.js?v=43" defer></script><script src="consent.js?v=43" defer></script><script src="reveal.js?v=43" defer></script><script src="pwa.js?v=43" defer></script><script src="search-index.js?v=43" defer></script><script src="search.js?v=43" defer></script></body></html>
