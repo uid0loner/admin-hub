@@ -19,7 +19,7 @@
 <url><loc>https://admin-hub.xyz/contact.html</loc><lastmod>2026-10-04</lastmod></url>
 <url><loc>https://admin-hub.xyz/imprint.html</loc><lastmod>2026-10-04</lastmod></url>
 <url><loc>https://admin-hub.xyz/privacy.html</loc><lastmod>2026-10-04</lastmod></url>
-<url><loc>https://admin-hub.xyz/glossary.html</loc><lastmod>2026-10-04</lastmod></url>
+<url><loc>https://admin-hub.xyz/glossary.html</loc><lastmod>2026-10-05</lastmod></url>
 <url><loc>https://admin-hub.xyz/intune-defender-cheat-sheet.html</loc><lastmod>2026-10-04</lastmod></url>
 <url><loc>https://admin-hub.xyz/azure-cli-cheat-sheet.html</loc><lastmod>2026-10-04</lastmod></url>
 <url><loc>https://admin-hub.xyz/git-cheat-sheet.html</loc><lastmod>2026-10-04</lastmod></url>
@@ -89,4 +89,7 @@
 <url><loc>https://admin-hub.xyz/entra-connect-cheat-sheet.html</loc><lastmod>2026-10-05</lastmod></url>
 <url><loc>https://admin-hub.xyz/bitlocker-cheat-sheet.html</loc><lastmod>2026-10-05</lastmod></url>
 <url><loc>https://admin-hub.xyz/windows-laps-cheat-sheet.html</loc><lastmod>2026-10-05</lastmod></url>
+<url><loc>https://admin-hub.xyz/defender-xdr-hunting-cheat-sheet.html</loc><lastmod>2026-10-05</lastmod></url>
+<url><loc>https://admin-hub.xyz/mail-flow-cheat-sheet.html</loc><lastmod>2026-10-05</lastmod></url>
+<url><loc>https://admin-hub.xyz/intune-app-deployment-cheat-sheet.html</loc><lastmod>2026-10-05</lastmod></url>
 </urlset>
