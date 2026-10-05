@@ -781,3 +781,72 @@ html.crt .wrap{animation:crt-flicker 6s steps(1) infinite}
 .term:not(:has(>.bar)){background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none;overflow:visible;padding:14px 0}
 .term:not(:has(>.bar)) p{color:var(--dim);max-width:86ch}
 .stat-v{overflow-wrap:anywhere}
+
+
+/* ================================================================
+   PASS 4: discipline. Fewer effects, one type scale, listings on home.
+   Motion only where it answers an action or carries meaning.
+   ================================================================ */
+body::before{animation:none}
+h1{filter:none;letter-spacing:-.015em;margin-bottom:22px}
+h1::after{animation:caret 1.1s steps(1) 3}
+.brand,h2{text-shadow:none}
+nav a:hover,.feed a:hover,footer a:hover{text-shadow:none}
+h2{font-size:1.02rem;letter-spacing:.01em}
+main p{max-width:76ch}
+.dim{max-width:68ch}
+.stat-v,.tbl td,.mnum,.cpbig,.grade{font-variant-numeric:tabular-nums}
+
+/* cards: a quiet border change is enough */
+.card,.dcard,.story-card,.fcard{transition:border-color .15s ease,background-color .15s ease}
+.card:hover,.dcard:hover,.story-card:hover,.fcard:hover{transform:none;box-shadow:none}
+.card::after,.dcard::after,.story-card::after{content:none}
+.card:hover::before,.dcard:hover::before,.story-card:hover::before{background:var(--violet)}
+.fcard:hover{border-color:var(--violet)}
+.fcard .go{text-decoration:underline;text-underline-offset:3px}
+.card small:empty{display:none}
+
+/* buttons: state, not spectacle */
+.btn::before{content:none}
+.btn{transition:border-color .15s ease,background-color .15s ease,color .15s ease}
+.btn:hover{box-shadow:none;border-color:var(--violet);color:var(--text);background:rgba(180,92,255,.12)}
+.btn.solid:hover{box-shadow:none;background:linear-gradient(90deg,var(--blue),var(--violet));filter:brightness(1.12)}
+.btn:disabled:hover{background:transparent}
+.choice:hover:not(:disabled),.anode:hover{transform:none}
+.jump a:hover,.cchip:has(input:checked){box-shadow:none}
+
+/* labels in sentence case: the mono face already says "console" */
+.tbl th{text-transform:none;letter-spacing:0;font-size:.82rem}
+.stat-k,.kick,.cph .kick,.feature .kick,.fcard .kick,.moverow .kick,.cgroup legend,.amdetail h4,.amstage,.anode small{text-transform:none;letter-spacing:.01em}
+.stat-k{font-size:.76rem}
+.feature .kick,.fcard .kick,.moverow .kick{font-size:.78rem}
+.amdetail h4,.cgroup legend{font-size:.8rem}
+.anode small{font-size:.72rem}
+
+/* home: directory listings */
+.ls{display:grid;grid-template-columns:1fr 1fr;gap:0 36px;border-top:1px solid var(--line)}
+.lsrow{display:grid;grid-template-columns:18ch 1fr auto;gap:4px 16px;align-items:baseline;padding:11px 6px;border-bottom:1px solid var(--line);transition:background-color .12s ease}
+.lsrow b{color:var(--blue);font-weight:700;overflow-wrap:anywhere}
+.lsrow span{color:var(--dim);font-size:.88rem;line-height:1.5}
+.lsrow em{font-style:normal;font-size:.72rem;color:var(--hot);border:1px solid rgba(255,79,216,.45);border-radius:99px;padding:0 8px}
+.lsrow:hover{background:rgba(77,163,255,.07)}
+.lsrow:hover b{color:var(--text)}
+.lsrow:hover span{color:var(--text)}
+.lsrow:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+@media (max-width:900px){.ls{grid-template-columns:1fr}}
+@media (max-width:520px){.lsrow{grid-template-columns:1fr auto}.lsrow span{grid-column:1/-1}}
+section{margin-top:52px}
+.jump{margin-top:20px}
+.feature{margin-top:34px}
+
+/* footer: a way out of every page */
+footer{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px 28px;margin:84px 0 34px;padding-top:28px;font-size:.84rem}
+.fcol{display:flex;flex-direction:column;gap:7px;min-width:0}
+.fcol b{color:var(--text);font-weight:700;margin-bottom:2px}
+.fcol a{color:var(--dim)}
+.fcol a:hover{color:var(--blue)}
+.fline{grid-column:1/-1;margin:6px 0 0;color:var(--dim);font-size:.78rem;max-width:none}
+@media (max-width:640px){footer{grid-template-columns:1fr 1fr}}
+@media print{footer{display:none}}
+@media (max-width:520px){.lsrow em{grid-row:1;grid-column:2;align-self:center}.lsrow span{grid-row:2}}
+.lsrow em{justify-self:end;white-space:nowrap}
