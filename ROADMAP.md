@@ -5,7 +5,6 @@ Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not par
 
 ## Next
 
-- Content: cheat sheets for Defender for Office 365, SharePoint sharing and guest access, Azure networking
 - Tool: Conditional Access policy builder
 - Tool: firewall rule reviewer
 - Guided "audit my tenant in an hour" flow
