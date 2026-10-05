@@ -1,6 +1,6 @@
 {
   "days": 14,
-  "max_items": 120,
+  "max_items": 150,
   "kev_url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
   "feeds": [
     {"name": "Microsoft Security Blog", "url": "https://www.microsoft.com/en-us/security/blog/feed/", "excerpt": true},
@@ -14,6 +14,12 @@
     {"name": "SecurityWeek", "url": "https://www.securityweek.com/feed/"},
     {"name": "Help Net Security", "url": "https://www.helpnetsecurity.com/feed/"},
     {"name": "Dark Reading", "url": "https://www.darkreading.com/rss.xml"},
-    {"name": "Schneier on Security", "url": "https://www.schneier.com/feed/atom/"}
+    {"name": "Schneier on Security", "url": "https://www.schneier.com/feed/atom/"},
+    {"name": "Cisco Talos", "url": "https://blog.talosintelligence.com/rss/", "excerpt": true},
+    {"name": "Unit 42", "url": "https://unit42.paloaltonetworks.com/feed/", "excerpt": true},
+    {"name": "The Record", "url": "https://therecord.media/feed"},
+    {"name": "Fortinet PSIRT", "url": "https://filestore.fortinet.com/fortiguard/rss/ir.xml", "max": 8},
+    {"name": "Cisco Advisories", "url": "https://sec.cloudapps.cisco.com/security/center/psirtrss20/CiscoSecurityAdvisory.xml", "max": 8},
+    {"name": "Palo Alto Advisories", "url": "https://security.paloaltonetworks.com/rss.xml", "max": 8}
   ]
 }

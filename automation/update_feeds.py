@@ -93,8 +93,10 @@ def collect(cfg, now):
         except Exception as ex:
             log.append("FAILED  %s: %s" % (f["name"], ex))
             continue
-        n = 0
+        n, cap = 0, f.get("max")
         for it in items:
+            if cap and n >= cap:      # "max" keeps a busy advisory feed from crowding out the rest
+                break
             link, d = safe(it["link"]), it["date"]
             title = clean(it["title"], 200)
             if not link or not title or link in seen or d is None:
