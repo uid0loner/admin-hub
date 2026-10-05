@@ -8,12 +8,19 @@ Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not par
 The first breadth round is done (calculators, certificate decoder, command builder, Linux, network, helpdesk,
 virtualisation and storage, log reader, scripting, small office blueprint, databases).
 
-4. DMARC report reader: drop the XML aggregate reports, see who sends mail in your name and what fails
-5. Containers and automation: Docker troubleshooting walkthrough, Ansible and Git for admins
-6. Monitoring pack: what to watch and at which threshold, SNMP, uptime and SLA calculator, alert fatigue checklist
-7. Windows Server on-premises: dcdiag and repadmin reader, DNS, DHCP and GPO troubleshooting, file server permissions
-8. Hardware and cabling: UPS runtime, PoE budget and cable length calculators, rack planner
-9. Cockpit for the new tools: keep results from the SMART reader, log reader and firewall reviewer
+Owner's reminder (2026-10-05): the site is for an IT all-rounder and should cover everything in IT, including hardware tips and tricks for servers, PCs and notebooks, with pictures. Rotate through the areas below instead of finishing one before the next.
+
+1. Hardware round 2: beep and POST code lookup per BIOS vendor, UPS runtime, PoE budget and cable length calculators, rack planner with a drawing, monitor and docking station troubleshooting, printer hardware (jams, rollers, drums), BIOS and UEFI settings explained
+2. DMARC report reader: drop the XML aggregate reports, see who sends mail in your name and what fails
+3. Containers and automation: Docker troubleshooting walkthrough, Ansible and Git for admins
+4. Network hardware with drawings: switch and access point lights, fibre types and transceivers, patch panels and wall sockets, crimping and cable testers, Wi-Fi placement
+5. Monitoring pack: what to watch and at which threshold, SNMP, uptime and SLA calculator, alert fatigue checklist
+6. Windows Server on-premises: dcdiag and repadmin reader, DNS, DHCP and GPO troubleshooting, file server permissions
+7. Phones, tablets and peripherals: setting up and wiping phones, MDM basics, scanners, label printers, conference room gear
+8. Telephony and video: VoIP basics, SIP trunk and QoS troubleshooting, Teams and Zoom room problems
+9. Web and mail hosting basics: registrar, DNS, certificates, a small web server, mail deliverability from zero
+10. Procurement and lifecycle: what to buy for whom, warranty and spare parts, asset inventory, wiping and disposal
+11. Cockpit for the new tools: keep results from the SMART reader, log reader, firewall and config reviewers
 
 Paused Microsoft items: guided "audit my tenant in an hour" flow, two more war stories, quality pass with real exports from the owner.
 
@@ -33,6 +40,7 @@ Paused Microsoft items: guided "audit my tenant in an hour" flow, two more war s
 
 ## Done
 
+- 2026-10-05: hardware pack: connector identifier (42 drawings), hardware guides for desktop PCs, notebooks and servers with 14 drawings, wizard tree for the PC that does not start, 16 glossary terms, stamp v58
 - 2026-10-05: config reviewer for sshd_config, nginx and Docker Compose (own nginx and YAML readers, findings with the line, the reason and the replacement, annotated file view), stamp v57
 - 2026-10-05: databases pack: SQL playground (own engine, 16 checked lessons), slow database walkthrough, cheat sheets for SQL basics, PostgreSQL, MySQL and MariaDB, SQL Server, backup and restore, 17 glossary terms, stamp v56
 - 2026-10-05: design 7, motion and palette: page transitions with a fixed header, results that arrive in order with counting numbers, palette with a start list, example chips, actions and highlighted matches, stamp v40
