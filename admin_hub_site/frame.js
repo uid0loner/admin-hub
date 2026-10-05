@@ -4,6 +4,7 @@ var fr=document.querySelector(".tframe");if(!fr)return;
 var out=document.querySelector('main [id$="-out"]'),res=document.querySelector(".tocres");
 var was=false,calm=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
 function count(el){
+  if(el.hasAttribute("data-raw"))return;
   var m=/^(\D*)(\d[\d,]*)(\D*)$/.exec(el.textContent.trim());if(!m)return;
   var end=parseInt(m[2].replace(/,/g,""),10);if(!end||end<3)return;
   var t0=performance.now(),grp=m[2].indexOf(",")>-1||end>=1000;

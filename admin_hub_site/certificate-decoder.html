@@ -1,0 +1,60 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Certificate decoder | admin_hub</title><meta name="description" content="Paste a PEM certificate or a whole chain and see what is inside: names, expiry, key, issuer, chain order and signatures, with the problems that make clients reject it. Runs in your browser."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=46"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="admin_hub">
+<meta property="og:title" content="Certificate decoder | admin_hub">
+<meta property="og:description" content="Paste a PEM certificate or a whole chain and see what is inside: names, expiry, key, issuer, chain order and signatures, with the problems that make clients reject it. Runs in your browser.">
+<meta property="og:image" content="https://admin-hub.xyz/og-certificate-decoder.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Certificate decoder | admin_hub">
+<meta name="twitter:description" content="Paste a PEM certificate or a whole chain and see what is inside: names, expiry, key, issuer, chain order and signatures, with the problems that make clients reject it. Runs in your browser.">
+<meta name="twitter:image" content="https://admin-hub.xyz/og-certificate-decoder.png">
+<link rel="canonical" href="https://admin-hub.xyz/certificate-decoder.html"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Certificate decoder", "url": "https://admin-hub.xyz/certificate-decoder.html", "description": "Paste a PEM certificate or a whole chain and see what is inside: names, expiry, key, issuer, chain order and signatures, with the problems that make clients reject it. Runs in your browser.", "applicationCategory": "SecurityApplication", "operatingSystem": "Any", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "inLanguage": "en"}</script>
+</head><body><a class="skip" href="#main">skip to content</a><div class="wrap"><header><a class="brand" href="index.html">admin_hub</a><nav aria-label="Main"><a href="tools.html" aria-current="page">tools</a><a href="cheat-sheets.html">cheat-sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a><a href="explainers.html">explainers</a><a href="news.html">news</a><a href="start-here.html">start-here</a><a href="about.html">about</a></nav><button class="btn sbtn" type="button" data-search aria-label="Search the site" title="Search (Ctrl+K)">search <kbd>Ctrl K</kbd></button></header><main id="main" tabindex="-1">
+
+<p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<a href="tools.html">tools</a>/<b>certificate-decoder</b><span class="cs">$</span></p>
+<h1>certificate-decoder</h1>
+<p class="dim">Paste a certificate, or the whole chain your server sends, and read it like a sentence: who it is for, who issued it, how long it lasts, and why a client might refuse it. The page checks the order of the chain and the signatures between the certificates. Everything is decoded by your browser, nothing is uploaded.</p><nav class="jump toc" aria-label="On this page"><a href="#cd-out" class="tocres" hidden>result</a><a href="#s-getting-it">getting the certificate</a><a href="#s-what-it-checks">what it checks</a><a href="#s-errors">error messages</a></nav><div class="tframe"><div class="tfin"><label class="drop" id="cd-drop"><input type="file" id="cd-file" accept=".pem,.crt,.cer,.der,.csr,.txt,application/x-x509-ca-cert,application/pkix-cert"><b>Drop a certificate file here, or click to choose one</b><span>.pem, .crt, .cer (text or binary), a full chain, or a .csr</span></label>
+<textarea id="cd-text" class="q" aria-label="Certificate as PEM text" spellcheck="false" placeholder="-----BEGIN CERTIFICATE-----&#10;MIIF...&#10;-----END CERTIFICATE-----" style="margin-top:12px;min-height:120px;font-size:.78rem"></textarea>
+<label class="fl" style="margin-top:12px">Host name to check against (optional)<input id="cd-host" class="q" type="text" placeholder="www.example.org" autocomplete="off" spellcheck="false" style="margin-top:6px"></label>
+<div class="ctl" style="margin-top:14px"><button class="btn solid" id="cd-run" type="button">Decode</button><button class="btn" id="cd-sample" type="button">Load a sample chain</button></div>
+<p id="cd-status" class="dim" aria-live="polite" style="margin-top:6px"></p></div><aside class="peek tprev" aria-label="Example of a result"><div class="bar"><i></i><i></i><i></i><span>what you get: an example</span></div><div class="tpv v-crit"><b>20 days left</b><span>www.example.org · issued by Example Issuing CA 2</span></div><ul><li><span class="sevtag s-crit">critical</span>Not valid for shop.example.org</li><li><span class="sevtag s-high">high</span>The chain is in the wrong order</li><li><span class="sevtag s-med">medium</span>Expires in 20 days</li><li><span class="sevtag s-info">info</span>The root certificate is included</li></ul><button class="tplink" type="button" data-sample="cd-sample">Open this example</button></aside></div><div id="cd-out" hidden></div>
+
+<h2 id="s-getting-it" style="margin-top:56px">getting the certificate</h2>
+<div class="tw"><table class="tbl"><thead><tr><th>From</th><th>How</th></tr></thead><tbody>
+<tr><td>A running server, everything it sends</td><td><code>openssl s_client -connect www.example.org:443 -servername www.example.org -showcerts &lt;/dev/null</code><br>Copy all blocks from BEGIN CERTIFICATE to END CERTIFICATE.</td></tr>
+<tr><td>A mail server with STARTTLS</td><td><code>openssl s_client -connect mail.example.org:587 -starttls smtp -showcerts &lt;/dev/null</code></td></tr>
+<tr><td>The browser</td><td>Click the padlock, open the certificate, tab Details, Export. Choose the format with the chain if it is offered.</td></tr>
+<tr><td>Windows certificate store</td><td>certlm.msc, right-click the certificate, All Tasks, Export, Base-64 encoded X.509. Do not export the private key.</td></tr>
+<tr><td>A .pfx or .p12 file</td><td><code>openssl pkcs12 -in file.pfx -nokeys -out certs.pem</code><br>The switch -nokeys leaves the private key out.</td></tr>
+<tr><td>A file on a Linux server</td><td>Usually below /etc/ssl, /etc/letsencrypt/live or /etc/pki. Drop fullchain.pem here, never privkey.pem.</td></tr>
+</tbody></table></div>
+
+<h2 id="s-what-it-checks" style="margin-top:40px">what it checks</h2>
+<div class="tw"><table class="tbl"><thead><tr><th>Check</th><th>Triggers when</th><th>Severity</th></tr></thead><tbody>
+<tr><td>Validity</td><td>Expired, not valid yet, or fewer than 30 days left.</td><td>critical to medium</td></tr>
+<tr><td>Host name</td><td>The name you entered is not covered by the subject alternative names, with the wildcard rule applied.</td><td>critical</td></tr>
+<tr><td>Signatures in the chain</td><td>A certificate was not signed by the key of the next one. Checked with your browser's own cryptography for RSA and ECDSA.</td><td>critical</td></tr>
+<tr><td>Chain order</td><td>The certificates are not in the order leaf, intermediate, root.</td><td>high</td></tr>
+<tr><td>Names</td><td>A server certificate has no subject alternative names.</td><td>high</td></tr>
+<tr><td>Weak cryptography</td><td>SHA-1 or MD5 signature, RSA key below 2048 bit.</td><td>high</td></tr>
+<tr><td>Purpose</td><td>Self-signed, or not issued for server authentication.</td><td>medium</td></tr>
+<tr><td>Chain contents</td><td>Certificates that do not belong, an expired CA certificate, only the leaf, the root included.</td><td>critical to info</td></tr>
+<tr><td>Lifetime</td><td>Runs longer than public certificate authorities may issue.</td><td>info</td></tr>
+<tr><td>Private key</td><td>The pasted text contains a private key. It is skipped and never read.</td><td>critical</td></tr>
+</tbody></table></div>
+
+<h2 id="s-errors" style="margin-top:40px">error messages and what they mean</h2>
+<div class="tw"><table class="tbl"><thead><tr><th>Message</th><th>Usual cause</th></tr></thead><tbody>
+<tr><td>unable to get local issuer certificate<br>unable to verify the first certificate</td><td>The server does not send the intermediate certificate. Browsers often fetch it themselves, curl, Java and Python do not.</td></tr>
+<tr><td>certificate has expired</td><td>The leaf or an intermediate is past its date, or the server still serves the old file after a renewal because it was not reloaded.</td></tr>
+<tr><td>NET::ERR_CERT_COMMON_NAME_INVALID<br>hostname mismatch</td><td>The name in the address bar is not in the subject alternative names. Common with a missing www, an internal short name or an IP address.</td></tr>
+<tr><td>NET::ERR_CERT_AUTHORITY_INVALID<br>self-signed certificate in certificate chain</td><td>The root is not in the trust store of the client: an internal CA that was never rolled out, or a TLS-inspecting proxy.</td></tr>
+<tr><td>certificate is not yet valid</td><td>The clock of the client is wrong. Look at the date of the machine before you look at the certificate.</td></tr>
+<tr><td>PKIX path building failed</td><td>Java does not trust the root or lacks the intermediate. Java has its own trust store (cacerts), separate from the operating system.</td></tr>
+<tr><td>The revocation function was unable to check revocation</td><td>Windows could not reach the CRL or OCSP address in the certificate, often because of a firewall or an internal CA whose list is not published.</td></tr>
+</tbody></table></div>
+<p class="note">The page reads what is in the certificate. It cannot tell whether a certificate has been revoked, whether your clients trust the root, or what a server sends right now: for a live check of a domain use the <a href="domain-check.html">domain check</a>. RSA-PSS and Ed25519 signatures are shown but not verified. Related: <a href="pki-chain-explained.html">the certificate chain explained</a>, <a href="openssl-cheat-sheet.html">OpenSSL cheat sheet</a>, <a href="certificate-authentication-cheat-sheet.html">certificate authentication cheat sheet</a>.</p>
+</main>
+<footer><div class="fcol"><b>analyze</b><a href="app-audit.html">sign-in analyzer</a><a href="ca-analyzer.html">CA analyzer</a><a href="phish-analyzer.html">phish analyzer</a><a href="domain-check.html">domain check</a></div><div class="fcol"><b>plan and practise</b><a href="attack-map.html">attack map</a><a href="cockpit.html">cockpit</a><a href="incident-sim.html">incident simulator</a><a href="patch-tuesday.html">patch tuesday</a></div><div class="fcol"><b>reference</b><a href="tools.html">all tools</a><a href="cheat-sheets.html">cheat sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a></div><div class="fcol"><b>site</b><a href="about.html">about</a><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a></div><p class="fline">admin_hub, 2026. The tools run in your browser.</p></footer></div>
+<script src="certdecode.js?v=46" defer></script>
+<script src="frame.js?v=46" defer></script><script src="shell.js?v=46" defer></script><script src="consent.js?v=46" defer></script><script src="reveal.js?v=46" defer></script><script src="pwa.js?v=46" defer></script><script src="search-index.js?v=46" defer></script><script src="search.js?v=46" defer></script></body></html>
