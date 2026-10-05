@@ -1329,3 +1329,17 @@ p.prose{font-family:var(--sans);max-width:74ch;color:var(--dim);margin-top:12px}
 .lgax{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.72rem;color:var(--dim);margin-top:5px}
 .lgcap{margin-top:6px;font-size:.84rem}
 .lgtbl td{font-size:.84rem;vertical-align:top;overflow-wrap:anywhere}.lgtbl td:first-child{font-family:var(--mono);font-size:.8rem}
+
+/* bash and powershell side by side */
+.rssec{margin-top:34px}.rssec h2{margin:0 0 6px}
+.rsrow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px 14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.rsrow h3{grid-column:1/-1;margin:0;font-family:var(--sans);font-size:.98rem;font-weight:600;color:var(--text)}
+.rscell{position:relative;min-width:0;padding:26px 12px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+.rslab{position:absolute;top:6px;left:12px;font-family:var(--mono);font-size:.66rem;color:var(--dim)}
+.rscell:nth-of-type(1) .rslab{color:var(--blue)}.rscell:nth-of-type(2) .rslab{color:var(--violet)}
+.rscell code{display:block;background:none;border:0;padding:0;font-size:.82rem;line-height:1.5;color:var(--text);white-space:pre-wrap;overflow-wrap:anywhere}
+.rscp{position:absolute;top:4px;right:6px;font:inherit;font-family:var(--mono);font-size:.66rem;color:var(--dim);background:none;border:0;padding:3px 6px;cursor:pointer;border-radius:4px}
+.rscp:hover,.rscp:focus-visible{color:var(--text);background:rgba(138,134,201,.15)}
+.rsnote{grid-column:1/-1;margin:0;font-family:var(--sans);font-size:.84rem;color:var(--dim)}
+@media (max-width:700px){.rsrow{grid-template-columns:1fr}}
+@media print{.rscp,#rs-cats{display:none!important}.rsrow{break-inside:avoid}}
