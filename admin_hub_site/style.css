@@ -1320,3 +1320,12 @@ button.svc.on{box-shadow:0 0 0 2px var(--text)}
 .svmwhy b{color:var(--text);font-weight:600}
 .svmkey{margin-top:10px;font-size:.84rem}.svmkey .svc{cursor:default;margin:0 4px 0 12px}.svmkey .svc:first-child{margin-left:0}
 p.prose{font-family:var(--sans);max-width:74ch;color:var(--dim);margin-top:12px}
+
+/* log reader */
+#lg-out h2{margin-top:36px}
+.lgchart{display:flex;align-items:flex-end;gap:2px;height:110px;margin-top:20px;padding:6px 6px 0;border:1px solid var(--line);border-bottom-color:var(--dim);border-radius:8px 8px 0 0;background:rgba(13,11,43,.55)}
+.lgchart i{flex:1 1 0;min-width:2px;background:var(--blue);border-radius:2px 2px 0 0;display:flex;flex-direction:column;justify-content:flex-end;opacity:.85}
+.lgchart i b{display:block;background:var(--hot);border-radius:0}
+.lgax{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.72rem;color:var(--dim);margin-top:5px}
+.lgcap{margin-top:6px;font-size:.84rem}
+.lgtbl td{font-size:.84rem;vertical-align:top;overflow-wrap:anywhere}.lgtbl td:first-child{font-family:var(--mono);font-size:.8rem}

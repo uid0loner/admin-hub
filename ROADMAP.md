@@ -8,7 +8,6 @@ Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not par
 The site has become Microsoft 365 and Azure heavy. The owner is an all-rounder, so the next rounds go wide.
 Microsoft cloud work is paused, not dropped (see the end of this list).
 
-8. Log reader: paste a syslog, auth.log or web server log, get the noisy parts summarised (failed logins, top sources, error bursts)
 9. Scripting pack: Bash and PowerShell side by side, Python for admins, a snippets library sorted by task
 10. Small office blueprint: what a 10 to 50 person network should look like, as an interactive checklist with a shopping list
 
