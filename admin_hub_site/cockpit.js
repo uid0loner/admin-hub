@@ -72,6 +72,13 @@ function intuneTile(s){
   if(s.top&&s.top.length){var ul=el("ul","cplist");s.top.forEach(function(i){ul.append(el("li",null,i))});t.append(ul)}
   meta(t,s.ts);return t;
 }
+function licenceTile(s){
+  var t=tile("licences","license-optimizer.html");
+  if(!s){empty(t,"Drop the licence export to see what the tenant pays for and nobody uses. Only the totals are kept here.","license-optimizer.html","Check licences");return t}
+  big(t,(s.cur||"EUR")+" "+s.total.toLocaleString("en-US"),s.total>0?"or":"bl","per month not doing any work, across "+s.users.toLocaleString("en-US")+" licensed users");
+  if(s.top&&s.top.length){var ul=el("ul","cplist");s.top.forEach(function(i){ul.append(el("li",null,i))});t.append(ul)}
+  meta(t,s.ts);return t;
+}
 function lifecycleTile(sel){
   var t=tile("end of support","product-lifecycle.html"),L=window.AH_LIFECYCLE||[];
   var mine=L.filter(function(p){return sel.indexOf(p[0])>-1});
@@ -101,7 +108,7 @@ function kevTile(){
 function draw(){
   var on=isOn(),d=on?data():{},g=$("cp-grid");g.replaceChildren();
   $("cp-on").checked=on;
-  g.append(patchTuesday(),domainTile(d.domain),mapTile(d.map),caTile(d.ca),signinTile(d.signin),intuneTile(d.intune),lifecycleTile(on?(d.products||[]):[]),kevTile());
+  g.append(patchTuesday(),domainTile(d.domain),mapTile(d.map),caTile(d.ca),signinTile(d.signin),intuneTile(d.intune),licenceTile(d.licences),lifecycleTile(on?(d.products||[]):[]),kevTile());
   g.classList.toggle("off",!on);
   $("cp-msg").textContent=on?"":"Off: nothing is being stored.";
   var box=$("cp-products");box.replaceChildren();
