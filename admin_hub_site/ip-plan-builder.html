@@ -1,0 +1,47 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>IP plan builder | admin_hub</title><meta name="description" content="Plan VLANs and subnets for a network: enter the address range and the segments with their host counts, get non-overlapping subnets with gateway, static and DHCP ranges, plus switch and DHCP configuration."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=49"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="admin_hub">
+<meta property="og:title" content="IP plan builder | admin_hub">
+<meta property="og:description" content="Plan VLANs and subnets for a network: enter the address range and the segments with their host counts, get non-overlapping subnets with gateway, static and DHCP ranges, plus switch and DHCP configuration.">
+<meta property="og:image" content="https://admin-hub.xyz/og-ip-plan-builder.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="IP plan builder | admin_hub">
+<meta name="twitter:description" content="Plan VLANs and subnets for a network: enter the address range and the segments with their host counts, get non-overlapping subnets with gateway, static and DHCP ranges, plus switch and DHCP configuration.">
+<meta name="twitter:image" content="https://admin-hub.xyz/og-ip-plan-builder.png">
+<link rel="canonical" href="https://admin-hub.xyz/ip-plan-builder.html"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "IP plan builder", "url": "https://admin-hub.xyz/ip-plan-builder.html", "description": "Plan VLANs and subnets for a network: enter the address range and the segments with their host counts, get non-overlapping subnets with gateway, static and DHCP ranges, plus switch and DHCP configuration.", "applicationCategory": "SecurityApplication", "operatingSystem": "Any", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "inLanguage": "en"}</script>
+</head><body><a class="skip" href="#main">skip to content</a><div class="wrap"><header><a class="brand" href="index.html">admin_hub</a><nav aria-label="Main"><a href="tools.html" aria-current="page">tools</a><a href="cheat-sheets.html">cheat-sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a><a href="explainers.html">explainers</a><a href="news.html">news</a><a href="start-here.html">start-here</a><a href="about.html">about</a></nav><button class="btn sbtn" type="button" data-search aria-label="Search the site" title="Search (Ctrl+K)">search <kbd>Ctrl K</kbd></button></header><main id="main" tabindex="-1">
+
+<p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<a href="tools.html">tools</a>/<b>ip-plan-builder</b><span class="cs">$</span></p>
+<h1>ip-plan-builder</h1>
+<p class="dim">Give the page your address range and the segments you need. It cuts the range into subnets that do not overlap, sized for the hosts you expect, and hands you the plan as a table and as configuration for the switch and the DHCP server.</p>
+<h2 style="margin-top:30px">the range</h2>
+<div class="sim">
+<label>Address range<input class="sel" id="ip-base" type="text" value="10.87.0.0/16" autocomplete="off" spellcheck="false" style="font-family:var(--mono)"></label>
+<label>Room to grow, in %<input class="sel" id="ip-head" type="number" min="0" max="300" value="30" inputmode="numeric"></label>
+<label>Layout<select class="sel" id="ip-mode"><option value="readable">Readable: a /24 or more each, third number = VLAN ID</option><option value="tight">Tight: as small as possible (VLSM)</option></select></label>
+</div>
+<h2 style="margin-top:34px">the segments</h2>
+<div class="ctl" style="align-items:center"><span class="dim">start from</span><button class="chipbtn" type="button" data-ippreset="office">small office</button><button class="chipbtn" type="button" data-ippreset="lab">home lab</button><button class="chipbtn" type="button" data-ippreset="school">school or large site</button></div>
+<div class="iphead" aria-hidden="true"><span></span><span>Name</span><span>VLAN ID</span><span>Hosts</span><span></span></div>
+<div id="ip-segs"></div>
+<div class="ctl" style="margin-top:12px"><button class="btn" id="ip-add" type="button">Add a segment</button></div>
+<details class="ipopt"><summary>Details for the DHCP exports</summary><div class="sim" style="margin-top:12px">
+<label>DNS servers<input class="sel" id="ip-dns" type="text" placeholder="10.87.20.10, 10.87.20.11" autocomplete="off" spellcheck="false"></label>
+<label>DNS domain<input class="sel" id="ip-domain" type="text" placeholder="example.internal" autocomplete="off" spellcheck="false"></label>
+</div></details>
+<div id="ip-out" aria-live="polite" style="margin-top:30px"></div>
+<h2 style="margin-top:56px">rules of thumb</h2>
+<ul class="prose">
+<li><b>Separate by trust, not by department.</b> Servers, clients, guests, phones, printers and "things" (cameras, building control, TVs) each get a segment, because they deserve different firewall rules.</li>
+<li><b>Guests reach the internet and nothing else.</b> The guest segment must not reach any internal address, including the management interfaces of your own devices.</li>
+<li><b>Management lives alone.</b> Switches, access points, hypervisors and out-of-band interfaces in one VLAN that only admin workstations can reach.</li>
+<li><b>Avoid the popular ranges.</b> 192.168.0.0/24, 192.168.1.0/24 and 192.168.178.0/24 are in millions of homes. VPN users with the same range at home cannot reach yours.</li>
+<li><b>Readable beats tight.</b> With a 10.x.0.0/16 there are 256 /24 networks. Spending one per VLAN, with the VLAN ID in the address, saves more time in troubleshooting than tight subnets ever save in addresses.</li>
+<li><b>Write it down where the next person finds it.</b> The plan is only useful while it matches reality.</li>
+</ul>
+<p class="note">A VLAN separates nothing by itself: traffic between VLANs is allowed or blocked by the device that routes between them. Put the gateways on a firewall, or use access lists on the switch that routes. IPv4 only. The generated configuration is a starting point: read it before you paste it.</p>
+<p class="rel">Related: <a href="subnet-calculator.html">subnet calculator</a> <a href="switching-vlan-cheat-sheet.html">switching and VLAN cheat sheet</a> <a href="dns-dhcp-cheat-sheet.html">DNS and DHCP cheat sheet</a> <a href="firewall-rule-reviewer.html">firewall rule reviewer</a> <a href="wireguard-cheat-sheet.html">WireGuard cheat sheet</a></p>
+</main>
+<footer><div class="fcol"><b>analyze</b><a href="signin-analyzer.html">sign-in analyzer</a><a href="ca-analyzer.html">CA analyzer</a><a href="phish-analyzer.html">phish analyzer</a><a href="domain-check.html">domain check</a></div><div class="fcol"><b>plan and practise</b><a href="attack-map.html">attack map</a><a href="cockpit.html">cockpit</a><a href="incident-sim.html">incident simulator</a><a href="patch-tuesday.html">patch tuesday</a></div><div class="fcol"><b>reference</b><a href="tools.html">all tools</a><a href="cheat-sheets.html">cheat sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a></div><div class="fcol"><b>site</b><a href="about.html">about</a><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a></div><p class="fline">admin_hub, 2026. The tools run in your browser.</p></footer></div>
+<script src="ipplan.js?v=49" defer></script>
+<script src="shell.js?v=49" defer></script><script src="consent.js?v=49" defer></script><script src="reveal.js?v=49" defer></script><script src="pwa.js?v=49" defer></script><script src="search-index.js?v=49" defer></script><script src="search.js?v=49" defer></script></body></html>
