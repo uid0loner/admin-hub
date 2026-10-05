@@ -6,9 +6,8 @@ Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not par
 ## Next: second round for the all-rounder
 
 The first breadth round is done (calculators, certificate decoder, command builder, Linux, network, helpdesk,
-virtualisation and storage, log reader, scripting, small office blueprint).
+virtualisation and storage, log reader, scripting, small office blueprint, databases).
 
-2. Databases pack: SQL in an afternoon, cheat sheets for PostgreSQL, MySQL/MariaDB and SQL Server, backup and restore, "the query is slow"
 3. Config reviewers: paste sshd_config, an nginx server block or a docker-compose file and get the risky lines explained
 4. DMARC report reader: drop the XML aggregate reports, see who sends mail in your name and what fails
 5. Containers and automation: Docker troubleshooting walkthrough, Ansible and Git for admins
@@ -35,6 +34,7 @@ Paused Microsoft items: guided "audit my tenant in an hour" flow, two more war s
 
 ## Done
 
+- 2026-10-05: databases pack: SQL playground (own engine, 16 checked lessons), slow database walkthrough, cheat sheets for SQL basics, PostgreSQL, MySQL and MariaDB, SQL Server, backup and restore, 17 glossary terms, stamp v56
 - 2026-10-05: design 7, motion and palette: page transitions with a fixed header, results that arrive in order with counting numbers, palette with a start list, example chips, actions and highlighted matches, stamp v40
 - 2026-10-05: design 6, start-here (six tracks as directories, one new: "I just took over an environment"), about and 404 in the new style, stamp v39
 - 2026-10-05: design 5, components: one focus ring, quiet form fields, one button shape, visible links in running text, inline code, tables, findings with a chevron, snippets with the copy button next to the title, pictograms on the home page, stamp v38
