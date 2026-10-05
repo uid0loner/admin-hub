@@ -859,3 +859,7 @@ footer{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px 28px;
 #mf-out .kv dt{white-space:nowrap}
 @media (max-width:520px){#mf-out .kv{grid-template-columns:1fr;gap:0 0}#mf-out .kv dd{margin-bottom:8px}}
 @media (max-width:520px){#mf-out .verdict b{font-size:1.15rem;line-height:1.35}}
+/* intune analyzer */
+#ia-out h2,#sa-out h2{margin-top:36px}
+#ia-out .finding .tw+.btn,#ia-out .finding .note+.btn{margin-top:12px}
+#ia-out .grid2 h3.fh{margin-top:10px}

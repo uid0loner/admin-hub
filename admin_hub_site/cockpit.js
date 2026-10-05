@@ -65,6 +65,13 @@ function signinTile(s){
   if(s.top&&s.top.length){var ul=el("ul","cplist");s.top.forEach(function(i){ul.append(el("li",null,i))});t.append(ul)}
   meta(t,s.ts);return t;
 }
+function intuneTile(s){
+  var t=tile("device fleet","intune-analyzer.html");
+  if(!s){empty(t,"Drop the Intune device export to see how healthy the fleet is. Only the totals are kept here, never the device list.","intune-analyzer.html","Analyse devices");return t}
+  big(t,s.score+"%",s.score>=90?"bl":s.score>=75?"vi":s.score>=50?"or":"hot",s.healthy.toLocaleString("en-US")+" of "+s.devices.toLocaleString("en-US")+" devices in good shape");
+  if(s.top&&s.top.length){var ul=el("ul","cplist");s.top.forEach(function(i){ul.append(el("li",null,i))});t.append(ul)}
+  meta(t,s.ts);return t;
+}
 function lifecycleTile(sel){
   var t=tile("end of support","product-lifecycle.html"),L=window.AH_LIFECYCLE||[];
   var mine=L.filter(function(p){return sel.indexOf(p[0])>-1});
@@ -94,7 +101,7 @@ function kevTile(){
 function draw(){
   var on=isOn(),d=on?data():{},g=$("cp-grid");g.replaceChildren();
   $("cp-on").checked=on;
-  g.append(patchTuesday(),domainTile(d.domain),mapTile(d.map),caTile(d.ca),signinTile(d.signin),lifecycleTile(on?(d.products||[]):[]),kevTile());
+  g.append(patchTuesday(),domainTile(d.domain),mapTile(d.map),caTile(d.ca),signinTile(d.signin),intuneTile(d.intune),lifecycleTile(on?(d.products||[]):[]),kevTile());
   g.classList.toggle("off",!on);
   $("cp-msg").textContent=on?"":"Off: nothing is being stored.";
   var box=$("cp-products");box.replaceChildren();

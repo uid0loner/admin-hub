@@ -1,0 +1,55 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Intune fleet analyzer | admin_hub</title><meta name="description" content="Drop the Intune device export and see how healthy the fleet is: non-compliant, unencrypted, stale and unsupported devices, with fixes. Runs in your browser."><link rel="stylesheet" href="style.css?v=24"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="admin_hub">
+<meta property="og:title" content="Intune fleet analyzer | admin_hub">
+<meta property="og:description" content="Drop the Intune device export and see how healthy the fleet is: non-compliant, unencrypted, stale and unsupported devices, with fixes. Runs in your browser.">
+<meta property="og:image" content="https://admin-hub.xyz/og-intune-analyzer.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Intune fleet analyzer | admin_hub">
+<meta name="twitter:description" content="Drop the Intune device export and see how healthy the fleet is: non-compliant, unencrypted, stale and unsupported devices, with fixes. Runs in your browser.">
+<meta name="twitter:image" content="https://admin-hub.xyz/og-intune-analyzer.png">
+<link rel="canonical" href="https://admin-hub.xyz/intune-analyzer.html"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Intune fleet analyzer", "url": "https://admin-hub.xyz/intune-analyzer.html", "description": "Drop the Intune device export and see how healthy the fleet is: non-compliant, unencrypted, stale and unsupported devices, with fixes. Runs in your browser.", "applicationCategory": "SecurityApplication", "operatingSystem": "Any", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "inLanguage": "en"}</script>
+</head><body><div class="wrap"><header><a class="brand" href="index.html">admin_hub</a><nav aria-label="Main"><a href="tools.html" aria-current="page">tools</a><a href="cheat-sheets.html">cheat-sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a><a href="explainers.html">explainers</a><a href="news.html">news</a><a href="start-here.html">start-here</a><a href="about.html">about</a></nav><button class="btn sbtn" type="button" data-search aria-label="Search the site" title="Search (Ctrl+K)">search <kbd>Ctrl K</kbd></button></header><main>
+
+<p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<a href="tools.html">tools</a>/<b>intune-analyzer</b><span class="cs">$</span></p>
+<h1>intune-analyzer</h1>
+<p class="dim">Drop the device list you export from Intune. You get one number for the health of the fleet, the devices behind every problem, what to do about each, and a command to pull the same list again later. The file is read by your browser and never uploaded, so it also works offline.</p>
+
+<label class="drop" id="ia-drop"><input type="file" id="ia-file" accept=".csv,.json,.txt,text/csv,application/json"><b>Drop the device export here, or click to choose a file</b><span>CSV from the Intune admin center, or JSON from Microsoft Graph</span></label>
+<div class="ctl" style="margin-top:14px"><button class="btn" id="ia-sample" type="button">Load sample data</button><button class="btn ghost" id="ia-sample-dl" type="button">Download the sample CSV</button></div>
+<p id="ia-status" class="dim" aria-live="polite" style="margin-top:6px"></p>
+<details id="ia-mapwrap" hidden><summary>column mapping</summary><p class="dim" style="margin-top:8px">Columns are matched by name. If your export uses different headers, point each field at the right column and the report re-runs.</p><div id="ia-map"></div></details>
+
+<div id="ia-out" hidden></div>
+
+<h2 style="margin-top:56px">getting the export</h2>
+<div class="tw"><table class="tbl"><thead><tr><th>Source</th><th>How</th></tr></thead><tbody>
+<tr><td>Intune admin center</td><td>Devices, All devices, Export. Choose to include all columns, not only the ones shown. The download is a zip with one CSV.</td></tr>
+<tr><td>Microsoft Graph PowerShell</td><td><code>Get-MgDeviceManagementManagedDevice -All | ConvertTo-Json -Depth 3 | Out-File devices.json</code> (needs DeviceManagementManagedDevices.Read.All)</td></tr>
+</tbody></table></div>
+
+<h2 style="margin-top:40px">what it checks</h2>
+<div class="tw"><table class="tbl"><thead><tr><th>Check</th><th>Triggers when</th></tr></thead><tbody>
+<tr><td>Jailbroken or rooted</td><td>The device reports a jailbreak or root.</td></tr>
+<tr><td>Mail-only devices</td><td>"Managed by" is Exchange ActiveSync only: the device syncs mail but gets no policy.</td></tr>
+<tr><td>Non-compliant</td><td>Compliance state is Noncompliant. High when it is 10% of the fleet or more.</td></tr>
+<tr><td>No compliance verdict</td><td>State is Not evaluated, Unknown, Error or similar. Usually no policy is assigned.</td></tr>
+<tr><td>Grace period</td><td>The device fails a setting but still counts as compliant until the grace period ends.</td></tr>
+<tr><td>No disk encryption</td><td>Encrypted is false. High when Windows or macOS computers are among them.</td></tr>
+<tr><td>Windows out of servicing</td><td>The build belongs to a feature update whose servicing has ended, by edition: Home/Pro and Enterprise/Education have different dates. Without an edition column the later date is used. Long-term servicing builds are judged by their own dates.</td></tr>
+<tr><td>Old major versions</td><td>iOS/iPadOS, macOS or Android devices two or more major versions behind the newest one found in your own fleet. Needs at least five devices of the platform.</td></tr>
+<tr><td>Android patch level</td><td>Security patch level older than 90 days.</td></tr>
+<tr><td>Stale devices</td><td>No check-in for more than 30 days, with a count of those over 90.</td></tr>
+<tr><td>Duplicate records</td><td>Two or more records with the same serial number. Placeholder serials are ignored.</td></tr>
+<tr><td>Personal devices</td><td>Ownership is Personal. Medium when Windows computers are among them.</td></tr>
+<tr><td>No primary user</td><td>The primary user is empty.</td></tr>
+<tr><td>Unsupervised Apple devices</td><td>Company-owned iPhones and iPads that are not supervised.</td></tr>
+<tr><td>Low storage</td><td>Less than 10% of the storage is free.</td></tr>
+</tbody></table></div>
+<p class="note">"In good shape" means a device is compliant, encrypted, on a supported Windows version, seen in the last 30 days, not jailbroken and not mail-only. The export shows a state, not the reason: which compliance setting a device fails is only visible in Intune itself. Servicing dates for Windows are built into this page and were last reviewed in October 2026. If the newest check-in in the file is more than two weeks old, ages are measured from that day so an old export does not turn every device stale. Checks whose column is missing are listed as not checked.</p>
+<p class="rel">Related: <a href="intune-defender-cheat-sheet.html">Intune and Defender cheat sheet</a> <a href="intune-app-deployment-cheat-sheet.html">Intune app deployment</a> <a href="bitlocker-cheat-sheet.html">BitLocker cheat sheet</a> <a href="ca-analyzer.html">CA analyzer</a> <a href="product-lifecycle.html">product lifecycle</a></p>
+
+</main>
+<footer><div class="fcol"><b>analyze</b><a href="intune-analyzer.html">sign-in analyzer</a><a href="ca-analyzer.html">CA analyzer</a><a href="phish-analyzer.html">phish analyzer</a><a href="domain-check.html">domain check</a></div><div class="fcol"><b>plan and practise</b><a href="attack-map.html">attack map</a><a href="cockpit.html">cockpit</a><a href="incident-sim.html">incident simulator</a><a href="patch-tuesday.html">patch tuesday</a></div><div class="fcol"><b>reference</b><a href="tools.html">all tools</a><a href="cheat-sheets.html">cheat sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a></div><div class="fcol"><b>site</b><a href="about.html">about</a><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a><a href="#" data-consent-open>cookie settings</a></div><p class="fline">admin_hub, 2026. The tools run in your browser.</p></footer></div>
+<script src="intune.js?v=24" defer></script>
+<script src="shell.js?v=24" defer></script><script src="consent.js?v=24" defer></script><script src="reveal.js?v=24" defer></script><script src="pwa.js?v=24" defer></script><script src="search-index.js?v=24" defer></script><script src="search.js?v=24" defer></script></body></html>
