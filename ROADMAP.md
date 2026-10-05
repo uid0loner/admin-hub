@@ -12,15 +12,15 @@ Owner's rule (2026-10-05): the site is for an IT all-rounder and should cover ev
 
 Areas, with what is next in each:
 
-- Hardware: rack planner with a drawing, monitor and docking station troubleshooting, printer hardware (jams, rollers, drums), BIOS and UEFI settings explained, cable length and voltage drop
-- Network, with drawings: switch and access point lights, fibre types and transceivers, patch panels and wall sockets, crimping and cable testers, Wi-Fi placement
+- Hardware: monitor and docking station troubleshooting, printer hardware (jams, rollers, drums), BIOS and UEFI settings explained, cable length and voltage drop
+- Network: a Wi-Fi channel planner, a subnet and VLAN poster to print, a switch port finder walkthrough
 - Mail and web: mail deliverability from zero, registrar, DNS and certificates for a small site, a header reader for everyday mail problems
-- Linux and containers: Docker troubleshooting walkthrough, Git for admins as a walkthrough, cron and timers builder
-- Windows Server on-premises: dcdiag and repadmin reader, DNS, DHCP and GPO troubleshooting
+- Linux and containers: Git for admins as a walkthrough, cron and timers builder
+- Windows Server on-premises: DNS, DHCP and GPO troubleshooting
 - Databases: connection string builder, SQL playground lessons on window functions
-- Monitoring: uptime and SLA calculator, alert fatigue checklist, what to watch per kind of system
-- Phones, tablets and peripherals: setting up and wiping phones, MDM basics, scanners, label printers, conference room gear
-- Telephony and video: VoIP basics, SIP trunk and QoS troubleshooting, Teams and Zoom room problems
+- Monitoring: alert fatigue checklist, what to watch per kind of system
+- Phones, tablets and peripherals: MDM basics explained, scanners, label printers, conference room gear
+- Telephony and video: a call quality walkthrough, Teams and Zoom room problems
 - Procurement and lifecycle: what to buy for whom, warranty and spare parts, asset inventory, wiping and disposal
 - Security basics for small companies: password manager roll-out, phishing drill kit, a one-page incident plan
 - Microsoft 365 and Entra: guided "audit my tenant in an hour" flow, two more war stories
@@ -44,6 +44,7 @@ Still open from earlier: quality pass with real exports from the owner.
 
 ## Done
 
+- 2026-10-05: mixed round two: rack planner with a drawing, dcdiag and repadmin reader, Docker container troubleshooting walkthrough, network hardware guide (5 drawings), uptime and SLA calculator, VoIP and SIP cheat sheet, mobile device checklist, 10 glossary terms, stamp v60
 - 2026-10-05: mixed round: DMARC report reader (XML, zip, gz), beep code lookup (41 entries), UPS runtime and PoE budget calculators, cheat sheets for NTFS and share permissions, Ansible, SNMP and monitoring, new PC setup checklist, 10 glossary terms, stamp v59
 - 2026-10-05: hardware pack: connector identifier (42 drawings), hardware guides for desktop PCs, notebooks and servers with 14 drawings, wizard tree for the PC that does not start, 16 glossary terms, stamp v58
 - 2026-10-05: config reviewer for sshd_config, nginx and Docker Compose (own nginx and YAML readers, findings with the line, the reason and the replacement, annotated file view), stamp v57

@@ -65,4 +65,22 @@ if($("po-out")){
     keep(PIDS)};
   wire(PIDS,poe);
 }
+/* ================= uptime and SLA ================= */
+if($("sl-out")){
+  var SIDS=["sl-pct","sl-hours","sl-down","sl-n","sl-each"];
+  var fmt=function(min){if(min<1)return r1(min*60)+" s";if(min<120)return r1(min)+" min";if(min<60*48)return r1(min/60)+" h";return r1(min/1440)+" days"};
+  var sla=function(){var pct=num("sl-pct",0,100,99.9),hrs=num("sl-hours",1,168,168),down=num("sl-down",0,1e6,0),n=Math.round(num("sl-n",1,50,3)),each=num("sl-each",0,100,99.9),out=$("sl-out");out.replaceChildren();
+    var f=(100-pct)/100,wk=hrs*60,st=el("div","stats");st.style.setProperty("--cols","4");
+    st.append(tile("per day",fmt(f*wk/7),"allowed downtime"),tile("per week",fmt(f*wk),""),tile("per month",fmt(f*wk*52/12),""),tile("per year",fmt(f*wk*52),hrs>=168?"around the clock":hrs+" service hours a week"));
+    out.append(el("h2",null,pct+"% means"),st);
+    if(pct>=99.99)out.append(finding("info","Four nines and more are an architecture, not a promise",fmt(f*wk*52)+" a year is less than one restart for an update. That level needs redundancy at every layer, automatic failover and changes without downtime. One server cannot deliver it, however good it is."));
+    out.append(el("h2",null,"the usual levels"),table(["Availability","Per month","Per year","What it takes"],[["99%",fmt(0.01*wk*52/12),fmt(0.01*wk*52),"One server, repaired the next working day"],["99.5%",fmt(0.005*wk*52/12),fmt(0.005*wk*52),"One server with a support contract and tested restores"],["99.9%",fmt(0.001*wk*52/12),fmt(0.001*wk*52),"Redundant hardware, monitoring, someone on call"],["99.95%",fmt(0.0005*wk*52/12),fmt(0.0005*wk*52),"A cluster or two sites, automatic failover"],["99.99%",fmt(0.0001*wk*52/12),fmt(0.0001*wk*52),"Everything twice, updates without downtime"]]));
+    var monthMin=wk*52/12,got=monthMin?Math.max(0,(1-down/monthMin)*100):0;
+    out.append(el("h2",null,"the other way round"),el("p","dim",down?r1(down)+" minutes of downtime in a month is "+(Math.round(got*1000)/1000)+"% availability"+(got<pct?", below the "+pct+"% above.":", within the "+pct+"% above."):"Enter the minutes a service was down in a month to see what that was in percent."));
+    var serial=Math.pow(each/100,n)*100,pair=(1-Math.pow(1-each/100,2))*100;
+    out.append(el("h2",null,"parts in a chain"),el("p","dim","A service that needs "+n+" parts, each available "+each+"% of the time, is up "+(Math.round(serial*1000)/1000)+"% of the time: "+fmt((100-serial)/100*wk*52)+" of downtime a year instead of "+fmt((100-each)/100*wk*52)+" for one part. Internet line, firewall, switch, server, storage, application: the chain is longer than it looks."),
+      el("p","dim","Two of the same part side by side, where one is enough, reach "+(Math.round(pair*10000)/10000)+"%. That only holds when they do not share a cause of failure: the same power strip, the same update, the same admin mistake."));
+    keep(SIDS)};
+  wire(SIDS,sla);
+}
 })();

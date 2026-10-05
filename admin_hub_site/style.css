@@ -1523,3 +1523,33 @@ p.prose{font-family:var(--sans);max-width:74ch;color:var(--dim);margin-top:12px}
 .dmpol{margin:16px 0 0;font-family:var(--mono);font-size:.82rem;color:var(--dim);overflow-wrap:anywhere}
 #dm-out .tbl td{vertical-align:top;overflow-wrap:anywhere}
 #dm-out .finding .tw{margin-top:10px}
+
+/* rack planner, dcdiag */
+.rk{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,420px);gap:32px;align-items:start;margin-top:22px}
+.rkview{position:sticky;top:84px}
+#rk-draw{border:1px solid var(--line);border-radius:10px;background:#050316;padding:10px;max-height:calc(100vh - 170px);overflow:auto}
+.rksvg{max-width:420px;margin:0 auto}
+.rksvg .rku{fill:none;stroke:var(--line);stroke-width:.6}
+.rksvg .rkd{stroke-width:1.5}
+.rksvg .rkd.k-net{fill:rgba(77,163,255,.22);stroke:var(--blue)}
+.rksvg .rkd.k-srv{fill:rgba(180,92,255,.22);stroke:var(--violet)}
+.rksvg .rkd.k-pwr{fill:rgba(255,157,77,.2);stroke:#ff9d4d}
+.rksvg .rkd.k-oth{fill:rgba(138,134,201,.18);stroke:var(--dim)}
+.rksvg .rkd.bad{fill:rgba(255,79,216,.3);stroke:var(--hot)}
+.rksvg text{font-family:var(--mono);font-size:9px}
+.rklist{margin-top:22px}
+.rkh{margin:18px 0 6px;font-family:var(--mono);font-size:.74rem;font-weight:400;color:var(--violet)}
+.rkrow{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;padding:8px 10px;border:1px solid var(--line);border-left-width:3px;border-radius:6px;margin-top:6px;background:rgba(13,11,43,.55)}
+.rkrow.k-net{border-left-color:var(--blue)}.rkrow.k-srv{border-left-color:var(--violet)}.rkrow.k-pwr{border-left-color:#ff9d4d}.rkrow.k-oth{border-left-color:var(--dim)}
+.rkrow b{font-family:var(--sans);font-weight:500;color:var(--text)}
+.rkrow .dim{font-size:.76rem}
+.rkpos{font-family:var(--mono);font-size:.74rem;color:var(--dim);min-width:5.5em}
+.rkctl{margin-left:auto;display:flex;gap:6px}
+.rkb{font-family:var(--mono);font-size:.74rem;color:var(--dim);background:none;border:1px solid var(--line);border-radius:5px;padding:3px 8px;cursor:pointer;min-width:28px}
+.rkb:hover{color:var(--text);border-color:var(--blue)}
+#rk-out h2,#dd-out h2,#sl-out h2{margin-top:36px}
+#dd-out .tbl td{vertical-align:top;overflow-wrap:anywhere}
+#dd-out td.ddbad{color:var(--hot);font-family:var(--mono);font-size:.78rem}
+#dd-out td.ddok{color:var(--dim);font-family:var(--mono);font-size:.78rem}
+@media(max-width:900px){.rk{grid-template-columns:minmax(0,1fr)}.rkview{position:static;order:-1}#rk-draw{max-height:none}.rkb{padding:8px 12px}}
+@media print{.rkform .sim,.rkform .ctl,.rkform h2,.rkctl{display:none!important}#rk-draw{background:#fff!important;max-height:none}.rksvg text{fill:#000}}
