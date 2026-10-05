@@ -8,7 +8,6 @@ Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not par
 The site has become Microsoft 365 and Azure heavy. The owner is an all-rounder, so the next rounds go wide.
 Microsoft cloud work is paused, not dropped (see the end of this list).
 
-4. Linux server pack: systemd and journalctl troubleshooting, users and permissions, disks and LVM, nginx and Apache, a "the server is slow" walkthrough
 5. Network pack: VLAN and IP plan builder (VLSM), switch and Wi-Fi troubleshooting, WireGuard and OpenVPN cheat sheets, DNS and DHCP at home-lab and small-office scale
 6. Client and helpdesk pack: Windows stop codes and what they mean, printer troubleshooting, slow PC walkthrough, macOS admin cheat sheet, the 20 tickets every helpdesk gets
 7. Virtualisation and storage: Proxmox, Hyper-V and VMware cheat sheets, NAS and SMART reading, snapshot is not a backup explainer
