@@ -5,10 +5,9 @@ Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not par
 
 ## Next
 
-1. Tool: Entra app audit, drop the app registration and enterprise app export and find expiring secrets, risky permissions and unused apps
-2. Content: cheat sheets for Defender for Office 365, SharePoint sharing and guest access, Azure networking
-3. Explainer: interactive diagram of how a device-code phishing attack works
-4. Glossary: 20 more terms from the new cheat sheets and tools
+1. Content: cheat sheets for Defender for Office 365, SharePoint sharing and guest access, Azure networking
+2. Explainer: interactive diagram of how a device-code phishing attack works
+3. Glossary: 20 more terms from the new cheat sheets and tools
 
 ## Open questions
 
@@ -21,10 +20,12 @@ Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not par
 - A real .eml phishing sample for phish-analyzer
 - A real Intune device export (CSV, all columns) to verify the column names in intune-analyzer
 - A real licences.json from the export script on license-optimizer (or the admin center user CSV), and your real prices
+- A real apps.json from the export script on app-audit, to verify the script and the property names
 - Real bounce messages (NDRs) that the mail flow debugger gets wrong or only reads by code class
 
 ## Done
 
+- 2026-10-05: Entra app audit (12 checks, export script, inventory, cockpit tile), stamp v29
 - 2026-10-05: license optimizer (9 checks, savings per month, editable prices, export script, cockpit tile), stamp v28
 - 2026-10-05: share cards for 18 more tool and lab pages; cheat sheets for Entra PIM and access reviews, Windows Update, Teams Phone, stamp v27
 - 2026-10-05: news bot: six more sources (Talos, Unit 42, The Record, advisories from Fortinet, Cisco, Palo Alto) with a per-source cap. VMware/Broadcom has no usable feed

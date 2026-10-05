@@ -865,6 +865,7 @@ footer{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px 28px;
 #ia-out .grid2 h3.fh{margin-top:10px}
 @media (min-width:980px){#is-list{grid-template-columns:repeat(3,minmax(0,1fr))}#is-list .pickcard h3{font-size:1.05rem}}
 /* license optimizer */
-#lo-out h2{margin-top:36px}
-#lo-out .finding .tw+.btn,#lo-out .finding .note+.btn,#lo-out pre+.btn,#lo-script+.btn{margin-top:12px}
+#lo-out h2,#aa-out h2{margin-top:36px}
+#lo-out .finding .tw+.btn,#lo-out .finding .note+.btn,#lo-out pre+.btn,#lo-script+.btn,#aa-out .finding .tw+.btn,#aa-out .finding .note+.btn,#aa-out pre+.btn,#aa-script+.btn{margin-top:12px}
 #lo-out .tbl input.q{font-size:.85rem}
+#aa-out .finding td:last-child,#aa-out .finding th:last-child,#lo-out .finding td:last-child{white-space:nowrap}

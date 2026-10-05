@@ -1,0 +1,49 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Entra app audit | admin_hub</title><meta name="description" content="Audit Entra ID app registrations and enterprise apps: apps that can take over the tenant, broad mail and file access, consent phishing, expiring secrets, unused apps. Runs in your browser."><link rel="stylesheet" href="style.css?v=29"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="admin_hub">
+<meta property="og:title" content="Entra app audit | admin_hub">
+<meta property="og:description" content="Audit Entra ID app registrations and enterprise apps: apps that can take over the tenant, broad mail and file access, consent phishing, expiring secrets, unused apps. Runs in your browser.">
+<meta property="og:image" content="https://admin-hub.xyz/og-app-audit.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Entra app audit | admin_hub">
+<meta name="twitter:description" content="Audit Entra ID app registrations and enterprise apps: apps that can take over the tenant, broad mail and file access, consent phishing, expiring secrets, unused apps. Runs in your browser.">
+<meta name="twitter:image" content="https://admin-hub.xyz/og-app-audit.png">
+<link rel="canonical" href="https://admin-hub.xyz/app-audit.html"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Entra app audit", "url": "https://admin-hub.xyz/app-audit.html", "description": "Audit Entra ID app registrations and enterprise apps: apps that can take over the tenant, broad mail and file access, consent phishing, expiring secrets, unused apps. Runs in your browser.", "applicationCategory": "SecurityApplication", "operatingSystem": "Any", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "inLanguage": "en"}</script>
+</head><body><div class="wrap"><header><a class="brand" href="index.html">admin_hub</a><nav aria-label="Main"><a href="tools.html" aria-current="page">tools</a><a href="cheat-sheets.html">cheat-sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a><a href="explainers.html">explainers</a><a href="news.html">news</a><a href="start-here.html">start-here</a><a href="about.html">about</a></nav><button class="btn sbtn" type="button" data-search aria-label="Search the site" title="Search (Ctrl+K)">search <kbd>Ctrl K</kbd></button></header><main>
+
+<p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<a href="tools.html">tools</a>/<b>app-audit</b><span class="cs">$</span></p>
+<h1>app-audit</h1>
+<p class="dim">Every app registration and every enterprise app in Entra ID is a way into the tenant that does not go through a user's MFA. Drop an export here and see which apps could take over the tenant, which read everyone's mail, where users were tricked into consent, which secrets are about to expire and which apps nobody uses any more. The file is read by your browser and never uploaded.</p>
+
+<label class="drop" id="aa-drop"><input type="file" id="aa-file" accept=".json,.txt,application/json"><b>Drop apps.json here, or click to choose a file</b><span>the file written by the export script below</span></label>
+<div class="ctl" style="margin-top:14px"><button class="btn" id="aa-sample" type="button">Load sample data</button><button class="btn ghost" id="aa-sample-dl" type="button">Download the sample file</button></div>
+<p id="aa-status" class="dim" aria-live="polite" style="margin-top:6px"></p>
+
+<div id="aa-out" hidden></div>
+
+<h2 style="margin-top:56px">getting the export</h2>
+<p class="dim">The portal has no single export that contains credentials, permissions and consents together, so this page comes with a script. It only reads. Run it in PowerShell 7 with the Microsoft.Graph module, as a Global Reader or with the three scopes it asks for, then drop the resulting <code>apps.json</code> above. The file holds names and expiry dates of credentials, never the secrets themselves: Entra ID does not give those out.</p>
+<pre id="aa-script" style="white-space:pre;overflow-x:auto;font-size:.8rem"></pre>
+
+<h2 style="margin-top:40px">what it checks</h2>
+<div class="tw"><table class="tbl"><thead><tr><th>Check</th><th>Triggers when</th></tr></thead><tbody>
+<tr><td>Tenant takeover</td><td>An app holds an application permission that lets it grant itself more (role management, app role assignment, application write, authentication methods, Conditional Access, federation) or holds an administrator directory role. Critical when the app belongs to another organisation.</td></tr>
+<tr><td>Broad data access</td><td>Application permissions on all mailboxes, files, sites, chats or the whole directory.</td></tr>
+<tr><td>Credentials on enterprise apps</td><td>A valid secret or certificate sits on the enterprise app object of an app you do not own. SAML apps and managed identities are excluded.</td></tr>
+<tr><td>User consent to unverified apps</td><td>Individual users granted an outside app from an unverified publisher access to mail, files or contacts.</td></tr>
+<tr><td>Admin consent for sensitive scopes</td><td>An outside app has tenant-wide delegated access to mail, files or directory data.</td></tr>
+<tr><td>Expiring credentials</td><td>A secret or certificate of your own app ends within 30 days.</td></tr>
+<tr><td>Long-lived secrets</td><td>A client secret is valid for more than two years.</td></tr>
+<tr><td>Unused apps</td><td>An app with permissions or valid credentials has not signed in for 90 days, or never.</td></tr>
+<tr><td>No owner</td><td>An app registration has no owner.</td></tr>
+<tr><td>Sign-in settings</td><td>Wildcard or unencrypted redirect addresses, or the implicit grant issuing access tokens.</td></tr>
+<tr><td>Expired credentials</td><td>Expired secrets and certificates that are still listed.</td></tr>
+<tr><td>Multi-tenant apps</td><td>Your own app registration accepts users from other organisations.</td></tr>
+</tbody></table></div>
+<p class="note">A finding says an app is able to do something, not that it has. A backup product needs to read every mailbox, and an identity tool needs to write to the directory. The point of the list is that each of these apps should have an owner who can say why, and a credential that is looked after. Microsoft's own apps are left out of the export unless they carry a credential or a role, because a credential added to one of them is a known way to hide. The permission lists are a selection of the ones that matter most and are not complete.</p>
+<p class="rel">Related: <a href="attack-map.html">attack map</a> <a href="graph-permissions-reference.html">Graph permissions reference</a> <a href="oauth-flow-explained.html">OAuth flow explained</a> <a href="glossary.html#consent-phishing">consent phishing</a> <a href="entra-pim-cheat-sheet.html">PIM cheat sheet</a> <a href="ca-analyzer.html">CA analyzer</a></p>
+
+</main>
+<footer><div class="fcol"><b>analyze</b><a href="app-audit.html">sign-in analyzer</a><a href="ca-analyzer.html">CA analyzer</a><a href="phish-analyzer.html">phish analyzer</a><a href="domain-check.html">domain check</a></div><div class="fcol"><b>plan and practise</b><a href="attack-map.html">attack map</a><a href="cockpit.html">cockpit</a><a href="incident-sim.html">incident simulator</a><a href="patch-tuesday.html">patch tuesday</a></div><div class="fcol"><b>reference</b><a href="tools.html">all tools</a><a href="cheat-sheets.html">cheat sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a></div><div class="fcol"><b>site</b><a href="about.html">about</a><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a><a href="#" data-consent-open>cookie settings</a></div><p class="fline">admin_hub, 2026. The tools run in your browser.</p></footer></div>
+<script src="appaudit.js?v=29" defer></script>
+<script src="shell.js?v=29" defer></script><script src="consent.js?v=29" defer></script><script src="reveal.js?v=29" defer></script><script src="pwa.js?v=29" defer></script><script src="search-index.js?v=29" defer></script><script src="search.js?v=29" defer></script></body></html>
