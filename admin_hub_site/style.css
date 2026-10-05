@@ -869,3 +869,41 @@ footer{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px 28px;
 #lo-out .finding .tw+.btn,#lo-out .finding .note+.btn,#lo-out pre+.btn,#lo-script+.btn,#aa-out .finding .tw+.btn,#aa-out .finding .note+.btn,#aa-out pre+.btn,#aa-script+.btn{margin-top:12px}
 #lo-out .tbl input.q{font-size:.85rem}
 #aa-out .finding td:last-child,#aa-out .finding th:last-child,#lo-out .finding td:last-child{white-space:nowrap}
+
+/* ============ PASS 5: typography ============
+   Running text is set in IBM Plex Sans. JetBrains Mono stays for everything that is identity,
+   interface or data: brand, navigation, headings, labels, buttons, code, numbers. */
+@font-face{font-family:"IBM Plex Sans";font-style:normal;font-weight:400;font-display:swap;src:url("plex-400.woff2") format("woff2");unicode-range:U+0000,U+000D,U+0020-007E,U+00A0-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2013-2014,U+2018-201A,U+201C-201E,U+2020-2022,U+2026,U+2030,U+2039-203A,U+2044,U+20AC,U+2122,U+2212,U+FB01-FB02}
+@font-face{font-family:"IBM Plex Sans";font-style:normal;font-weight:400;font-display:swap;src:url("plex-400-ext.woff2") format("woff2");unicode-range:U+0100-0101,U+0104-0130,U+0132-0151,U+0154-017F,U+018F,U+0192,U+01A0-01A1,U+01AF-01B0,U+01FA-01FF,U+0218-021B,U+0237,U+0259,U+1E80-1E85,U+1E9E}
+@font-face{font-family:"IBM Plex Sans";font-style:normal;font-weight:400;font-display:swap;src:url("plex-400-sym.woff2") format("woff2");unicode-range:U+2000-200D,U+2015,U+2032-2033,U+2190-2199,U+21A9-21AA,U+2202,U+2206,U+2211,U+221A,U+221E,U+2248,U+2260,U+2264-2265,U+2713,U+274C}
+@font-face{font-family:"IBM Plex Sans";font-style:normal;font-weight:600 700;font-display:swap;src:url("plex-600.woff2") format("woff2");unicode-range:U+0000,U+000D,U+0020-007E,U+00A0-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2013-2014,U+2018-201A,U+201C-201E,U+2020-2022,U+2026,U+2030,U+2039-203A,U+2044,U+20AC,U+2122,U+2212,U+FB01-FB02}
+@font-face{font-family:"IBM Plex Sans";font-style:normal;font-weight:600 700;font-display:swap;src:url("plex-600-ext.woff2") format("woff2");unicode-range:U+0100-0101,U+0104-0130,U+0132-0151,U+0154-017F,U+018F,U+0192,U+01A0-01A1,U+01AF-01B0,U+01FA-01FF,U+0218-021B,U+0237,U+0259,U+1E80-1E85,U+1E9E}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:100 800;font-display:swap;src:url("jbmono.woff2") format("woff2")}
+:root{--sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;--mono:"JetBrains Mono",ui-monospace,"Cascadia Code",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace}
+body{font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+/* identity, interface, data */
+header,.brand,nav,.crumb,h1,h2,h3,kbd,code,pre,samp,textarea,input,select,button,.btn,.sbtn,.lang,#langmenu,#sl,#kh,#spal,
+.sevtag,.cnt,.kick,.stat,.stats,.jump,.chipbtn,.cchip,.cgroup,.verdict b,.lsrow b,.lsrow em,.card b,.card small,.dcard b,.fcard .kick,.fcard .go,
+.feed .hi,.feed .src,.kv,.ltr,.term:has(>.bar),.isfeed,.fdiag,.amap,.amscore,.anode,.cpbig,.cpage,.grade,.gradebox,.mini,.minilist,.polrow>span:first-child,
+.tbl th,svg text,.note code,summary{font-family:var(--mono)}
+/* prose */
+p,li,dd,td,.dim,.note,.lsrow span,.card p,.fcard p,.finding p,.choice,.isfb p,.fline{font-family:var(--sans)}
+p,li,dd{line-height:1.62}
+.dim{font-size:.97rem}
+main>p.dim,section>p.dim,.tool>p.dim{max-width:66ch}
+.finding p,#mf-out p,.note{max-width:74ch}
+.tbl td{font-size:.93rem;line-height:1.5;font-variant-numeric:tabular-nums}
+.tbl th{font-weight:500}
+.lsrow span{font-size:.92rem;line-height:1.5}
+.card p,.fcard p{font-size:.94rem;line-height:1.55}
+.note{font-size:.9rem;line-height:1.6}
+.steps li,main ul li{margin:7px 0}
+h1,h2,h3{font-feature-settings:"calt" 0}
+/* containers that stay monospace all the way down: terminals, log feeds, palettes, key-value facts */
+:is(.term:has(>.bar),.isfeed,#spal,#sl,#kh,.kv,.stat,.fdiag,.amap,pre) :is(p,li,dd,dt,td,span,b,small,div){font-family:var(--mono)}
+.btn,.sbtn{font-size:.9rem}
+.finding summary b,.verdict span{font-family:var(--sans)}
+.finding summary b{font-weight:600;font-size:1rem}
+.isfeed{font-size:.86rem}
+.choice span{font-size:1rem;line-height:1.5}
+.term:has(>.bar){font-size:.93rem}

@@ -124,7 +124,7 @@ def shell(site, title, desc, h1, inner, script=""):
     ver = "?v=" + mv.group(1) if mv else ""
     scr = "".join('<script src="%s.js%s" defer></script>' % (n, ver) for n in ("shell", "consent", "reveal", "pwa", "search-index", "search"))
     return ('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'
-            '<title>%s | admin_hub</title><meta name="description" content="%s"><link rel="stylesheet" href="style.css%s"><link rel="canonical" href="https://admin-hub.xyz/%s.html"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png"></head><body><div class="wrap">%s<main>%s<h1>%s</h1>%s</main>%s</div>%s%s</body></html>'
+            '<title>%s | admin_hub</title><meta name="description" content="%s"><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css%s"><link rel="canonical" href="https://admin-hub.xyz/%s.html"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png"></head><body><div class="wrap">%s<main>%s<h1>%s</h1>%s</main>%s</div>%s%s</body></html>'
             % (e(title), e(desc), ver, h1, head, crumb, h1, inner, foot, script, scr))
 
 
