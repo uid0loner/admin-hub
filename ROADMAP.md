@@ -7,8 +7,7 @@ Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not par
 
 Content is on hold until the look and the structure are where they should be. The colour scheme stays.
 
-1. Motion where it explains something: result reveal, page transitions, a better command palette
-2. Mobile and accessibility pass, print styles
+1. Mobile and accessibility pass, print styles
 
 ## After the design
 
@@ -35,6 +34,7 @@ Content is on hold until the look and the structure are where they should be. Th
 
 ## Done
 
+- 2026-10-05: design 7, motion and palette: page transitions with a fixed header, results that arrive in order with counting numbers, palette with a start list, example chips, actions and highlighted matches, stamp v40
 - 2026-10-05: design 6, start-here (six tracks as directories, one new: "I just took over an environment"), about and 404 in the new style, stamp v39
 - 2026-10-05: design 5, components: one focus ring, quiet form fields, one button shape, visible links in running text, inline code, tables, findings with a chevron, snippets with the copy button next to the title, pictograms on the home page, stamp v38
 - 2026-10-05: design 4, tool frame: the eight analyzer pages show an example result next to the input, with a section menu; the preview gives way to the real result, stamp v37

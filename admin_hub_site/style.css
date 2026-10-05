@@ -900,7 +900,7 @@ main>p.dim,section>p.dim,.tool>p.dim{max-width:66ch}
 .steps li,main ul li{margin:7px 0}
 h1,h2,h3{font-feature-settings:"calt" 0}
 /* containers that stay monospace all the way down: terminals, log feeds, palettes, key-value facts */
-:is(.term:has(>.bar),.isfeed,#spal,#sl,#kh,.kv,.stat,.fdiag,.amap,pre) :is(p,li,dd,dt,td,span,b,small,div){font-family:var(--mono)}
+:is(.term:has(>.bar),.isfeed,#sl,#kh,.kv,.stat,.fdiag,.amap,pre) :is(p,li,dd,dt,td,span,b,small,div){font-family:var(--mono)}
 .btn,.sbtn{font-size:.9rem}
 .finding summary b,.verdict span{font-family:var(--sans)}
 .finding summary b{font-weight:600;font-size:1rem}
@@ -1052,3 +1052,17 @@ pre{line-height:1.55;border-radius:8px}
 .term.nf .out{color:var(--dim)}
 .term.nf .out a{color:var(--blue);text-decoration:underline;text-underline-offset:3px;margin-right:6px}
 @media (max-width:760px){.ways{grid-template-columns:1fr}.facts{grid-template-columns:1fr}.facts dt{border-bottom:0;padding-bottom:0}.facts dd{padding-top:4px}}
+
+/* ============ DESIGN 7: motion ============ */
+/* page change: the header stays put, the content cross-fades */
+@view-transition{navigation:auto}
+header{view-transition-name:site-header}
+#sl{view-transition-name:status-line}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.16s;animation-timing-function:ease}
+::view-transition-group(site-header),::view-transition-group(status-line){animation-duration:0s}
+/* a result arriving: verdict first, then the numbers, then the findings one by one */
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.reveal>.verdict{animation:rise .32s cubic-bezier(.2,.8,.2,1) both}
+.reveal>.stats,.reveal>.kv{animation:rise .32s cubic-bezier(.2,.8,.2,1) .08s both}
+.reveal>.finding{animation:rise .3s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(.16s + var(--i,0)*.045s)}
+@media (prefers-reduced-motion:reduce){@view-transition{navigation:none}.reveal>*{animation:none!important}}
