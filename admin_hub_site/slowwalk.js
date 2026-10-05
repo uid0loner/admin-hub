@@ -52,6 +52,7 @@ var STEPS=[
     ["It happens at the same time every day or week","bad","A scheduled job","A backup, a report, log rotation with compression, an antivirus scan, a database dump. Move it out of working hours and lower its priority.","systemctl list-timers --all\nsudo grep -r . /etc/cron.d /etc/crontab 2>/dev/null | grep -v \"^#\"\n# in the job: nice -n 19 ionice -c3 /usr/local/bin/backup.sh"],
     ["Nothing found","go","Collect history for next time","Without numbers from before, every slowdown starts from zero. Install sysstat, which records CPU, memory, disk and network every ten minutes, and you can look back at any point of the last month.","sudo apt install sysstat && sudo systemctl enable --now sysstat\nsar -u -f /var/log/sysstat/sa05     # CPU on the 5th\nsar -d -r -n DEV                    # disk, memory, network today"]]}
 ];
+if(window.SW_STEPS)STEPS=window.SW_STEPS;
 var picked={};
 function copyBtn(text){var b=el("button","btn ghost swcp","copy");b.type="button";b.addEventListener("click",function(){try{navigator.clipboard.writeText(text).then(function(){b.textContent="copied";setTimeout(function(){b.textContent="copy"},1200)})}catch(e){}});return b}
 function code(text){var w=el("div","swcode");w.append(el("pre",null,text),copyBtn(text));return w}
@@ -83,7 +84,7 @@ function build(){
   var f=function(){var a=parseFloat($("sw-l1").value.replace(",",".")),b=parseFloat($("sw-l15").value.replace(",",".")),n=parseInt($("sw-n").value,10),o=$("sw-lout");
     if(!(a>=0)||!(n>0)){o.textContent="";return}var per=a/n,t=(Math.round(per*100)/100)+" per core: "+(per<0.7?"relaxed.":per<1?"well used, not overloaded.":per<2?"overloaded, things are waiting.":"heavily overloaded: on average "+Math.round(a-n)+" processes are waiting at any moment.");
     if(b>=0)t+=a>b*1.3?" Rising: it started within the last minutes.":a<b*0.7?" Falling: the peak is over.":" Steady for at least a quarter of an hour.";o.textContent=t};
-  ["sw-l1","sw-l15","sw-n"].forEach(function(i){$(i).addEventListener("input",f)});
+  if($("sw-l1"))["sw-l1","sw-l15","sw-n"].forEach(function(i){$(i).addEventListener("input",f)});
   var first=$("sw-first");if(first)first.after(copyBtn(first.textContent));
   summary();
 }

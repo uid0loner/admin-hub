@@ -8,7 +8,6 @@ Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not par
 The site has become Microsoft 365 and Azure heavy. The owner is an all-rounder, so the next rounds go wide.
 Microsoft cloud work is paused, not dropped (see the end of this list).
 
-6. Client and helpdesk pack: Windows stop codes and what they mean, printer troubleshooting, slow PC walkthrough, macOS admin cheat sheet, the 20 tickets every helpdesk gets
 7. Virtualisation and storage: Proxmox, Hyper-V and VMware cheat sheets, NAS and SMART reading, snapshot is not a backup explainer
 8. Log reader: paste a syslog, auth.log or web server log, get the noisy parts summarised (failed logins, top sources, error bursts)
 9. Scripting pack: Bash and PowerShell side by side, Python for admins, a snippets library sorted by task
