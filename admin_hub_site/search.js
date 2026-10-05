@@ -13,15 +13,15 @@ var ACT=[
 ["License optimizer with sample data","license-optimizer.html#sample","action","See what a sample tenant pays for and nobody uses."]
 ];
 var START=[
+["Log reader","log-reader.html","tool","Drop a log, get the short version."],
+["The server is slow","linux-server-slow.html","tool","Eight steps from load average to the cause."],
+["Command builder","command-builder.html","tool","robocopy, rsync, tar and find, every switch explained."],
 ["Sign-in analyzer","signin-analyzer.html","tool","Is someone already in? Drop the sign-in log."],
-["Entra app audit","app-audit.html","tool","Which apps could take over the tenant?"],
-["Mail flow debugger","mailflow-debugger.html","tool","Why did the mail bounce? Paste the error."],
-["CA analyzer","ca-analyzer.html","tool","What do the access policies really enforce?"],
 ["Cheat sheets","cheat-sheets.html","hub","Commands and queries to copy, grouped by topic."],
-["Glossary","glossary.html","hub","Terms in plain language."],
-["Cockpit","cockpit.html","tool","Your results on one page, kept in your browser."]
+["Troubleshooting wizards","diagnose.html","tool","No network, no Wi-Fi, no printing, no sign-in."],
+["Glossary","glossary.html","hub","Terms in plain language."]
 ].concat(ACT.slice(0,2));
-var TRY=["5.7.509","AADSTS50126","10.20.30.40/22","example.com","3389"];
+var TRY=["0x7E","5.7.509","10.20.30.40/22","rsync","raid","3389"];
 function find(q,max){var tk=String(q).toLowerCase().split(/\s+/).filter(Boolean);if(!tk.length)return[];
 var r=[];I.concat(ACT).forEach(function(e){var s=score(e,tk);if(s)r.push([s,e])});
 r.sort(function(a,b){return b[0]-a[0]});return r.slice(0,max||12).map(function(x){return x[1]})}
@@ -66,6 +66,7 @@ function answers(q){
   }
   if(/^(?=.{4,253}$)([a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,24}$/i.test(s)&&!/\.(html?|js|css|json|png|txt|md|csv|exe|dll|ps1|log)$/i.test(s))
     A.push({k:"domain",t:s.toLowerCase(),text:"Audit SPF, DMARC, DKIM, MTA-STS and DNSSEC for this domain from live DNS.",href:"domain-check.html#d="+s.toLowerCase(),go:"run the domain check"});
+  if(/^0x[0-9a-f]{1,8}$/i.test(s)&&!/^0x8/i.test(s))A.push({k:"stop code",t:s.toUpperCase().replace("0X","0x"),text:"If this is the code from a Windows blue screen: what it means, the usual causes and what to do first.",href:"stop-code-lookup.html?q="+s,go:"look up the stop code"});
   if(/^[45]\.\d{1,3}\.\d{1,3}$/.test(s))A.push({k:"bounce code",t:s,text:"Explain this delivery status code: the cause, who has to fix it and what to tell the user.",href:"mailflow-debugger.html#q="+s,go:"open the mail flow debugger"});
   if(/^CVSS:3\.[01]\//i.test(s)){var c=cvss(s);if(c)A.push({k:"cvss 3.1",t:c[0].toFixed(1)+" "+c[1],rows:[["vector",s.toUpperCase()]],href:"cvss-calculator.html#"+s.toUpperCase(),go:"open in the CVSS calculator"})}
   if(/^eyJ[\w-]+\.[\w-]+\.[\w-]*$/.test(s)){

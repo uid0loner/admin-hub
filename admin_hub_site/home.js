@@ -22,7 +22,7 @@ function answer(v){
   return true;
 }
 var C={help:function(){say("commands: help, ls, tools, open <name>, search <text>, scan <domain>, map, sim, cockpit, crt, whoami, matrix, clear");say("or just type a value: an IP or CIDR, a domain, an error code, a port, a timestamp, a JWT, uuid, pw 24")},
-tools:function(){say("signin-analyzer  ca-analyzer  phish-analyzer  domain-check  attack-map  incident-sim  aadsts-lookup  diagnose  incident-runbook  script-generator  dns-lookup  status-center  subnet-calculator  cvss-calculator  password-strength  product-lifecycle  patch-tuesday  license-comparison");say("open one with: open <name>")},
+tools:function(){say("log-reader  smart-reader  certificate-decoder  firewall-rule-reviewer  linux-server-slow  windows-pc-slow  stop-code-lookup  diagnose  command-builder  raid-calculator  backup-planner  ip-plan-builder  small-office-blueprint  subnet-calculator  signin-analyzer  ca-analyzer  phish-analyzer  domain-check  attack-map  incident-sim");say("all of them: open tools");say("open one with: open <name>")},
 scan:function(a){a=(a||"").trim().toLowerCase().replace(/^https?:\/\//,"").replace(/\/.*$/,"");if(!/^([a-z0-9-]+\.)+[a-z]{2,}$/.test(a)){say("usage: scan <domain>, for example: scan example.com");return}say("checking "+a+" ...");go("domain-check.html#d="+a)},
 cockpit:function(){say("opening your cockpit ...");go("cockpit.html")},
 map:function(){say("opening the attack map ...");go("attack-map.html")},

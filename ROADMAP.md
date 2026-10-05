@@ -8,7 +8,6 @@ Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not par
 The first breadth round is done (calculators, certificate decoder, command builder, Linux, network, helpdesk,
 virtualisation and storage, log reader, scripting, small office blueprint).
 
-1. Rebalance the front door: home page, start-here tracks and glossary still read like a Microsoft 365 site. Add tracks and terms for Linux, network, storage, helpdesk and scripting
 2. Databases pack: SQL in an afternoon, cheat sheets for PostgreSQL, MySQL/MariaDB and SQL Server, backup and restore, "the query is slow"
 3. Config reviewers: paste sshd_config, an nginx server block or a docker-compose file and get the risky lines explained
 4. DMARC report reader: drop the XML aggregate reports, see who sends mail in your name and what fails
