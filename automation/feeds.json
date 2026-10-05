@@ -4,7 +4,6 @@
   "kev_url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
   "feeds": [
     {"name": "Microsoft Security Blog", "url": "https://www.microsoft.com/en-us/security/blog/feed/", "excerpt": true},
-    {"name": "MSRC Blog", "url": "https://msrc.microsoft.com/blog/feed/", "excerpt": true},
     {"name": "CISA Advisories", "url": "https://www.cisa.gov/cybersecurity-advisories/all.xml", "excerpt": true},
     {"name": "NCSC UK", "url": "https://www.ncsc.gov.uk/api/1/services/v1/all-rss-feed.xml", "excerpt": true},
     {"name": "SANS ISC", "url": "https://isc.sans.edu/rssfeed.xml", "excerpt": true},

@@ -9,6 +9,10 @@ Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not par
 2. Content: cheat sheets for Entra PIM and access reviews, Windows Update for Business, Teams Phone
 3. Tool (high effort): licence optimizer, drop the user and licence export and find unused, duplicate and oversized licences
 
+## Open questions
+
+- CISA Advisories feed delivers no items to the news page. The run log is not readable from here, so it is unclear whether CISA blocks the request or simply published nothing in 14 days. Check the log of an "Update feeds" run in the Actions tab for a line starting with FAILED
+
 ## Needs real data from the owner
 
 - Entra sign-in export (CSV) to verify column mapping in signin-analyzer
