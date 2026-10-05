@@ -850,3 +850,12 @@ footer{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px 28px;
 @media print{footer{display:none}}
 @media (max-width:520px){.lsrow em{grid-row:1;grid-column:2;align-self:center}.lsrow span{grid-row:2}}
 .lsrow em{justify-self:end;white-space:nowrap}
+
+/* mail flow debugger */
+.chipbtn{font:inherit;font-size:.82rem;color:var(--dim);background:rgba(13,11,43,.7);border:1px solid var(--line);border-radius:99px;padding:5px 13px;cursor:pointer;transition:border-color .15s ease,color .15s ease}
+.chipbtn:hover,.chipbtn:focus-visible{border-color:var(--violet);color:var(--text)}
+#mf-out h2{margin-top:34px}#mf-out h3{margin:18px 0 4px;font-size:.95rem;color:var(--blue)}
+#mf-out .steps{max-width:78ch}#mf-out pre+.btn,#mf-out p+.btn{margin-top:10px}
+#mf-out .kv dt{white-space:nowrap}
+@media (max-width:520px){#mf-out .kv{grid-template-columns:1fr;gap:0 0}#mf-out .kv dd{margin-bottom:8px}}
+@media (max-width:520px){#mf-out .verdict b{font-size:1.15rem;line-height:1.35}}

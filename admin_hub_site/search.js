@@ -48,6 +48,7 @@ function answers(q){
   }
   if(/^(?=.{4,253}$)([a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,24}$/i.test(s)&&!/\.(html?|js|css|json|png|txt|md|csv|exe|dll|ps1|log)$/i.test(s))
     A.push({k:"domain",t:s.toLowerCase(),text:"Audit SPF, DMARC, DKIM, MTA-STS and DNSSEC for this domain from live DNS.",href:"domain-check.html#d="+s.toLowerCase(),go:"run the domain check"});
+  if(/^[45]\.\d{1,3}\.\d{1,3}$/.test(s))A.push({k:"bounce code",t:s,text:"Explain this delivery status code: the cause, who has to fix it and what to tell the user.",href:"mailflow-debugger.html#q="+s,go:"open the mail flow debugger"});
   if(/^CVSS:3\.[01]\//i.test(s)){var c=cvss(s);if(c)A.push({k:"cvss 3.1",t:c[0].toFixed(1)+" "+c[1],rows:[["vector",s.toUpperCase()]],href:"cvss-calculator.html#"+s.toUpperCase(),go:"open in the CVSS calculator"})}
   if(/^eyJ[\w-]+\.[\w-]+\.[\w-]*$/.test(s)){
     var parts=s.split("."),h=b64json(parts[0]),pl=b64json(parts[1]);
