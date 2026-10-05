@@ -3,14 +3,27 @@
 How this works: the owner writes "WEITER", the next open item is built, tested and committed to `main`.
 Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not part of the published site.
 
-## Next
+## Next: design first
 
-1. Content: cheat sheets for Defender for Office 365, SharePoint sharing and guest access, Azure networking
-2. Tool: Conditional Access policy builder, pick a goal and get the policy as JSON plus a rollout plan (report-only first)
-3. Tool: firewall rule reviewer, paste an export (FortiGate, pfSense, Windows Firewall) and find any-any rules, exposed management and unused objects
-4. Start page: a guided "audit my tenant in an hour" flow that chains the analyzers and collects the results in the cockpit
-5. War stories: two more incident write-ups (consent phishing, expired certificate outage)
-6. Quality pass: run every analyzer against real exports from the owner and fix what does not fit
+Content is on hold until the look and the structure are where they should be. The colour scheme stays.
+
+1. Typography and reading: a clean sans-serif for running text, monospace kept for brand, navigation, headings, labels, code and data. One type scale, one spacing rhythm, shorter lines
+2. One layout for every hub: cheat sheets, checklists, explainers and glossary get the grouped directory style of the home page, with topic groups and a filter. Today 46 cheat sheets sit in one unsorted card grid
+3. Home page rebuilt around three jobs (something is wrong, audit my tenant, look something up). Shorter, the full tool list moves to the tools hub, headlines and exploited-now become a compact two-column strip
+4. One frame for every tool page: input, result, how to export, what it checks, with a small section menu. A preview of a result before any file is dropped, so the page does not start empty
+5. Components: tables (aligned numbers, sticky headers), findings, buttons (one primary action per screen), forms, chips, focus states, small pictograms per category
+6. Motion where it explains something: result reveal, page transitions, a better command palette
+7. start-here, about and 404 rewritten in the new style
+8. Mobile and accessibility pass, print styles
+
+## After the design
+
+- Content: cheat sheets for Defender for Office 365, SharePoint sharing and guest access, Azure networking
+- Tool: Conditional Access policy builder
+- Tool: firewall rule reviewer
+- Guided "audit my tenant in an hour" flow
+- Two more war stories
+- Quality pass with real exports from the owner
 
 ## Open questions
 
@@ -28,6 +41,7 @@ Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not par
 
 ## Done
 
+- 2026-10-05: removed the cookie banner and every mention of advertising (there are no ads, no cookies, no tracking), stamp v31
 - 2026-10-05: device code phishing explainer, 20 glossary terms (122 in total), stamp v30
 - 2026-10-05: Entra app audit (12 checks, export script, inventory, cockpit tile), stamp v29
 - 2026-10-05: license optimizer (9 checks, savings per month, editable prices, export script, cockpit tile), stamp v28

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>admin_hub tools: CIDR, JWT, hash, password, time, Base64, GUID, headers, ports</title>
 <meta name="description" content="Free browser-based admin tools: CIDR calculator, JWT decoder, hash generator, password generator, time converter, Base64, GUID, email header analyzer and port reference, regex tester, JSON formatter, chmod calculator, URL encoder, cron explainer, UAC decoder, SPF/DMARC explainers, Markdown previewer, text diff, case converter and IPv6 tool.">
-<link rel="stylesheet" href="style.css?v=30"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<link rel="stylesheet" href="style.css?v=31"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="admin_hub">
@@ -76,7 +76,7 @@
 <section class="tool" id="ipv6-tool"><h2>ipv6-tool</h2><p class="dim">Expand a shortened IPv6 address to its full form, or compress a full address to its shortest form.</p>
 <input id="v6" class="q" type="text" placeholder="2001:db8::8a2e:370:7334" autocomplete="off" spellcheck="false"><div id="v6-out" aria-live="polite"></div></section>
 </main>
-<footer><div class="fcol"><b>analyze</b><a href="signin-analyzer.html">sign-in analyzer</a><a href="ca-analyzer.html">CA analyzer</a><a href="phish-analyzer.html">phish analyzer</a><a href="domain-check.html">domain check</a></div><div class="fcol"><b>plan and practise</b><a href="attack-map.html">attack map</a><a href="cockpit.html">cockpit</a><a href="incident-sim.html">incident simulator</a><a href="patch-tuesday.html">patch tuesday</a></div><div class="fcol"><b>reference</b><a href="tools.html">all tools</a><a href="cheat-sheets.html">cheat sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a></div><div class="fcol"><b>site</b><a href="about.html">about</a><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a><a href="#" data-consent-open>cookie settings</a></div><p class="fline">admin_hub, 2026. The tools run in your browser.</p></footer>
+<footer><div class="fcol"><b>analyze</b><a href="signin-analyzer.html">sign-in analyzer</a><a href="ca-analyzer.html">CA analyzer</a><a href="phish-analyzer.html">phish analyzer</a><a href="domain-check.html">domain check</a></div><div class="fcol"><b>plan and practise</b><a href="attack-map.html">attack map</a><a href="cockpit.html">cockpit</a><a href="incident-sim.html">incident simulator</a><a href="patch-tuesday.html">patch tuesday</a></div><div class="fcol"><b>reference</b><a href="tools.html">all tools</a><a href="cheat-sheets.html">cheat sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a></div><div class="fcol"><b>site</b><a href="about.html">about</a><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a></div><p class="fline">admin_hub, 2026. The tools run in your browser.</p></footer>
 </div>
 <script>
 const $=id=>document.getElementById(id);
@@ -315,4 +315,4 @@ $("v6").addEventListener("input",e=>{var o=$("v6-out"),v=e.target.value.trim();o
 var full=v6full(v);if(!full){o.append(msg("Not a valid IPv6 address."));return}
 o.append(kv([["Expanded",full.join(":")],["Compressed",v6compress(full)]]))});
 </script>
-<script src="shell.js?v=30" defer></script><script src="consent.js?v=30" defer></script><script src="reveal.js?v=30" defer></script><script src="pwa.js?v=30" defer></script><script src="search-index.js?v=30" defer></script><script src="search.js?v=30" defer></script></body></html>
+<script src="shell.js?v=31" defer></script><script src="consent.js?v=31" defer></script><script src="reveal.js?v=31" defer></script><script src="pwa.js?v=31" defer></script><script src="search-index.js?v=31" defer></script><script src="search.js?v=31" defer></script></body></html>
