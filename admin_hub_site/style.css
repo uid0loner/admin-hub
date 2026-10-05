@@ -907,3 +907,19 @@ h1,h2,h3{font-feature-settings:"calt" 0}
 .isfeed{font-size:.86rem}
 .choice span{font-size:1rem;line-height:1.5}
 .term:has(>.bar){font-size:.93rem}
+
+/* ============ DESIGN 2: hub pages ============ */
+.hubbar{display:flex;align-items:center;gap:14px;margin-top:22px;max-width:560px}
+.hubbar .q{margin:0;flex:1}
+.hubbar #hubn{white-space:nowrap;font-family:var(--mono);font-size:.82rem}
+.hubbar+.jump{margin-top:14px}
+.hubsec{margin-top:46px;scroll-margin-top:84px}
+.hubsec>p.dim{margin:2px 0 14px}
+.ls.hub .lsrow{grid-template-columns:23ch 1fr auto;padding:12px 6px}
+.lsrow i{font-style:normal;font-family:var(--mono);font-size:.74rem;color:var(--dim);white-space:nowrap;justify-self:end;align-self:baseline;opacity:.85}
+.lsrow[hidden]{display:none}
+@media (max-width:900px){.ls.hub{grid-template-columns:1fr}}
+@media (max-width:520px){.ls.hub .lsrow{grid-template-columns:1fr auto}.ls.hub .lsrow i{grid-row:1;grid-column:2}.ls.hub .lsrow span{grid-row:2;grid-column:1/-1}}
+.ls.hub{grid-template-columns:1fr}
+.ls.hub .lsrow{grid-template-columns:24ch 1fr auto;gap:4px 22px}
+.ls.hub .lsrow span{max-width:76ch}

@@ -7,13 +7,12 @@ Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not par
 
 Content is on hold until the look and the structure are where they should be. The colour scheme stays.
 
-1. One layout for every hub: cheat sheets, checklists, explainers and glossary get the grouped directory style of the home page, with topic groups and a filter. Today 46 cheat sheets sit in one unsorted card grid
-2. Home page rebuilt around three jobs (something is wrong, audit my tenant, look something up). Shorter, the full tool list moves to the tools hub, headlines and exploited-now become a compact two-column strip
-3. One frame for every tool page: input, result, how to export, what it checks, with a small section menu. A preview of a result before any file is dropped, so the page does not start empty
-4. Components: tables (aligned numbers, sticky headers), findings, buttons (one primary action per screen), forms, chips, focus states, small pictograms per category
-5. Motion where it explains something: result reveal, page transitions, a better command palette
-6. start-here, about and 404 rewritten in the new style
-7. Mobile and accessibility pass, print styles
+1. Home page rebuilt around three jobs (something is wrong, audit my tenant, look something up). Shorter, the full tool list moves to the tools hub, headlines and exploited-now become a compact two-column strip
+2. One frame for every tool page: input, result, how to export, what it checks, with a small section menu. A preview of a result before any file is dropped, so the page does not start empty
+3. Components: tables (aligned numbers, sticky headers), findings, buttons (one primary action per screen), forms, chips, focus states, small pictograms per category
+4. Motion where it explains something: result reveal, page transitions, a better command palette
+5. start-here, about and 404 rewritten in the new style
+6. Mobile and accessibility pass, print styles
 
 ## After the design
 
@@ -40,6 +39,7 @@ Content is on hold until the look and the structure are where they should be. Th
 
 ## Done
 
+- 2026-10-05: design 2, hub pages: cheat sheets, checklists and explainers as grouped directories with a filter, stamp v33
 - 2026-10-05: design 1, typography: IBM Plex Sans for running text, JetBrains Mono (now really delivered by the site) for identity, interface and data, stamp v32
 - 2026-10-05: removed the cookie banner and every mention of advertising (there are no ads, no cookies, no tracking), stamp v31
 - 2026-10-05: device code phishing explainer, 20 glossary terms (122 in total), stamp v30
