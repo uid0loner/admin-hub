@@ -5,9 +5,11 @@ Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not par
 
 ## Next
 
-1. Share cards (og images) for the remaining tool pages
-2. Content: cheat sheets for Entra PIM and access reviews, Windows Update for Business, Teams Phone
-3. Tool (high effort): licence optimizer, drop the user and licence export and find unused, duplicate and oversized licences
+1. Tool (high effort): licence optimizer, drop the user and licence export and find unused, duplicate and oversized licences
+2. Tool: Entra app audit, drop the app registration and enterprise app export and find expiring secrets, risky permissions and unused apps
+3. Content: cheat sheets for Defender for Office 365, SharePoint sharing and guest access, Azure networking
+4. Explainer: interactive diagram of how a device-code phishing attack works
+5. Glossary: 20 more terms from the new cheat sheets and tools
 
 ## Open questions
 
@@ -23,6 +25,7 @@ Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not par
 
 ## Done
 
+- 2026-10-05: share cards for 18 more tool and lab pages; cheat sheets for Entra PIM and access reviews, Windows Update, Teams Phone, stamp v27
 - 2026-10-05: news bot: six more sources (Talos, Unit 42, The Record, advisories from Fortinet, Cisco, Palo Alto) with a per-source cap. VMware/Broadcom has no usable feed
 - 2026-10-05: incident simulator, third scenario (insider data theft), stamp v26
 - Dropped: single-source header and footer. With direct commits it saves nothing, and it would take the navigation out of the HTML (worse for search engines and for visitors without JavaScript)
