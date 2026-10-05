@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>License optimizer | admin_hub</title><meta name="description" content="Drop your Microsoft 365 user and licence export and see what is wasted: blocked accounts, licences covered by a bigger one, inactive users and unassigned seats, in money per month."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=36"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>License optimizer | admin_hub</title><meta name="description" content="Drop your Microsoft 365 user and licence export and see what is wasted: blocked accounts, licences covered by a bigger one, inactive users and unassigned seats, in money per month."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=37"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="admin_hub">
 <meta property="og:title" content="License optimizer | admin_hub">
@@ -13,15 +13,11 @@
 
 <p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<a href="tools.html">tools</a>/<b>license-optimizer</b><span class="cs">$</span></p>
 <h1>license-optimizer</h1>
-<p class="dim">Drop an export of your users and their Microsoft 365 licences. You see how much of the monthly bill pays for nothing: licences on blocked accounts, licences already covered by a bigger one, accounts nobody uses and seats assigned to no one. The file is read by your browser and never uploaded.</p>
-
-<label class="drop" id="lo-drop"><input type="file" id="lo-file" accept=".json,.csv,.txt,application/json,text/csv"><b>Drop the licence export here, or click to choose a file</b><span>JSON from the export script below, or the user CSV from the Microsoft 365 admin center</span></label>
+<p class="dim">Drop an export of your users and their Microsoft 365 licences. You see how much of the monthly bill pays for nothing: licences on blocked accounts, licences already covered by a bigger one, accounts nobody uses and seats assigned to no one. The file is read by your browser and never uploaded.</p><nav class="jump toc" aria-label="On this page"><a href="#lo-out" class="tocres" hidden>result</a><a href="#s-getting-the-export">getting the export</a><a href="#s-what-it-checks">what it checks</a></nav><div class="tframe"><div class="tfin"><label class="drop" id="lo-drop"><input type="file" id="lo-file" accept=".json,.csv,.txt,application/json,text/csv"><b>Drop the licence export here, or click to choose a file</b><span>JSON from the export script below, or the user CSV from the Microsoft 365 admin center</span></label>
 <div class="ctl" style="margin-top:14px"><button class="btn" id="lo-sample" type="button">Load sample data</button><button class="btn ghost" id="lo-sample-dl" type="button">Download the sample file</button></div>
-<p id="lo-status" class="dim" aria-live="polite" style="margin-top:6px"></p>
+<p id="lo-status" class="dim" aria-live="polite" style="margin-top:6px"></p></div><aside class="peek tprev" aria-label="Example of a result"><div class="bar"><i></i><i></i><i></i><span>what you get: an example</span></div><div class="tpv v-high"><b>Up to EUR 2,920 per month is not doing any work</b><span>about 32% of the monthly licence bill</span></div><ul><li><span class="sevtag s-high">high</span>Paid for but assigned to nobody: EUR 1,352</li><li><span class="sevtag s-high">high</span>On blocked accounts: EUR 622</li><li><span class="sevtag s-high">high</span>Covered by a bigger licence: EUR 300</li><li><span class="sevtag s-med">medium</span>No sign-in for 90 days: EUR 302</li></ul><button class="tplink" type="button" data-sample="lo-sample">Open this example</button></aside></div><div id="lo-out" hidden></div>
 
-<div id="lo-out" hidden></div>
-
-<h2 style="margin-top:56px">getting the export</h2>
+<h2 id="s-getting-the-export" style="margin-top:56px">getting the export</h2>
 <div class="tw"><table class="tbl"><thead><tr><th>Source</th><th>What you get</th></tr></thead><tbody>
 <tr><td>Export script (recommended)</td><td>Everything: last sign-in per user, seats bought and assigned, group-based assignment, and shared mailboxes if you are also connected to Exchange Online. Read-only.</td></tr>
 <tr><td>Microsoft 365 admin center</td><td>Users, Active users, Export users. Enough for blocked accounts, covered licences and guests. It has no sign-in dates and no seat totals, so those checks are skipped.</td></tr>
@@ -29,7 +25,7 @@
 <p class="dim" style="margin-top:18px">The export script. Run it in PowerShell 7, then drop the resulting <code>licences.json</code> above.</p>
 <pre id="lo-script" style="white-space:pre;overflow-x:auto;font-size:.8rem"></pre>
 
-<h2 style="margin-top:40px">what it checks</h2>
+<h2 id="s-what-it-checks" style="margin-top:40px">what it checks</h2>
 <div class="tw"><table class="tbl"><thead><tr><th>Check</th><th>Triggers when</th><th>Counted as</th></tr></thead><tbody>
 <tr><td>Blocked accounts</td><td>Sign-in is blocked and the account holds paid licences.</td><td>can go now</td></tr>
 <tr><td>Covered licences</td><td>Everything a licence contains is part of another licence the same user has, for example Entra ID P1 next to Microsoft 365 E3, or Business Basic next to Business Premium.</td><td>can go now</td></tr>
@@ -46,5 +42,5 @@
 
 </main>
 <footer><div class="fcol"><b>analyze</b><a href="license-optimizer.html">sign-in analyzer</a><a href="ca-analyzer.html">CA analyzer</a><a href="phish-analyzer.html">phish analyzer</a><a href="domain-check.html">domain check</a></div><div class="fcol"><b>plan and practise</b><a href="attack-map.html">attack map</a><a href="cockpit.html">cockpit</a><a href="incident-sim.html">incident simulator</a><a href="patch-tuesday.html">patch tuesday</a></div><div class="fcol"><b>reference</b><a href="tools.html">all tools</a><a href="cheat-sheets.html">cheat sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a></div><div class="fcol"><b>site</b><a href="about.html">about</a><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a></div><p class="fline">admin_hub, 2026. The tools run in your browser.</p></footer></div>
-<script src="licenseopt.js?v=36" defer></script>
-<script src="shell.js?v=36" defer></script><script src="consent.js?v=36" defer></script><script src="reveal.js?v=36" defer></script><script src="pwa.js?v=36" defer></script><script src="search-index.js?v=36" defer></script><script src="search.js?v=36" defer></script></body></html>
+<script src="licenseopt.js?v=37" defer></script>
+<script src="frame.js?v=37" defer></script><script src="shell.js?v=37" defer></script><script src="consent.js?v=37" defer></script><script src="reveal.js?v=37" defer></script><script src="pwa.js?v=37" defer></script><script src="search-index.js?v=37" defer></script><script src="search.js?v=37" defer></script></body></html>

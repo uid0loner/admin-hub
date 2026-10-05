@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Sign-in log analyzer for Entra ID | admin_hub</title><meta name="description" content="Drop an Entra ID sign-in log export and get a threat-hunting report in your browser: password spray, MFA fatigue, country switches, legacy authentication, scripted clients. Nothing is uploaded."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=36"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Sign-in log analyzer for Entra ID | admin_hub</title><meta name="description" content="Drop an Entra ID sign-in log export and get a threat-hunting report in your browser: password spray, MFA fatigue, country switches, legacy authentication, scripted clients. Nothing is uploaded."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=37"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="admin_hub">
 <meta property="og:title" content="Sign-in log analyzer for Entra ID | admin_hub">
@@ -13,16 +13,13 @@
 
 <p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<a href="tools.html">tools</a>/<b>signin-analyzer</b><span class="cs">$</span></p>
 <h1>signin-analyzer</h1>
-<p class="dim">Drop an Entra ID sign-in log export. You get a triage report: what looks like an attack, which accounts are affected, what to do next, and a KQL query to keep hunting. The file is read by your browser and never uploaded, so it also works offline.</p>
-
-<label class="drop" id="sa-drop"><input type="file" id="sa-file" accept=".csv,.json,.txt,text/csv,application/json"><b>Drop a sign-in log here, or click to choose a file</b><span>CSV from the Entra admin center or Log Analytics, or JSON from Microsoft Graph</span></label>
+<p class="dim">Drop an Entra ID sign-in log export. You get a triage report: what looks like an attack, which accounts are affected, what to do next, and a KQL query to keep hunting. The file is read by your browser and never uploaded, so it also works offline.</p><nav class="jump toc" aria-label="On this page"><a href="#sa-out" class="tocres" hidden>result</a><a href="#s-getting-the-export">getting the export</a><a href="#s-what-it-checks">what it checks</a></nav><div class="tframe"><div class="tfin"><label class="drop" id="sa-drop"><input type="file" id="sa-file" accept=".csv,.json,.txt,text/csv,application/json"><b>Drop a sign-in log here, or click to choose a file</b><span>CSV from the Entra admin center or Log Analytics, or JSON from Microsoft Graph</span></label>
 <div class="ctl" style="margin-top:14px"><button class="btn" id="sa-sample" type="button">Load sample data</button><button class="btn ghost" id="sa-sample-dl" type="button">Download the sample CSV</button></div>
-<p id="sa-status" class="dim" aria-live="polite" style="margin-top:6px"></p>
-<details id="sa-mapwrap" hidden><summary>column mapping</summary><p class="dim" style="margin-top:8px">Columns are matched by name. If your export uses different headers, point each field at the right column and the report re-runs.</p><div id="sa-map"></div></details>
+<p id="sa-status" class="dim" aria-live="polite" style="margin-top:6px"></p></div><aside class="peek tprev" aria-label="Example of a result"><div class="bar"><i></i><i></i><i></i><span>what you get: an example</span></div><div class="tpv v-crit"><b>Act now</b><span>2 critical, 3 high, 1 medium, 3 info in 1,014 sign-ins</span></div><ul><li><span class="sevtag s-crit">critical</span>Password spray with at least one successful sign-in</li><li><span class="sevtag s-crit">critical</span>Repeated MFA denials that ended in a successful sign-in</li><li><span class="sevtag s-high">high</span>Successful sign-ins from two countries within two hours</li><li><span class="sevtag s-high">high</span>Legacy authentication is still working</li></ul><button class="tplink" type="button" data-sample="sa-sample">Open this example</button></aside></div><details id="sa-mapwrap" hidden><summary>column mapping</summary><p class="dim" style="margin-top:8px">Columns are matched by name. If your export uses different headers, point each field at the right column and the report re-runs.</p><div id="sa-map"></div></details>
 
 <div id="sa-out" hidden></div>
 
-<h2 style="margin-top:56px">getting the export</h2>
+<h2 id="s-getting-the-export" style="margin-top:56px">getting the export</h2>
 <div class="tw"><table class="tbl"><thead><tr><th>Source</th><th>How</th></tr></thead><tbody>
 <tr><td>Entra admin center</td><td>Monitoring &amp; health, Sign-in logs, set the date range, Download, CSV. Interactive and non-interactive sign-ins are separate files; analyse them one at a time.</td></tr>
 <tr><td>Microsoft Graph PowerShell</td><td><code>Get-MgAuditLogSignIn -All | ConvertTo-Json -Depth 6 | Out-File signins.json</code> (PowerShell 7, needs AuditLog.Read.All)</td></tr>
@@ -30,7 +27,7 @@
 <tr><td>Log Analytics / Sentinel</td><td><code>SigninLogs | where TimeGenerated &gt; ago(7d)</code>, then Export, CSV (all columns)</td></tr>
 </tbody></table></div>
 
-<h2 style="margin-top:40px">what it checks</h2>
+<h2 id="s-what-it-checks" style="margin-top:40px">what it checks</h2>
 <div class="tw"><table class="tbl"><thead><tr><th>Check</th><th>Triggers when</th></tr></thead><tbody>
 <tr><td>Password spray</td><td>One IP fails with a wrong password, lockout or unknown user against 5 or more accounts. Critical if that IP then signs in successfully.</td></tr>
 <tr><td>Password guessing</td><td>10 or more wrong-password or lockout events on one account. Critical if an address with 3 or more of those failures later succeeds.</td></tr>
@@ -48,5 +45,5 @@
 
 </main>
 <footer><div class="fcol"><b>analyze</b><a href="signin-analyzer.html">sign-in analyzer</a><a href="ca-analyzer.html">CA analyzer</a><a href="phish-analyzer.html">phish analyzer</a><a href="domain-check.html">domain check</a></div><div class="fcol"><b>plan and practise</b><a href="attack-map.html">attack map</a><a href="cockpit.html">cockpit</a><a href="incident-sim.html">incident simulator</a><a href="patch-tuesday.html">patch tuesday</a></div><div class="fcol"><b>reference</b><a href="tools.html">all tools</a><a href="cheat-sheets.html">cheat sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a></div><div class="fcol"><b>site</b><a href="about.html">about</a><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a></div><p class="fline">admin_hub, 2026. The tools run in your browser.</p></footer></div>
-<script src="signin.js?v=36" defer></script>
-<script src="shell.js?v=36" defer></script><script src="consent.js?v=36" defer></script><script src="reveal.js?v=36" defer></script><script src="pwa.js?v=36" defer></script><script src="search-index.js?v=36" defer></script><script src="search.js?v=36" defer></script></body></html>
+<script src="signin.js?v=37" defer></script>
+<script src="frame.js?v=37" defer></script><script src="shell.js?v=37" defer></script><script src="consent.js?v=37" defer></script><script src="reveal.js?v=37" defer></script><script src="pwa.js?v=37" defer></script><script src="search-index.js?v=37" defer></script><script src="search.js?v=37" defer></script></body></html>

@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Mail flow debugger | admin_hub</title><meta name="description" content="Paste a bounce message, an SMTP error or a message trace and get the cause, who has to fix it, the commands and a reply for the user. Runs in your browser."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=36"><link rel="canonical" href="https://admin-hub.xyz/mailflow-debugger.html"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Mail flow debugger | admin_hub</title><meta name="description" content="Paste a bounce message, an SMTP error or a message trace and get the cause, who has to fix it, the commands and a reply for the user. Runs in your browser."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=37"><link rel="canonical" href="https://admin-hub.xyz/mailflow-debugger.html"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="admin_hub">
 <meta property="og:title" content="Mail flow debugger | admin_hub">
@@ -13,17 +13,13 @@
 
 <p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<a href="tools.html">tools</a>/<b>mailflow-debugger</b><span class="cs">$</span></p>
 <h1>mailflow-debugger</h1>
-<p class="dim">"My mail came back." Paste the bounce message here, or the error line from a scanner, a message trace result, or the spam headers of a received mail. You get the cause in plain language, which side has to fix it, the commands to check it and a reply you can send to the user. The text is read by your browser and never uploaded.</p>
-
-<textarea id="mf-text" class="q" placeholder="Paste the bounce (NDR), an SMTP error such as 550 5.7.1 ..., message trace output or the X-Forefront-Antispam-Report header" spellcheck="false" style="margin-top:14px;min-height:150px;font-size:.82rem"></textarea>
+<p class="dim">"My mail came back." Paste the bounce message here, or the error line from a scanner, a message trace result, or the spam headers of a received mail. You get the cause in plain language, which side has to fix it, the commands to check it and a reply you can send to the user. The text is read by your browser and never uploaded.</p><nav class="jump toc" aria-label="On this page"><a href="#mf-out" class="tocres" hidden>result</a><a href="#s-what-you-can-paste">what you can paste</a><a href="#s-how-to-read-a-status-code">how to read a status code</a></nav><div class="tframe"><div class="tfin"><textarea id="mf-text" class="q" placeholder="Paste the bounce (NDR), an SMTP error such as 550 5.7.1 ..., message trace output or the X-Forefront-Antispam-Report header" spellcheck="false" style="margin-top:14px;min-height:150px;font-size:.82rem"></textarea>
 <div class="ctl" style="margin-top:12px"><button class="btn" id="mf-run" type="button">Diagnose</button><button class="btn ghost" id="mf-clear" type="button">Clear</button><span class="dim">or just a code, for example 5.7.509</span></div>
 <p class="dim" style="margin:14px 0 6px">Try an example:</p>
 <div id="mf-samples" style="display:flex;flex-wrap:wrap;gap:8px"></div>
-<p id="mf-status" class="dim" aria-live="polite" style="margin-top:10px"></p>
+<p id="mf-status" class="dim" aria-live="polite" style="margin-top:10px"></p></div><aside class="peek tprev" aria-label="Example of a result"><div class="bar"><i></i><i></i><i></i><span>what you get: an example</span></div><div class="tpv v-high"><b>The sending domain failed DMARC and its policy says reject</b><span>permanent, the sending side has to fix this</span></div><ul><li><span class="sevtag s-info">cause</span>Neither SPF nor DKIM passed in alignment</li><li><span class="sevtag s-info">to do</span>Steps for the sender and for the receiver</li><li><span class="sevtag s-info">commands</span>Exchange Online PowerShell, ready to copy</li><li><span class="sevtag s-info">reply</span>A text you can send to the user</li></ul><button class="tplink" type="button" data-sample-sel="#mf-samples button:nth-child(2)">Open this example</button></aside></div><div id="mf-out" hidden></div>
 
-<div id="mf-out" hidden></div>
-
-<h2 style="margin-top:56px">what you can paste</h2>
+<h2 id="s-what-you-can-paste" style="margin-top:56px">what you can paste</h2>
 <div class="tw"><table class="tbl"><thead><tr><th>Input</th><th>Where to get it</th></tr></thead><tbody>
 <tr><td>Bounce message (NDR)</td><td>The mail the sender got back. Copy all of it, including the part headed "Diagnostic information for administrators". That part holds the status code and the name of the rejecting server.</td></tr>
 <tr><td>SMTP error line</td><td>From the display or log of a scanner, printer, application or mail server, for example <code>550 5.7.1 Unable to relay</code>.</td></tr>
@@ -32,7 +28,7 @@
 <tr><td>Just a code</td><td>An enhanced status code such as <code>5.4.1</code> on its own. The diagnosis is less specific without the text around it.</td></tr>
 </tbody></table></div>
 
-<h2 style="margin-top:40px">how to read a status code</h2>
+<h2 id="s-how-to-read-a-status-code" style="margin-top:40px">how to read a status code</h2>
 <div class="tw"><table class="tbl"><thead><tr><th>Part</th><th>Meaning</th></tr></thead><tbody>
 <tr><td>First digit</td><td><code>2</code> delivered, <code>4</code> temporary failure (the sending server tries again), <code>5</code> permanent failure (the mail is returned).</td></tr>
 <tr><td>Second digit</td><td><code>1</code> address, <code>2</code> mailbox, <code>3</code> mail system, <code>4</code> network and routing, <code>5</code> protocol, <code>6</code> content, <code>7</code> security and policy.</td></tr>
@@ -44,5 +40,5 @@
 
 </main>
 <footer><div class="fcol"><b>analyze</b><a href="signin-analyzer.html">sign-in analyzer</a><a href="ca-analyzer.html">CA analyzer</a><a href="phish-analyzer.html">phish analyzer</a><a href="domain-check.html">domain check</a></div><div class="fcol"><b>plan and practise</b><a href="attack-map.html">attack map</a><a href="cockpit.html">cockpit</a><a href="incident-sim.html">incident simulator</a><a href="patch-tuesday.html">patch tuesday</a></div><div class="fcol"><b>reference</b><a href="tools.html">all tools</a><a href="cheat-sheets.html">cheat sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a></div><div class="fcol"><b>site</b><a href="about.html">about</a><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a></div><p class="fline">admin_hub, 2026. The tools run in your browser.</p></footer></div>
-<script src="mailflow.js?v=36" defer></script>
-<script src="shell.js?v=36" defer></script><script src="consent.js?v=36" defer></script><script src="reveal.js?v=36" defer></script><script src="pwa.js?v=36" defer></script><script src="search-index.js?v=36" defer></script><script src="search.js?v=36" defer></script></body></html>
+<script src="mailflow.js?v=37" defer></script>
+<script src="frame.js?v=37" defer></script><script src="shell.js?v=37" defer></script><script src="consent.js?v=37" defer></script><script src="reveal.js?v=37" defer></script><script src="pwa.js?v=37" defer></script><script src="search-index.js?v=37" defer></script><script src="search.js?v=37" defer></script></body></html>

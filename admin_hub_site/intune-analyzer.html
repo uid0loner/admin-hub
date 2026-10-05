@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Intune fleet analyzer | admin_hub</title><meta name="description" content="Drop the Intune device export and see how healthy the fleet is: non-compliant, unencrypted, stale and unsupported devices, with fixes. Runs in your browser."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=36"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Intune fleet analyzer | admin_hub</title><meta name="description" content="Drop the Intune device export and see how healthy the fleet is: non-compliant, unencrypted, stale and unsupported devices, with fixes. Runs in your browser."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=37"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="admin_hub">
 <meta property="og:title" content="Intune fleet analyzer | admin_hub">
@@ -13,22 +13,19 @@
 
 <p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<a href="tools.html">tools</a>/<b>intune-analyzer</b><span class="cs">$</span></p>
 <h1>intune-analyzer</h1>
-<p class="dim">Drop the device list you export from Intune. You get one number for the health of the fleet, the devices behind every problem, what to do about each, and a command to pull the same list again later. The file is read by your browser and never uploaded, so it also works offline.</p>
-
-<label class="drop" id="ia-drop"><input type="file" id="ia-file" accept=".csv,.json,.txt,text/csv,application/json"><b>Drop the device export here, or click to choose a file</b><span>CSV from the Intune admin center, or JSON from Microsoft Graph</span></label>
+<p class="dim">Drop the device list you export from Intune. You get one number for the health of the fleet, the devices behind every problem, what to do about each, and a command to pull the same list again later. The file is read by your browser and never uploaded, so it also works offline.</p><nav class="jump toc" aria-label="On this page"><a href="#ia-out" class="tocres" hidden>result</a><a href="#s-getting-the-export">getting the export</a><a href="#s-what-it-checks">what it checks</a></nav><div class="tframe"><div class="tfin"><label class="drop" id="ia-drop"><input type="file" id="ia-file" accept=".csv,.json,.txt,text/csv,application/json"><b>Drop the device export here, or click to choose a file</b><span>CSV from the Intune admin center, or JSON from Microsoft Graph</span></label>
 <div class="ctl" style="margin-top:14px"><button class="btn" id="ia-sample" type="button">Load sample data</button><button class="btn ghost" id="ia-sample-dl" type="button">Download the sample CSV</button></div>
-<p id="ia-status" class="dim" aria-live="polite" style="margin-top:6px"></p>
-<details id="ia-mapwrap" hidden><summary>column mapping</summary><p class="dim" style="margin-top:8px">Columns are matched by name. If your export uses different headers, point each field at the right column and the report re-runs.</p><div id="ia-map"></div></details>
+<p id="ia-status" class="dim" aria-live="polite" style="margin-top:6px"></p></div><aside class="peek tprev" aria-label="Example of a result"><div class="bar"><i></i><i></i><i></i><span>what you get: an example</span></div><div class="tpv v-med"><b>81% of devices are in good shape</b><span>188 of 231 compliant, encrypted, supported and seen recently</span></div><ul><li><span class="sevtag s-crit">critical</span>Jailbroken or rooted devices (1)</li><li><span class="sevtag s-high">high</span>Windows versions without security updates (25)</li><li><span class="sevtag s-high">high</span>Devices without disk encryption (11)</li><li><span class="sevtag s-high">high</span>Mail-only devices without management (6)</li></ul><button class="tplink" type="button" data-sample="ia-sample">Open this example</button></aside></div><details id="ia-mapwrap" hidden><summary>column mapping</summary><p class="dim" style="margin-top:8px">Columns are matched by name. If your export uses different headers, point each field at the right column and the report re-runs.</p><div id="ia-map"></div></details>
 
 <div id="ia-out" hidden></div>
 
-<h2 style="margin-top:56px">getting the export</h2>
+<h2 id="s-getting-the-export" style="margin-top:56px">getting the export</h2>
 <div class="tw"><table class="tbl"><thead><tr><th>Source</th><th>How</th></tr></thead><tbody>
 <tr><td>Intune admin center</td><td>Devices, All devices, Export. Choose to include all columns, not only the ones shown. The download is a zip with one CSV.</td></tr>
 <tr><td>Microsoft Graph PowerShell</td><td><code>Get-MgDeviceManagementManagedDevice -All | ConvertTo-Json -Depth 3 | Out-File devices.json</code> (needs DeviceManagementManagedDevices.Read.All)</td></tr>
 </tbody></table></div>
 
-<h2 style="margin-top:40px">what it checks</h2>
+<h2 id="s-what-it-checks" style="margin-top:40px">what it checks</h2>
 <div class="tw"><table class="tbl"><thead><tr><th>Check</th><th>Triggers when</th></tr></thead><tbody>
 <tr><td>Jailbroken or rooted</td><td>The device reports a jailbreak or root.</td></tr>
 <tr><td>Mail-only devices</td><td>"Managed by" is Exchange ActiveSync only: the device syncs mail but gets no policy.</td></tr>
@@ -51,5 +48,5 @@
 
 </main>
 <footer><div class="fcol"><b>analyze</b><a href="intune-analyzer.html">sign-in analyzer</a><a href="ca-analyzer.html">CA analyzer</a><a href="phish-analyzer.html">phish analyzer</a><a href="domain-check.html">domain check</a></div><div class="fcol"><b>plan and practise</b><a href="attack-map.html">attack map</a><a href="cockpit.html">cockpit</a><a href="incident-sim.html">incident simulator</a><a href="patch-tuesday.html">patch tuesday</a></div><div class="fcol"><b>reference</b><a href="tools.html">all tools</a><a href="cheat-sheets.html">cheat sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a></div><div class="fcol"><b>site</b><a href="about.html">about</a><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a></div><p class="fline">admin_hub, 2026. The tools run in your browser.</p></footer></div>
-<script src="intune.js?v=36" defer></script>
-<script src="shell.js?v=36" defer></script><script src="consent.js?v=36" defer></script><script src="reveal.js?v=36" defer></script><script src="pwa.js?v=36" defer></script><script src="search-index.js?v=36" defer></script><script src="search.js?v=36" defer></script></body></html>
+<script src="intune.js?v=37" defer></script>
+<script src="frame.js?v=37" defer></script><script src="shell.js?v=37" defer></script><script src="consent.js?v=37" defer></script><script src="reveal.js?v=37" defer></script><script src="pwa.js?v=37" defer></script><script src="search-index.js?v=37" defer></script><script src="search.js?v=37" defer></script></body></html>

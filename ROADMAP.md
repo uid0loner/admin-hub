@@ -7,11 +7,10 @@ Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not par
 
 Content is on hold until the look and the structure are where they should be. The colour scheme stays.
 
-1. One frame for every tool page: input, result, how to export, what it checks, with a small section menu. A preview of a result before any file is dropped, so the page does not start empty
-2. Components: tables (aligned numbers, sticky headers), findings, buttons (one primary action per screen), forms, chips, focus states, small pictograms per category
-3. Motion where it explains something: result reveal, page transitions, a better command palette
-4. start-here, about and 404 rewritten in the new style
-5. Mobile and accessibility pass, print styles
+1. Components: tables (aligned numbers, sticky headers), findings, buttons (one primary action per screen), forms, chips, focus states, small pictograms per category
+2. Motion where it explains something: result reveal, page transitions, a better command palette
+3. start-here, about and 404 rewritten in the new style
+4. Mobile and accessibility pass, print styles
 
 ## After the design
 
@@ -38,6 +37,7 @@ Content is on hold until the look and the structure are where they should be. Th
 
 ## Done
 
+- 2026-10-05: design 4, tool frame: the eight analyzer pages show an example result next to the input, with a section menu; the preview gives way to the real result, stamp v37
 - 2026-10-05: design 3, home page: three starting points, directory tiles, live strip in two columns, a third shorter. The grouped tool list moved to the tools page, which now has a filter. Note for later rounds: the "new here" list on the home page holds 6 items, and the counts live in the tiles (data-count) and in start-here and about, stamp v35
 - 2026-10-05: design 2, hub pages: cheat sheets, checklists and explainers as grouped directories with a filter, stamp v33
 - 2026-10-05: design 1, typography: IBM Plex Sans for running text, JetBrains Mono (now really delivered by the site) for identity, interface and data, stamp v32

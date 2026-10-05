@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Entra app audit | admin_hub</title><meta name="description" content="Audit Entra ID app registrations and enterprise apps: apps that can take over the tenant, broad mail and file access, consent phishing, expiring secrets, unused apps. Runs in your browser."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=36"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Entra app audit | admin_hub</title><meta name="description" content="Audit Entra ID app registrations and enterprise apps: apps that can take over the tenant, broad mail and file access, consent phishing, expiring secrets, unused apps. Runs in your browser."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=37"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="admin_hub">
 <meta property="og:title" content="Entra app audit | admin_hub">
@@ -13,19 +13,15 @@
 
 <p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<a href="tools.html">tools</a>/<b>app-audit</b><span class="cs">$</span></p>
 <h1>app-audit</h1>
-<p class="dim">Every app registration and every enterprise app in Entra ID is a way into the tenant that does not go through a user's MFA. Drop an export here and see which apps could take over the tenant, which read everyone's mail, where users were tricked into consent, which secrets are about to expire and which apps nobody uses any more. The file is read by your browser and never uploaded.</p>
-
-<label class="drop" id="aa-drop"><input type="file" id="aa-file" accept=".json,.txt,application/json"><b>Drop apps.json here, or click to choose a file</b><span>the file written by the export script below</span></label>
+<p class="dim">Every app registration and every enterprise app in Entra ID is a way into the tenant that does not go through a user's MFA. Drop an export here and see which apps could take over the tenant, which read everyone's mail, where users were tricked into consent, which secrets are about to expire and which apps nobody uses any more. The file is read by your browser and never uploaded.</p><nav class="jump toc" aria-label="On this page"><a href="#aa-out" class="tocres" hidden>result</a><a href="#s-getting-the-export">getting the export</a><a href="#s-what-it-checks">what it checks</a></nav><div class="tframe"><div class="tfin"><label class="drop" id="aa-drop"><input type="file" id="aa-file" accept=".json,.txt,application/json"><b>Drop apps.json here, or click to choose a file</b><span>the file written by the export script below</span></label>
 <div class="ctl" style="margin-top:14px"><button class="btn" id="aa-sample" type="button">Load sample data</button><button class="btn ghost" id="aa-sample-dl" type="button">Download the sample file</button></div>
-<p id="aa-status" class="dim" aria-live="polite" style="margin-top:6px"></p>
+<p id="aa-status" class="dim" aria-live="polite" style="margin-top:6px"></p></div><aside class="peek tprev" aria-label="Example of a result"><div class="bar"><i></i><i></i><i></i><span>what you get: an example</span></div><div class="tpv v-crit"><b>Act now</b><span>19 of 35 apps need a look</span></div><ul><li><span class="sevtag s-crit">critical</span>Apps that can take control of the tenant (2)</li><li><span class="sevtag s-high">high</span>Read or change everyone&#x27;s data without a user (6)</li><li><span class="sevtag s-high">high</span>Users consented to an unverified outside app (2)</li><li><span class="sevtag s-high">high</span>Secrets that expire within 30 days (2)</li></ul><button class="tplink" type="button" data-sample="aa-sample">Open this example</button></aside></div><div id="aa-out" hidden></div>
 
-<div id="aa-out" hidden></div>
-
-<h2 style="margin-top:56px">getting the export</h2>
+<h2 id="s-getting-the-export" style="margin-top:56px">getting the export</h2>
 <p class="dim">The portal has no single export that contains credentials, permissions and consents together, so this page comes with a script. It only reads. Run it in PowerShell 7 with the Microsoft.Graph module, as a Global Reader or with the three scopes it asks for, then drop the resulting <code>apps.json</code> above. The file holds names and expiry dates of credentials, never the secrets themselves: Entra ID does not give those out.</p>
 <pre id="aa-script" style="white-space:pre;overflow-x:auto;font-size:.8rem"></pre>
 
-<h2 style="margin-top:40px">what it checks</h2>
+<h2 id="s-what-it-checks" style="margin-top:40px">what it checks</h2>
 <div class="tw"><table class="tbl"><thead><tr><th>Check</th><th>Triggers when</th></tr></thead><tbody>
 <tr><td>Tenant takeover</td><td>An app holds an application permission that lets it grant itself more (role management, app role assignment, application write, authentication methods, Conditional Access, federation) or holds an administrator directory role. Critical when the app belongs to another organisation.</td></tr>
 <tr><td>Broad data access</td><td>Application permissions on all mailboxes, files, sites, chats or the whole directory.</td></tr>
@@ -45,5 +41,5 @@
 
 </main>
 <footer><div class="fcol"><b>analyze</b><a href="app-audit.html">sign-in analyzer</a><a href="ca-analyzer.html">CA analyzer</a><a href="phish-analyzer.html">phish analyzer</a><a href="domain-check.html">domain check</a></div><div class="fcol"><b>plan and practise</b><a href="attack-map.html">attack map</a><a href="cockpit.html">cockpit</a><a href="incident-sim.html">incident simulator</a><a href="patch-tuesday.html">patch tuesday</a></div><div class="fcol"><b>reference</b><a href="tools.html">all tools</a><a href="cheat-sheets.html">cheat sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a></div><div class="fcol"><b>site</b><a href="about.html">about</a><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a></div><p class="fline">admin_hub, 2026. The tools run in your browser.</p></footer></div>
-<script src="appaudit.js?v=36" defer></script>
-<script src="shell.js?v=36" defer></script><script src="consent.js?v=36" defer></script><script src="reveal.js?v=36" defer></script><script src="pwa.js?v=36" defer></script><script src="search-index.js?v=36" defer></script><script src="search.js?v=36" defer></script></body></html>
+<script src="appaudit.js?v=37" defer></script>
+<script src="frame.js?v=37" defer></script><script src="shell.js?v=37" defer></script><script src="consent.js?v=37" defer></script><script src="reveal.js?v=37" defer></script><script src="pwa.js?v=37" defer></script><script src="search-index.js?v=37" defer></script><script src="search.js?v=37" defer></script></body></html>

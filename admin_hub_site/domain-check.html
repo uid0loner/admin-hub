@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Domain check: SPF, DMARC, DKIM, MTA-STS and DNSSEC audit | admin_hub</title><meta name="description" content="Enter a domain and get a graded email-security audit from live DNS: SPF with lookup count, DMARC policy, DKIM selectors, MTA-STS, TLS-RPT, DNSSEC and CAA, with the exact records to publish."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=36"><link rel="canonical" href="https://admin-hub.xyz/domain-check.html"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Domain check: SPF, DMARC, DKIM, MTA-STS and DNSSEC audit | admin_hub</title><meta name="description" content="Enter a domain and get a graded email-security audit from live DNS: SPF with lookup count, DMARC policy, DKIM selectors, MTA-STS, TLS-RPT, DNSSEC and CAA, with the exact records to publish."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=37"><link rel="canonical" href="https://admin-hub.xyz/domain-check.html"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="admin_hub">
 <meta property="og:title" content="Domain check: SPF, DMARC, DKIM, MTA-STS and DNSSEC audit | admin_hub">
@@ -13,18 +13,14 @@
 
 <p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<a href="tools.html">tools</a>/<b>domain-check</b><span class="cs">$</span></p>
 <h1>domain-check</h1>
-<p class="dim">Can someone send mail that looks like it comes from your domain? Enter the domain and get a graded audit from live DNS: SPF, DMARC, DKIM, MTA-STS, TLS reporting, DNSSEC and CAA, each with the record to publish if it is missing. Works for any domain, yours or a supplier's.</p>
-
-<div class="ctl" style="margin-top:14px;flex-wrap:wrap;gap:10px;align-items:stretch">
+<p class="dim">Can someone send mail that looks like it comes from your domain? Enter the domain and get a graded audit from live DNS: SPF, DMARC, DKIM, MTA-STS, TLS reporting, DNSSEC and CAA, each with the record to publish if it is missing. Works for any domain, yours or a supplier's.</p><nav class="jump toc" aria-label="On this page"><a href="#dc-out" class="tocres" hidden>result</a><a href="#s-what-is-checked">what is checked</a></nav><div class="tframe"><div class="tfin"><div class="ctl" style="margin-top:14px;flex-wrap:wrap;gap:10px;align-items:stretch">
   <input id="dc-name" class="q" type="text" placeholder="example.com" autocomplete="off" autocapitalize="off" spellcheck="false" style="flex:1;min-width:200px" aria-label="Domain name">
   <select id="dc-res" class="sel" aria-label="DNS resolver" style="width:auto;margin-top:0"><option value="cloudflare">Cloudflare (1.1.1.1)</option><option value="google">Google (8.8.8.8)</option></select>
   <button class="btn solid" id="dc-run" type="button">Check domain</button>
 </div>
-<p id="dc-status" class="dim" aria-live="polite" style="margin-top:8px"></p>
+<p id="dc-status" class="dim" aria-live="polite" style="margin-top:8px"></p></div><aside class="peek tprev" aria-label="Example of a result"><div class="bar"><i></i><i></i><i></i><span>what you get: an example</span></div><div class="tpv v-crit"><b>Grade F</b><span>this domain can be spoofed</span></div><ul><li><span class="sevtag s-crit">fail</span>DMARC: no record published</li><li><span class="sevtag s-high">weak</span>SPF: ends in ~all, 12 of 10 lookups</li><li><span class="sevtag s-info">ok</span>DKIM: selector1 found, 2048 bit</li><li><span class="sevtag s-med">missing</span>MTA-STS and TLS-RPT</li></ul></aside></div><div id="dc-out" hidden></div>
 
-<div id="dc-out" hidden></div>
-
-<h2 style="margin-top:56px">what is checked</h2>
+<h2 id="s-what-is-checked" style="margin-top:56px">what is checked</h2>
 <div class="tw"><table class="tbl"><thead><tr><th>Record</th><th>What it does</th><th>What counts against you</th></tr></thead><tbody>
 <tr><td>SPF</td><td>Lists the servers allowed to send for the domain.</td><td>Missing, more than one record, +all or ?all, over 10 DNS lookups, includes that resolve to nothing.</td></tr>
 <tr><td>DMARC</td><td>Ties the visible From address to SPF and DKIM and tells receivers what to do on failure.</td><td>Missing, p=none, pct below 100, no report address, subdomains exempted.</td></tr>
@@ -38,5 +34,5 @@
 
 </main>
 <footer><div class="fcol"><b>analyze</b><a href="signin-analyzer.html">sign-in analyzer</a><a href="ca-analyzer.html">CA analyzer</a><a href="phish-analyzer.html">phish analyzer</a><a href="domain-check.html">domain check</a></div><div class="fcol"><b>plan and practise</b><a href="attack-map.html">attack map</a><a href="cockpit.html">cockpit</a><a href="incident-sim.html">incident simulator</a><a href="patch-tuesday.html">patch tuesday</a></div><div class="fcol"><b>reference</b><a href="tools.html">all tools</a><a href="cheat-sheets.html">cheat sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a></div><div class="fcol"><b>site</b><a href="about.html">about</a><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a></div><p class="fline">admin_hub, 2026. The tools run in your browser.</p></footer></div>
-<script src="domaincheck.js?v=36" defer></script>
-<script src="shell.js?v=36" defer></script><script src="consent.js?v=36" defer></script><script src="reveal.js?v=36" defer></script><script src="pwa.js?v=36" defer></script><script src="search-index.js?v=36" defer></script><script src="search.js?v=36" defer></script></body></html>
+<script src="domaincheck.js?v=37" defer></script>
+<script src="frame.js?v=37" defer></script><script src="shell.js?v=37" defer></script><script src="consent.js?v=37" defer></script><script src="reveal.js?v=37" defer></script><script src="pwa.js?v=37" defer></script><script src="search-index.js?v=37" defer></script><script src="search.js?v=37" defer></script></body></html>
