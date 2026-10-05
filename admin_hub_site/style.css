@@ -1035,3 +1035,20 @@ pre{line-height:1.55;border-radius:8px}
 .seg .btn{min-height:32px}
 .job>p{min-height:3.1em}
 #ob-fwd{max-width:100%;min-width:0}label:has(>#ob-fwd){flex-wrap:wrap}
+
+/* ============ DESIGN 6: start-here, about, 404 ============ */
+.ways{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 34px;border-top:1px solid var(--line);margin-top:6px}
+.ways>div{padding:16px 0}
+.ways b{font-family:var(--mono);color:var(--blue)}
+.ways p{margin:4px 0 0;color:var(--dim);font-size:.95rem}
+.prose{max-width:74ch}
+.prose h2{margin-top:44px}
+.facts{margin:10px 0 0;display:grid;grid-template-columns:minmax(0,22ch) minmax(0,1fr);gap:0 26px;border-top:1px solid var(--line)}
+.facts dt,.facts dd{margin:0;padding:13px 0;border-bottom:1px solid var(--line)}
+.facts dt{font-family:var(--mono);font-size:.88rem;color:var(--blue);font-weight:700}
+.facts dd{font-family:var(--sans);color:var(--dim);line-height:1.6}
+.term.nf .tb{padding:16px 20px}
+.term.nf p{margin:2px 0}
+.term.nf .out{color:var(--dim)}
+.term.nf .out a{color:var(--blue);text-decoration:underline;text-underline-offset:3px;margin-right:6px}
+@media (max-width:760px){.ways{grid-template-columns:1fr}.facts{grid-template-columns:1fr}.facts dt{border-bottom:0;padding-bottom:0}.facts dd{padding-top:4px}}
