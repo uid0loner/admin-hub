@@ -3,12 +3,20 @@
 How this works: the owner writes "WEITER", the next open item is built, tested and committed to `main`.
 Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not part of the published site.
 
-## Next: breadth for the IT all-rounder
+## Next: second round for the all-rounder
 
-The site has become Microsoft 365 and Azure heavy. The owner is an all-rounder, so the next rounds go wide.
-Microsoft cloud work is paused, not dropped (see the end of this list).
+The first breadth round is done (calculators, certificate decoder, command builder, Linux, network, helpdesk,
+virtualisation and storage, log reader, scripting, small office blueprint).
 
-10. Small office blueprint: what a 10 to 50 person network should look like, as an interactive checklist with a shopping list
+1. Rebalance the front door: home page, start-here tracks and glossary still read like a Microsoft 365 site. Add tracks and terms for Linux, network, storage, helpdesk and scripting
+2. Databases pack: SQL in an afternoon, cheat sheets for PostgreSQL, MySQL/MariaDB and SQL Server, backup and restore, "the query is slow"
+3. Config reviewers: paste sshd_config, an nginx server block or a docker-compose file and get the risky lines explained
+4. DMARC report reader: drop the XML aggregate reports, see who sends mail in your name and what fails
+5. Containers and automation: Docker troubleshooting walkthrough, Ansible and Git for admins
+6. Monitoring pack: what to watch and at which threshold, SNMP, uptime and SLA calculator, alert fatigue checklist
+7. Windows Server on-premises: dcdiag and repadmin reader, DNS, DHCP and GPO troubleshooting, file server permissions
+8. Hardware and cabling: UPS runtime, PoE budget and cable length calculators, rack planner
+9. Cockpit for the new tools: keep results from the SMART reader, log reader and firewall reviewer
 
 Paused Microsoft items: guided "audit my tenant in an hour" flow, two more war stories, quality pass with real exports from the owner.
 

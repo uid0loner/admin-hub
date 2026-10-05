@@ -1,0 +1,55 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Small office blueprint | admin_hub</title><meta name="description" content="What the IT of a small office should look like: enter the number of people and how you work, and get the network layout, a sized list of what to buy and a checklist of what has to be true before you call it done."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=54"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="admin_hub">
+<meta property="og:title" content="Small office blueprint | admin_hub">
+<meta property="og:description" content="What the IT of a small office should look like: enter the number of people and how you work, and get the network layout, a sized list of what to buy and a checklist of what has to be true before you call it done.">
+<meta property="og:image" content="https://admin-hub.xyz/og-small-office-blueprint.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Small office blueprint | admin_hub">
+<meta name="twitter:description" content="What the IT of a small office should look like: enter the number of people and how you work, and get the network layout, a sized list of what to buy and a checklist of what has to be true before you call it done.">
+<meta name="twitter:image" content="https://admin-hub.xyz/og-small-office-blueprint.png">
+<link rel="canonical" href="https://admin-hub.xyz/small-office-blueprint.html"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Small office blueprint", "url": "https://admin-hub.xyz/small-office-blueprint.html", "description": "What the IT of a small office should look like: enter the number of people and how you work, and get the network layout, a sized list of what to buy and a checklist of what has to be true before you call it done.", "applicationCategory": "SecurityApplication", "operatingSystem": "Any", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "inLanguage": "en"}</script>
+</head><body><a class="skip" href="#main">skip to content</a><div class="wrap"><header><a class="brand" href="index.html">admin_hub</a><nav aria-label="Main"><a href="tools.html" aria-current="page">tools</a><a href="cheat-sheets.html">cheat-sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a><a href="explainers.html">explainers</a><a href="news.html">news</a><a href="start-here.html">start-here</a><a href="about.html">about</a></nav><button class="btn sbtn" type="button" data-search aria-label="Search the site" title="Search (Ctrl+K)">search <kbd>Ctrl K</kbd></button></header><main id="main" tabindex="-1">
+
+<p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<a href="tools.html">tools</a>/<b>small-office-blueprint</b><span class="cs">$</span></p>
+<h1>small-office-blueprint</h1>
+<p class="dim">You are setting up an office, or you inherited one and wonder what is missing. Tell the page how many people work there and how. It draws the network, sizes the list of things to buy and gives you the checklist that decides whether the result is solid. Everything stays in your browser, and the link in the address bar keeps your answers and ticks.</p>
+<h2 style="margin-top:30px">the office</h2>
+<div class="sim">
+<label>People<input class="sel" id="bp-people" type="number" min="1" max="250" value="20" inputmode="numeric"></label>
+<label>Where the files live<select class="sel" id="bp-data"><option value="cloud">In the cloud only</option><option value="both" selected>Cloud, plus a server or NAS in the office</option><option value="onprem">Mostly on a server in the office</option></select></label>
+<label>Working from elsewhere<select class="sel" id="bp-remote"><option value="none">Nobody</option><option value="some" selected>Some people, some days</option><option value="most">Most people, most days</option></select></label>
+<label>Telephones<select class="sel" id="bp-phones"><option value="mobile">Mobile phones only</option><option value="desk">Desk phones on the network</option><option value="soft" selected>Calls through the computer (Teams, softphone)</option></select></label>
+</div>
+<div class="optlist" style="margin-top:14px">
+<label><input type="checkbox" id="bp-things"> Cameras, door system, displays or other network "things"</label>
+<label><input type="checkbox" id="bp-public"> Something in the office must be reachable from the internet</label>
+</div>
+<p id="bp-sum" class="bpsum" aria-live="polite"></p>
+
+<h2 id="s-network" style="margin-top:40px">the network</h2>
+<p class="dim">One firewall, one layer of switches, and a zone for each kind of device. The firewall sits between the zones: what is not allowed there does not pass.</p>
+<div id="bp-pic" class="bppic"></div>
+<p style="margin-top:14px"><a id="bp-iplink" class="btn" href="ip-plan-builder.html">Turn these zones into an address plan</a></p>
+
+<h2 id="s-buy" style="margin-top:44px">what to buy, and how big</h2>
+<div class="tw"><table class="tbl bpbuy"><thead><tr><th>What</th><th>Size</th><th>Why this, why this size</th></tr></thead><tbody id="bp-buy"></tbody></table></div>
+<p class="note">Sizes are rules of thumb for an ordinary office: mail, documents, video calls, a line-of-business application. Design studios, laboratories and anything with large files or machines need their own numbers. There are no prices and no brands here on purpose: both change faster than the principles.</p>
+
+<h2 id="s-check" style="margin-top:44px">done when all of this is true</h2>
+<div class="bpprog"><div class="bpprogbar"><i id="bp-bar"></i></div><span id="bp-prog" class="dim" aria-live="polite"></span><button class="btn ghost" id="bp-print" type="button">Print</button></div>
+<div id="bp-check"></div>
+
+<h2 style="margin-top:48px">in which order</h2>
+<ol class="prose">
+<li><b>Accounts and multi-factor sign-in first.</b> It costs the least and stops the most common break-in.</li>
+<li><b>Backup second,</b> including the copy outside the office. Everything after this can go wrong without ending the company.</li>
+<li><b>Then the network:</b> firewall, zones, Wi-Fi. Guest Wi-Fi separated is the quick win.</li>
+<li><b>Then the devices:</b> encryption, updates, no local admin rights, central management.</li>
+<li><b>Write it down as you go.</b> Documentation written afterwards does not get written.</li>
+</ol>
+<p class="note">A blueprint, not a design for your building. Laws and contracts may add requirements, for example on data protection, retention and who may see what. For a company with more than one site, or more than about a hundred people, the same ideas hold and the sizing does not. Related: <a href="ip-plan-builder.html">IP plan builder</a>, <a href="backup-planner.html">backup planner</a>, <a href="raid-calculator.html">RAID calculator</a>, <a href="new-admin-first-30-days-checklist.html">first 30 days as the new admin</a>, <a href="helpdesk-top-tickets.html">the 20 helpdesk tickets</a>, <a href="snapshot-is-not-a-backup.html">a snapshot is not a backup</a>.</p>
+</main>
+<footer><div class="fcol"><b>analyze</b><a href="signin-analyzer.html">sign-in analyzer</a><a href="ca-analyzer.html">CA analyzer</a><a href="phish-analyzer.html">phish analyzer</a><a href="domain-check.html">domain check</a></div><div class="fcol"><b>plan and practise</b><a href="attack-map.html">attack map</a><a href="cockpit.html">cockpit</a><a href="incident-sim.html">incident simulator</a><a href="patch-tuesday.html">patch tuesday</a></div><div class="fcol"><b>reference</b><a href="tools.html">all tools</a><a href="cheat-sheets.html">cheat sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a></div><div class="fcol"><b>site</b><a href="about.html">about</a><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a></div><p class="fline">admin_hub, 2026. The tools run in your browser.</p></footer></div>
+<script src="blueprint.js?v=54" defer></script>
+<script src="shell.js?v=54" defer></script><script src="consent.js?v=54" defer></script><script src="reveal.js?v=54" defer></script><script src="pwa.js?v=54" defer></script><script src="search-index.js?v=54" defer></script><script src="search.js?v=54" defer></script></body></html>
