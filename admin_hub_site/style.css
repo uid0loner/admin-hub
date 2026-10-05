@@ -1160,3 +1160,33 @@ ol.prose li{margin-top:8px;color:var(--dim)}ol.prose li b{color:var(--text)}
 #fw-out .finding .tw+.btn{margin-top:12px}
 #fw-out .tbl td{vertical-align:top}
 #fw-text{width:100%;font-size:.8rem;white-space:pre}
+
+/* calculators */
+.pair{display:grid;grid-template-columns:1fr auto;gap:8px}
+.pair select.sel{width:auto;min-width:9ch}
+.disks{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.disk{width:64px;height:78px;border:1px solid var(--line);border-radius:8px;background:var(--panel);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-family:var(--mono);border-top-width:4px}
+.disk i{font-style:normal;font-size:1.05rem;font-weight:700;color:var(--text)}
+.disk span{font-size:.68rem;color:var(--dim)}
+.disk.data{border-top-color:var(--blue)}
+.disk.parity{border-top-color:var(--violet);background:rgba(180,92,255,.1)}
+.disk.mirror{border-top-color:var(--violet)}
+.disk.spare{border-style:dashed;opacity:.75}
+.disk.gap{margin-right:18px}
+.cmp tbody tr{cursor:pointer}
+.cmp tbody tr.iscur td{color:var(--text);background:rgba(77,163,255,.1)}
+.cmp tbody tr.iscur td:first-child{box-shadow:inset 3px 0 0 var(--blue)}
+.bktl{position:relative;height:46px;margin-top:14px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,rgba(13,11,43,.2),rgba(13,11,43,.8))}
+.bktl i{position:absolute;bottom:-1px;width:3px;margin-left:-1px;border-radius:2px 2px 0 0}
+.bktl i.d,.bklg i.d{height:14px;background:var(--blue)}
+.bktl i.w,.bklg i.w{height:22px;background:var(--violet)}
+.bktl i.m,.bklg i.m{height:32px;background:var(--hot)}
+.bktl i.y,.bklg i.y{height:42px;background:#ff9d4d}
+.bkax{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.74rem;color:var(--dim);margin-top:6px}
+.bklg{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.84rem;color:var(--dim);margin-top:8px}
+.bklg span{display:inline-flex;align-items:flex-end;gap:7px}
+.bklg i{display:inline-block;width:3px;height:14px!important;border-radius:2px}
+#bk-out h2,#tr-out h2{margin-top:34px}
+.optlist label span b{color:var(--blue);font-family:var(--mono)}
+@media (max-width:640px){.stats{--cols:2!important}.disk{width:52px;height:66px}}
+@media print{.sim,#tr-presets,.optlist{display:none!important}}

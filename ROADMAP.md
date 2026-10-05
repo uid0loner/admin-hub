@@ -8,7 +8,6 @@ Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not par
 The site has become Microsoft 365 and Azure heavy. The owner is an all-rounder, so the next rounds go wide.
 Microsoft cloud work is paused, not dropped (see the end of this list).
 
-1. Everyday toolbox: RAID calculator (capacity, fault tolerance, rebuild risk), backup planner (GFS retention, storage needed, 3-2-1 check), transfer time and bandwidth calculator, chmod calculator, cron builder
 2. Certificate and TLS decoder: paste a PEM certificate or chain, see subject, SANs, validity, key, chain order and what is wrong with it
 3. Command builders: robocopy, rsync, tar, find, ffmpeg-free basics; pick options, get the command with every switch explained
 4. Linux server pack: systemd and journalctl troubleshooting, users and permissions, disks and LVM, nginx and Apache, a "the server is slow" walkthrough
