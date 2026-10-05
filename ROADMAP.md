@@ -6,8 +6,11 @@ Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not par
 ## Next
 
 1. Content: cheat sheets for Defender for Office 365, SharePoint sharing and guest access, Azure networking
-2. Explainer: interactive diagram of how a device-code phishing attack works
-3. Glossary: 20 more terms from the new cheat sheets and tools
+2. Tool: Conditional Access policy builder, pick a goal and get the policy as JSON plus a rollout plan (report-only first)
+3. Tool: firewall rule reviewer, paste an export (FortiGate, pfSense, Windows Firewall) and find any-any rules, exposed management and unused objects
+4. Start page: a guided "audit my tenant in an hour" flow that chains the analyzers and collects the results in the cockpit
+5. War stories: two more incident write-ups (consent phishing, expired certificate outage)
+6. Quality pass: run every analyzer against real exports from the owner and fix what does not fit
 
 ## Open questions
 
@@ -25,6 +28,7 @@ Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not par
 
 ## Done
 
+- 2026-10-05: device code phishing explainer, 20 glossary terms (122 in total), stamp v30
 - 2026-10-05: Entra app audit (12 checks, export script, inventory, cockpit tile), stamp v29
 - 2026-10-05: license optimizer (9 checks, savings per month, editable prices, export script, cockpit tile), stamp v28
 - 2026-10-05: share cards for 18 more tool and lab pages; cheat sheets for Entra PIM and access reviews, Windows Update, Teams Phone, stamp v27
