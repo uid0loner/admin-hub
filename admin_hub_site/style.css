@@ -1512,3 +1512,14 @@ p.prose{font-family:var(--sans);max-width:74ch;color:var(--dim);margin-top:12px}
 @media(max-width:1000px){.cngrid{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:560px){.cncard{grid-template-columns:minmax(0,1fr);padding:16px}.cnfig{max-width:220px}}
 @media print{.cncard,.hwfig{background:#fff!important;break-inside:avoid}.cnfig,.hwfig{background:#fff!important}.hwsvg{color:#000}.hwsvg text,.hwsvg text.t2{fill:#000}.cnchips{display:none}.cncard[hidden]{display:grid!important}}
+
+/* power calculators, dmarc */
+.pwbar{height:10px;margin-top:14px;border:1px solid var(--line);border-radius:99px;background:#050316;overflow:hidden}
+.pwbar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--violet));border-radius:99px}
+.pwbar.warn i{background:linear-gradient(90deg,var(--violet),#ff9d4d)}
+.pwbar.over i{background:var(--hot)}
+#up-out h2,#po-out h2,#dm-out h2{margin-top:36px}
+#up-rows label span.dim,#po-rows label span.dim{font-size:.74rem}
+.dmpol{margin:16px 0 0;font-family:var(--mono);font-size:.82rem;color:var(--dim);overflow-wrap:anywhere}
+#dm-out .tbl td{vertical-align:top;overflow-wrap:anywhere}
+#dm-out .finding .tw{margin-top:10px}
