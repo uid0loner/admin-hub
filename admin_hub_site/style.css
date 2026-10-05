@@ -863,3 +863,4 @@ footer{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px 28px;
 #ia-out h2,#sa-out h2{margin-top:36px}
 #ia-out .finding .tw+.btn,#ia-out .finding .note+.btn{margin-top:12px}
 #ia-out .grid2 h3.fh{margin-top:10px}
+@media (min-width:980px){#is-list{grid-template-columns:repeat(3,minmax(0,1fr))}#is-list .pickcard h3{font-size:1.05rem}}

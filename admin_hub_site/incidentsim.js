@@ -119,6 +119,72 @@ var S={
     return {dmg:n,lines:lines};
   },
   links:[["ransomware-backup-gap.html","war story: the backup gap"],["backup-disaster-recovery-checklist.html","backup checklist"],["incident-runbook.html","incident runbook"],["kerberos-explained.html","Kerberos explained"],["attack-map.html","attack map"]]
+ },
+ insider:{
+  title:"Thursday 11:20: the resignation",kicker:"Microsoft 365 · insider data theft",
+  brief:"You run IT for a 120-person sales and engineering company. A key account manager handed in his notice yesterday. He works four more weeks.",
+  start:[11,20],unit:"exposure",dmg0:0,
+  beats:[
+   {feed:["11:20  Alert: unusual volume of file downloads   user: jonas.berger@   3,412 files in 40 minutes",
+          "11:20  Source: SharePoint site 'Sales / Customers', through the OneDrive sync client on LT-2231",
+          "11:22  Mail from HR, marked confidential: Jonas Berger resigned yesterday. He is said to be joining a competitor."],
+    q:"A leaver is pulling the whole customer folder onto his laptop. He is still an employee with a valid reason to open those files.",
+    o:[["Tell HR and your manager what you see, ask who decides what happens next, and save the audit log entries now",10,3,"This is an employment matter with a technical trail. Your job is to make the facts visible and keep them safe. What is done to the employee is for HR and management to decide, and they need to hear it from you before anyone acts.",{chain:1}],
+       ["Disable his account immediately",5,1,"It stops the download, and it is an employment decision you took alone, about someone who is still entitled to work. It also tells him he has been noticed, before anyone has secured his laptop.",{tipped:1}],
+       ["Call Jonas and ask him what he is doing",5,0,"He says he is tidying up for the handover. He now knows the downloads are watched, and he has the rest of the day with the laptop.",{tipped:1}],
+       ["Syncing a team site is normal for sales. Close the alert",0,0,"It is normal on any other day. On the day after a resignation to a competitor it is the clearest signal you will get.",{late:1,dmg:2}]]},
+   {feed:["11:40  Call with HR and the managing director.","Managing director: \"Find out what he took. Go through his mailbox if you have to. You are the admin, you can see everything.\""],
+    q:"You can technically open his mailbox. Should you, on a spoken instruction?",
+    o:[["Ask for a written instruction with a defined scope, bring in the data protection officer or legal counsel, and start with the audit logs and business data rather than reading mail",10,3,"Being able to and being allowed to are different things. A documented purpose, a limited scope and a second person are what make the findings usable later, and what protect you personally. Audit logs already answer most of the question without reading anyone's messages.",{authorized:1}],
+       ["Open the mailbox now and read through the last month",20,0,"His mailbox also holds private messages, and in many countries employee representatives or the data protection officer have a say. Evidence gathered this way can be thrown out, and the person who gathered it is you.",{unauth:1}],
+       ["Refuse to look at anything without a court order",0,1,"Too far the other way. An employer may investigate a concrete suspicion in a proportionate, documented way. Refusing outright only delays the things that are clearly allowed, such as reviewing audit logs.",{}]]},
+   {feed:["Audit log for jonas.berger@, last 30 days:",
+          "  3 weeks ago  Inbox rule 'archive': forward mail containing 'offer' or 'contract' to j.berger.privat@ (external)",
+          "  today 10:40  Anonymous sharing links created: 'Pricing 2026.xlsx', 'Customer master.xlsx'",
+          "  today 10:48  LT-2231: USB storage connected, 1.9 GB written",
+          "  today 11:00  3,412 files synced to LT-2231"],
+    ifFlag:{tipped:"  today 11:35  LT-2231: a disk clean-up tool was installed and started"},
+    q:"Three channels are open: forwarding, public links and a USB stick. What do you close, and how?",
+    o:[["Remove the forwarding rule, revoke the anonymous links, block USB storage on his device and external sharing for his account. Leave the account itself working until HR decides",15,3,"You close the leaks you can still close and change nothing about his employment. What is already on the USB stick is out of your reach and becomes a matter for legal counsel.",{stopped:1}],
+       ["Delete the synced files from his OneDrive and laptop",10,0,"He has copies on the stick. What you deleted is the evidence of what he took, with its timestamps.",{evidenceLost:1}],
+       ["Reset his password so he cannot sign in",5,1,"His phone and laptop stay signed in for a while, the links stay public and the rule keeps forwarding. And he calls the help desk within ten minutes.",{tipped:1}]]},
+   {feed:["12:10  HR: \"We will talk to him this afternoon. Legal asks whether we can prove any of this in three months.\""],
+    q:"How do you make sure the evidence still exists and still counts?",
+    o:[["Put his mailbox and OneDrive on hold, export the relevant audit records, and write down who did what and when",15,3,"A hold keeps content even if he or anyone else deletes it. Audit records age out, so export them now. Your own notes with times are what lets someone else rely on the material later.",{hold:1}],
+       ["Take screenshots of the alerts and the audit search",5,1,"Better than nothing, but a screenshot proves little on its own, and the underlying records disappear when their retention ends.",{}],
+       ["Copy his entire OneDrive and mailbox to your own computer for safekeeping",30,0,"Now the customer list and his private files sit on a second laptop, yours, with no record of who touched them. You have added a leak and weakened the evidence.",{evidenceLost:1}]]},
+   {feed:["13:30  HR has decided: Jonas is released from his duties today. The conversation starts at 14:00 in the meeting room. His manager will be present.","HR: \"What does IT do, and when?\""],
+    q:"Timing matters here more than tooling.",
+    o:[["When the meeting starts: block sign-in and revoke his sessions. The laptop and company phone are collected in the room. Nothing is deleted. Mailbox access for his manager only as HR instructs",10,3,"Access ends at the moment he learns about it, not before and not hours after. The devices are evidence and go into a locked cabinet as they are. The account stays, blocked, because it carries the hold.",{offboard:1}],
+       ["Block the account tomorrow morning, to be decent about it",0,0,"He has an evening with full access to mail and files, knowing he is out. Being decent is how HR conducts the conversation. It is not a reason to leave the doors open.",{dmg:2}],
+       ["Wipe his laptop remotely at 14:00 so the data is gone",5,0,"The laptop is the best evidence there is: what was copied to the stick, when, and which sites he uploaded to. You have just erased it.",{evidenceLost:1}],
+       ["Delete his account right after the meeting",5,0,"Deleting the account starts the clock on his mailbox and OneDrive, removes the licence that keeps them, and makes later questions much harder to answer. Block, do not delete.",{evidenceLost:1}]]},
+   {feed:["14:20  Laptop and company phone are handed over.","Jonas also has Outlook and OneDrive on his private iPhone. An app protection policy applies to those apps. The phone itself is not enrolled.","About the USB stick he says: \"Family photos.\""],
+    q:"Company mail and files are cached on a phone that belongs to him.",
+    o:[["Run a selective wipe of the company apps through the app protection policy. Leave the rest of the phone alone and record that you did it",5,3,"Exactly what app protection is for: company data goes, his photos stay. The USB stick is not yours to demand or search. That goes through legal counsel.",{phone:1}],
+       ["Factory-reset his private phone",5,0,"You cannot do it without enrolment, and trying to pressure him into it would destroy his private data and put the company in the wrong.",{overreach:1}],
+       ["Nothing. His account is blocked, so the apps are useless",0,1,"Mail and files that were already synced stay readable offline until the apps next check in, which he can prevent by keeping the phone in flight mode.",{}]]},
+   {feed:["Two weeks later. The company's lawyer has written to Jonas and to his new employer.","Management: \"What do we change so we notice this earlier next time?\""],
+    q:"Which change does the most?",
+    o:[["A leaver routine that starts on the day of the resignation: HR informs IT, alerts for mass downloads, new forwarding and public links are watched for that person, external auto-forwarding is blocked for everyone, and access is reviewed before the last day",0,3,"The forwarding rule ran for three weeks before anyone looked. Most of this is configuration you already own. What was missing was the trigger from HR and someone looking at the right person at the right time.",{}],
+       ["Block USB storage and OneDrive sync for the whole company",0,1,"USB control is sensible. Taking sync away from everyone pushes people to send files to private mail instead, which you see even less of. And it would not have stopped the forwarding rule.",{}],
+       ["Have everyone sign a stricter confidentiality agreement",0,1,"Useful for the lawyer afterwards. It detects nothing and stops nobody who has already decided to leave.",{}],
+       ["Review all employees' mailboxes at random from now on",0,0,"Monitoring everyone without suspicion is unlawful in many places and poisons the workplace everywhere. Targeted, documented checks on a concrete suspicion are the opposite of this.",{}]]}
+  ],
+  outcome:function(f,d){
+    var lines=[];
+    lines.push("The customer folder was already on the USB stick before the first alert. That copy could not be taken back by technical means.");
+    lines.push(f.stopped?"The forwarding rule and the public links were closed within the hour.":"The forwarding rule and the public links stayed open. Offers and contracts kept reaching a private mailbox.");
+    if(f.late)lines.push("The first alert was closed. The trail was only picked up when HR asked.");
+    if(f.tipped)lines.push("Jonas noticed he was being watched and cleaned up the laptop before it was collected.");
+    if(f.unauth)lines.push("His mailbox was read without a documented basis. That became the main subject of the dispute, and the company's position was weaker for it.");
+    if(f.evidenceLost)lines.push("Evidence was destroyed or contaminated by IT's own actions.");
+    lines.push(f.hold&&f.authorized&&!f.evidenceLost&&!f.tipped?"The evidence held. Jonas signed an undertaking, returned the stick, and the new employer confirmed it would not use the data.":"The evidence was incomplete or open to challenge. The company could not show what was taken and settled for a warning letter.");
+    if(!f.offboard)lines.push("His access did not end when he was released from his duties.");
+    if(f.overreach)lines.push("The attempt to wipe his private phone led to a complaint.");
+    return {dmg:(f.stopped?0:1)+(d||0),lines:lines};
+  },
+  links:[["onboarding-offboarding-checklist.html","offboarding checklist"],["mail-flow-cheat-sheet.html?q=forward","find forwarding"],["purview-compliance-cheat-sheet.html","Purview cheat sheet"],["kql-cheat-sheet.html","KQL cheat sheet"],["compromised-account-response-checklist.html","account response checklist"]]
  }
 };
 
