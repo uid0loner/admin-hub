@@ -1304,3 +1304,19 @@ ul.prose{padding-left:1.2em;max-width:76ch;font-family:var(--sans)}ul.prose li{m
 @media print{.rfcard{break-inside:avoid;background:#fff!important}}
 
 .rftips{margin-top:16px}.rftips[open]{padding-bottom:6px}.rftips .prose{margin-top:10px}
+
+/* smart reader and survival matrix */
+#sm-out h2{margin-top:36px}
+.smtbl td{vertical-align:top;font-size:.86rem}.smtbl td:nth-child(-n+6){font-family:var(--mono);font-size:.8rem;white-space:nowrap}.smtbl td:nth-child(2){white-space:normal;font-family:var(--sans);font-size:.88rem;color:var(--text)}
+.smtbl tr.sm-bad td,.smtbl tr.sm-failing td{background:rgba(255,79,216,.08)}.smtbl tr.sm-bad td:first-child,.smtbl tr.sm-failing td:first-child{box-shadow:inset 3px 0 0 var(--hot)}
+.smtbl tr.sm-check td,.smtbl tr.sm-worn td{background:rgba(180,92,255,.08)}.smtbl tr.sm-check td:first-child,.smtbl tr.sm-worn td:first-child{box-shadow:inset 3px 0 0 var(--violet)}
+.svm th[scope=row]{text-align:left;font-weight:400;font-family:var(--sans);color:var(--text);min-width:22ch;white-space:normal}
+.svm thead th{font-size:.72rem;white-space:normal;min-width:9ch;vertical-align:bottom}
+.svm td{text-align:center;padding:6px}
+.svc{display:inline-block;min-width:7ch;padding:5px 8px;border-radius:6px;border:1px solid var(--line);background:var(--panel);font:inherit;font-family:var(--mono);font-size:.76rem;cursor:pointer;color:var(--dim)}
+.svc.y{color:var(--blue);border-color:var(--blue)}.svc.p{color:#ff9d4d;border-color:#ff9d4d}.svc.n{color:var(--hot);border-color:rgba(255,79,216,.55)}
+button.svc.on{box-shadow:0 0 0 2px var(--text)}
+.svmwhy{margin-top:14px;padding:14px 18px;border:1px solid var(--line);border-left:3px solid var(--violet);border-radius:8px;background:var(--panel);font-family:var(--sans);color:var(--dim);min-height:3.2em;max-width:none}
+.svmwhy b{color:var(--text);font-weight:600}
+.svmkey{margin-top:10px;font-size:.84rem}.svmkey .svc{cursor:default;margin:0 4px 0 12px}.svmkey .svc:first-child{margin-left:0}
+p.prose{font-family:var(--sans);max-width:74ch;color:var(--dim);margin-top:12px}
