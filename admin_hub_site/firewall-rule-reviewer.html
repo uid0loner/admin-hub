@@ -1,0 +1,65 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Firewall rule reviewer | admin_hub</title><meta name="description" content="Drop Azure NSG rules, an iptables dump or a rule table as CSV and see what is open to the internet: RDP, SSH, databases, wide port ranges, rules that never apply, and every rule in plain words."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=44"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="admin_hub">
+<meta property="og:title" content="Firewall rule reviewer | admin_hub">
+<meta property="og:description" content="Drop Azure NSG rules, an iptables dump or a rule table as CSV and see what is open to the internet: RDP, SSH, databases, wide port ranges, rules that never apply, and every rule in plain words.">
+<meta property="og:image" content="https://admin-hub.xyz/og-firewall-rule-reviewer.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Firewall rule reviewer | admin_hub">
+<meta name="twitter:description" content="Drop Azure NSG rules, an iptables dump or a rule table as CSV and see what is open to the internet: RDP, SSH, databases, wide port ranges, rules that never apply, and every rule in plain words.">
+<meta name="twitter:image" content="https://admin-hub.xyz/og-firewall-rule-reviewer.png">
+<link rel="canonical" href="https://admin-hub.xyz/firewall-rule-reviewer.html"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Firewall rule reviewer", "url": "https://admin-hub.xyz/firewall-rule-reviewer.html", "description": "Drop Azure NSG rules, an iptables dump or a rule table as CSV and see what is open to the internet: RDP, SSH, databases, wide port ranges, rules that never apply, and every rule in plain words.", "applicationCategory": "SecurityApplication", "operatingSystem": "Any", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "inLanguage": "en"}</script>
+</head><body><a class="skip" href="#main">skip to content</a><div class="wrap"><header><a class="brand" href="index.html">admin_hub</a><nav aria-label="Main"><a href="tools.html" aria-current="page">tools</a><a href="cheat-sheets.html">cheat-sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a><a href="explainers.html">explainers</a><a href="news.html">news</a><a href="start-here.html">start-here</a><a href="about.html">about</a></nav><button class="btn sbtn" type="button" data-search aria-label="Search the site" title="Search (Ctrl+K)">search <kbd>Ctrl K</kbd></button></header><main id="main" tabindex="-1">
+
+<p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<a href="tools.html">tools</a>/<b>firewall-rule-reviewer</b><span class="cs">$</span></p>
+<h1>firewall-rule-reviewer</h1>
+<p class="dim">Firewall rule lists grow for years and nobody reads them from top to bottom. Drop yours here and see what is really open: remote administration and databases reachable from the internet, port ranges wider than anyone meant, rules that can never apply because an earlier one overrules them, and every rule rewritten as one plain sentence. The rules are read by your browser and never uploaded.</p><nav class="jump toc" aria-label="On this page"><a href="#fw-out" class="tocres" hidden>result</a><a href="#s-getting-the-rules">getting the rules</a><a href="#s-what-it-checks">what it checks</a></nav><div class="tframe"><div class="tfin"><label class="drop" id="fw-drop"><input type="file" id="fw-file" accept=".json,.csv,.txt,.rules,.conf,application/json,text/csv,text/plain"><b>Drop the rule export here, or click to choose a file</b><span>Azure NSG JSON, iptables-save output, or a rule table as CSV</span></label>
+<textarea id="fw-text" class="q" aria-label="Firewall rules as text" spellcheck="false" placeholder="... or paste the rules here" style="margin-top:12px;min-height:110px"></textarea>
+<div class="ctl" style="margin-top:14px"><button class="btn solid" id="fw-run" type="button">Review the rules</button><button class="btn" id="fw-sample" type="button">Load the Azure sample</button><button class="btn ghost" id="fw-sample2" type="button">Load the Linux sample</button></div>
+<p id="fw-status" class="dim" aria-live="polite" style="margin-top:6px"></p></div><aside class="peek tprev" aria-label="Example of a result"><div class="bar"><i></i><i></i><i></i><span>what you get: an example</span></div><div class="tpv v-crit"><b>Act now</b><span>9 of 15 rules flagged</span></div><ul><li><span class="sevtag s-crit">critical</span>Everything open to the internet (1)</li><li><span class="sevtag s-crit">critical</span>Remote administration open to the internet (1)</li><li><span class="sevtag s-crit">critical</span>Databases open to the internet (1)</li><li><span class="sevtag s-med">medium</span>Rules that can never apply (1)</li></ul><button class="tplink" type="button" data-sample="fw-sample">Open this example</button></aside></div><div id="fw-out" hidden></div>
+
+<h2 id="s-getting-the-rules" style="margin-top:56px">getting the rules</h2>
+<div class="tw"><table class="tbl"><thead><tr><th>Source</th><th>How</th><th>Notes</th></tr></thead><tbody>
+<tr><td>Azure network security groups</td><td><code>az network nsg list -o json &gt; nsgs.json</code></td><td>All NSGs of the subscription in one file. A single NSG, a rule list or an exported ARM template work too.</td></tr>
+<tr><td>Linux, iptables</td><td><code>sudo iptables-save &gt; rules.txt</code></td><td>Also reads the output of <code>iptables -S</code>. With nftables, <code>iptables-save</code> still works when the iptables-nft layer is installed.</td></tr>
+<tr><td>Windows Firewall</td><td>The script below writes <code>firewall.csv</code>.</td><td>Enabled inbound allow rules with their ports and addresses.</td></tr>
+<tr><td>Any other firewall</td><td>Export the rules as CSV, or build the table in a spreadsheet.</td><td>The first line holds the column names. Needed: <code>Action</code> and <code>Port</code> or <code>Source</code>. Understood as well: <code>Name</code>, <code>Direction</code>, <code>Destination</code>, <code>Protocol</code>, <code>Enabled</code>, <code>Priority</code>, <code>Group</code>, <code>Description</code>. The row order counts as the rule order.</td></tr>
+</tbody></table></div>
+<p class="dim" style="margin-top:18px">The Windows Firewall export. Run it in an elevated PowerShell on the machine, then drop <code>firewall.csv</code> above. It only reads.</p>
+<pre id="fw-script" style="white-space:pre;overflow-x:auto;font-size:.8rem">Get-NetFirewallRule -Enabled True -Direction Inbound -Action Allow | ForEach-Object {
+  $p = $_ | Get-NetFirewallPortFilter
+  $a = $_ | Get-NetFirewallAddressFilter
+  [pscustomobject]@{
+    Name        = $_.DisplayName
+    Direction   = $_.Direction
+    Action      = $_.Action
+    Enabled     = $_.Enabled
+    Profile     = $_.Profile
+    Protocol    = $p.Protocol
+    LocalPort   = $p.LocalPort -join ','
+    RemoteAddress = $a.RemoteAddress -join ','
+    LocalAddress  = $a.LocalAddress -join ','
+  }
+} | Export-Csv firewall.csv -NoTypeInformation -Encoding UTF8</pre>
+
+<h2 id="s-what-it-checks" style="margin-top:40px">what it checks</h2>
+<div class="tw"><table class="tbl"><thead><tr><th>Check</th><th>Triggers when</th><th>Severity</th></tr></thead><tbody>
+<tr><td>Everything open</td><td>An inbound rule allows every port from any source.</td><td>critical</td></tr>
+<tr><td>Remote administration</td><td>SSH, RDP, WinRM, Telnet, VNC, the Docker API or the Kubelet are allowed from any source.</td><td>critical</td></tr>
+<tr><td>Databases</td><td>SQL Server, MySQL, PostgreSQL, Oracle, MongoDB, Redis, Elasticsearch, Memcached and similar are allowed from any source.</td><td>critical</td></tr>
+<tr><td>File sharing and RPC</td><td>SMB, NetBIOS, Windows RPC or NFS are allowed from any source.</td><td>critical</td></tr>
+<tr><td>Directory services</td><td>LDAP, LDAPS, Kerberos or the Global Catalog are allowed from any source.</td><td>high</td></tr>
+<tr><td>Cleartext protocols</td><td>FTP, TFTP, POP3, IMAP or SNMP are allowed from any source.</td><td>high</td></tr>
+<tr><td>Wide port ranges</td><td>A range of 1,000 ports or more is allowed from any source.</td><td>high</td></tr>
+<tr><td>Accept by default</td><td>iptables only: the INPUT or FORWARD policy is ACCEPT and no final rule drops the rest.</td><td>high</td></tr>
+<tr><td>Rules that never apply</td><td>An earlier rule with the opposite decision covers the rule completely.</td><td>medium</td></tr>
+<tr><td>Flat internal network</td><td>A whole private network (/16 or larger, or the VirtualNetwork tag) is allowed on every port.</td><td>medium</td></tr>
+<tr><td>Very large source ranges</td><td>A public source range larger than a /16.</td><td>medium</td></tr>
+<tr><td>Outbound not restricted</td><td>Everything may go out, by rule or by default.</td><td>medium or info</td></tr>
+<tr><td>Redundant and disabled rules</td><td>Covered by an earlier rule with the same decision, or switched off.</td><td>info</td></tr>
+</tbody></table></div>
+<p class="note">The page reads rules, it does not test the network. It cannot know what is attached behind a rule, whether a second firewall sits in front, or whether a port is really in use. Address groups, service objects and negated matches are compared by name only or left out, and IPv6 ranges are compared as text. Treat the result as a reading aid for a review, then confirm from outside, for example with the <a href="domain-check.html">domain check</a> or a port scan you are allowed to run. Related: <a href="azure-networking-cheat-sheet.html">Azure networking cheat sheet</a>, <a href="networking-cheat-sheet.html">networking cheat sheet</a>, <a href="server-hardening-checklist.html">server hardening checklist</a>.</p>
+</main>
+<footer><div class="fcol"><b>analyze</b><a href="app-audit.html">sign-in analyzer</a><a href="ca-analyzer.html">CA analyzer</a><a href="phish-analyzer.html">phish analyzer</a><a href="domain-check.html">domain check</a></div><div class="fcol"><b>plan and practise</b><a href="attack-map.html">attack map</a><a href="cockpit.html">cockpit</a><a href="incident-sim.html">incident simulator</a><a href="patch-tuesday.html">patch tuesday</a></div><div class="fcol"><b>reference</b><a href="tools.html">all tools</a><a href="cheat-sheets.html">cheat sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a></div><div class="fcol"><b>site</b><a href="about.html">about</a><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a></div><p class="fline">admin_hub, 2026. The tools run in your browser.</p></footer></div>
+<script src="fwreview.js?v=44" defer></script>
+<script src="frame.js?v=44" defer></script><script src="shell.js?v=44" defer></script><script src="consent.js?v=44" defer></script><script src="reveal.js?v=44" defer></script><script src="pwa.js?v=44" defer></script><script src="search-index.js?v=44" defer></script><script src="search.js?v=44" defer></script></body></html>

@@ -12,7 +12,7 @@ function count(el){
 function reveal(){
   if(calm)return;
   [].forEach.call(out.querySelectorAll(":scope > .finding"),function(d,i){d.style.setProperty("--i",Math.min(i,12))});
-  out.classList.remove("reveal");void out.offsetWidth;out.classList.add("reveal");
+  out.classList.remove("rvl");void out.offsetWidth;out.classList.add("rvl");
   [].forEach.call(out.querySelectorAll(":scope > .stats .stat-v"),count);
 }
 function sync(){var shown=out&&!out.hidden&&out.childElementCount>0;fr.classList.toggle("done",!!shown);if(res)res.hidden=!shown;if(shown&&!was)reveal();was=!!shown}
