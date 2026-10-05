@@ -1,5 +1,6 @@
 (function(){
 var L=window.SNIPS||[],q=document.getElementById("q"),o=document.getElementById("snips");
+if(o&&!document.getElementById("snips-h")){var sh=document.createElement("h2");sh.id="snips-h";sh.className="sr";sh.textContent="snippets";o.parentNode.insertBefore(sh,o)}
 function card(s){var d=document.createElement("div");d.className="snip";
 var h=document.createElement("h3");h.textContent=s.t;var p=document.createElement("p");p.textContent=s.d;
 var pre=document.createElement("pre");pre.textContent=s.c;

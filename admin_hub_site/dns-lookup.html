@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>DNS lookup | admin_hub</title><meta name="description" content="Look up A, AAAA, MX, TXT, NS, CNAME, SOA and CAA records for any domain, resolved live via DNS-over-HTTPS straight from your own browser."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=40"><link rel="canonical" href="https://admin-hub.xyz/dns-lookup.html"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>DNS lookup | admin_hub</title><meta name="description" content="Look up A, AAAA, MX, TXT, NS, CNAME, SOA and CAA records for any domain, resolved live via DNS-over-HTTPS straight from your own browser."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=41"><link rel="canonical" href="https://admin-hub.xyz/dns-lookup.html"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="admin_hub">
 <meta property="og:title" content="DNS lookup | admin_hub">
@@ -9,15 +9,15 @@
 <meta name="twitter:description" content="Look up A, AAAA, MX, TXT, NS, CNAME, SOA and CAA records for any domain, resolved live via DNS-over-HTTPS straight from your own browser.">
 <meta name="twitter:image" content="https://admin-hub.xyz/og-dns-lookup.png">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "DNS lookup", "url": "https://admin-hub.xyz/dns-lookup.html", "description": "Look up A, AAAA, MX, TXT, NS, CNAME, SOA and CAA records for any domain, resolved live via DNS-over-HTTPS straight from your own browser.", "applicationCategory": "SecurityApplication", "operatingSystem": "Any", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "inLanguage": "en"}</script>
-</head><body><div class="wrap"><header><a class="brand" href="index.html">admin_hub</a><nav aria-label="Main"><a href="tools.html" aria-current="page">tools</a><a href="cheat-sheets.html">cheat-sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a><a href="explainers.html">explainers</a><a href="news.html">news</a><a href="start-here.html">start-here</a><a href="about.html">about</a></nav><button class="btn sbtn" type="button" data-search aria-label="Search the site" title="Search (Ctrl+K)">search <kbd>Ctrl K</kbd></button></header><main>
+</head><body><a class="skip" href="#main">skip to content</a><div class="wrap"><header><a class="brand" href="index.html">admin_hub</a><nav aria-label="Main"><a href="tools.html" aria-current="page">tools</a><a href="cheat-sheets.html">cheat-sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a><a href="explainers.html">explainers</a><a href="news.html">news</a><a href="start-here.html">start-here</a><a href="about.html">about</a></nav><button class="btn sbtn" type="button" data-search aria-label="Search the site" title="Search (Ctrl+K)">search <kbd>Ctrl K</kbd></button></header><main id="main" tabindex="-1">
 
 <p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<a href="tools.html">tools</a>/<b>dns-lookup</b><span class="cs">$</span></p>
 <h1>dns-lookup</h1>
 <p class="dim">Resolves records directly from your browser via DNS-over-HTTPS — no DNS tool, no server-side proxy on admin_hub, nothing logged. Pick a public resolver, pick a record type, and the query goes straight from your device to that resolver.</p>
 
 <div class="ctl" style="margin-top:14px;flex-wrap:wrap;gap:10px">
-  <input id="dl-name" class="q" type="text" placeholder="example.com" autocomplete="off" spellcheck="false" style="flex:1;min-width:180px">
-  <select id="dl-type" class="sel">
+  <input aria-label="Domain or host name" id="dl-name" class="q" type="text" placeholder="example.com" autocomplete="off" spellcheck="false" style="flex:1;min-width:180px">
+  <select aria-label="Record type" id="dl-type" class="sel">
     <option value="A">A</option>
     <option value="AAAA">AAAA</option>
     <option value="MX">MX</option>
@@ -27,7 +27,7 @@
     <option value="SOA">SOA</option>
     <option value="CAA">CAA</option>
   </select>
-  <select id="dl-resolver" class="sel">
+  <select aria-label="Resolver" id="dl-resolver" class="sel">
     <option value="cloudflare">Cloudflare (1.1.1.1)</option>
     <option value="google">Google (8.8.8.8)</option>
   </select>
@@ -42,5 +42,5 @@
 
 </main>
 <footer><div class="fcol"><b>analyze</b><a href="signin-analyzer.html">sign-in analyzer</a><a href="ca-analyzer.html">CA analyzer</a><a href="phish-analyzer.html">phish analyzer</a><a href="domain-check.html">domain check</a></div><div class="fcol"><b>plan and practise</b><a href="attack-map.html">attack map</a><a href="cockpit.html">cockpit</a><a href="incident-sim.html">incident simulator</a><a href="patch-tuesday.html">patch tuesday</a></div><div class="fcol"><b>reference</b><a href="tools.html">all tools</a><a href="cheat-sheets.html">cheat sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a></div><div class="fcol"><b>site</b><a href="about.html">about</a><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a></div><p class="fline">admin_hub, 2026. The tools run in your browser.</p></footer></div>
-<script src="dnslookup.js?v=40" defer></script>
-<script src="shell.js?v=40" defer></script><script src="consent.js?v=40" defer></script><script src="reveal.js?v=40" defer></script><script src="pwa.js?v=40" defer></script><script src="search-index.js?v=40" defer></script><script src="search.js?v=40" defer></script></body></html>
+<script src="dnslookup.js?v=41" defer></script>
+<script src="shell.js?v=41" defer></script><script src="consent.js?v=41" defer></script><script src="reveal.js?v=41" defer></script><script src="pwa.js?v=41" defer></script><script src="search-index.js?v=41" defer></script><script src="search.js?v=41" defer></script></body></html>

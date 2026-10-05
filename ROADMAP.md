@@ -3,13 +3,7 @@
 How this works: the owner writes "WEITER", the next open item is built, tested and committed to `main`.
 Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not part of the published site.
 
-## Next: design first
-
-Content is on hold until the look and the structure are where they should be. The colour scheme stays.
-
-1. Mobile and accessibility pass, print styles
-
-## After the design
+## Next
 
 - Content: cheat sheets for Defender for Office 365, SharePoint sharing and guest access, Azure networking
 - Tool: Conditional Access policy builder

@@ -1066,3 +1066,52 @@ header{view-transition-name:site-header}
 .reveal>.stats,.reveal>.kv{animation:rise .32s cubic-bezier(.2,.8,.2,1) .08s both}
 .reveal>.finding{animation:rise .3s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(.16s + var(--i,0)*.045s)}
 @media (prefers-reduced-motion:reduce){@view-transition{navigation:none}.reveal>*{animation:none!important}}
+
+/* DESIGN 8: mobile, accessibility, print */
+.sr{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+.skip{position:fixed;left:12px;top:-60px;z-index:300;padding:10px 16px;border:1px solid var(--blue);border-radius:8px;background:var(--panel);color:var(--text);font-family:var(--mono);font-size:.85rem;transition:top .12s ease}
+.skip:focus{top:12px}
+main:focus{outline:none}
+@media (prefers-reduced-motion:reduce){.skip{transition:none}}
+@media (pointer:coarse),(max-width:760px){
+header .brand,header nav a{display:inline-flex;align-items:center;min-height:44px}
+header nav a{padding-inline:2px}
+.fcol{gap:0}
+.fcol a{display:flex;align-items:center;min-height:40px}
+.fcol b{margin-bottom:4px}
+.fline a{display:inline-block;padding-block:9px}
+.jmore,.cpopen{display:inline-flex;align-items:center;min-height:40px}
+.jmore{margin-top:4px}
+.jl a,.minilist a,.cplist a,.rel a{padding-block:6px}
+main h3>a,main .term>a{display:inline-block;padding-block:7px}
+main nav:not([class]) a,main nav.az a{display:inline-flex;align-items:center;justify-content:center;min-width:34px;min-height:36px}
+.hubbar .jump a,.jump a{min-height:36px;display:inline-flex;align-items:center}
+input,select,textarea{font-size:max(16px,1em)}
+}
+@media print{
+@page{margin:16mm 14mm}
+:root{--text:#000;--dim:#444;--blue:#000;--violet:#000;--hot:#000;--line:#bbb;--panel:#fff;--bg:#fff}
+html,body{background:#fff!important;color:#000!important;font-size:10.5pt}
+body::before,body::after,html::before,html::after{display:none!important}
+.skip,header,footer,.crumb,.jump,.hubbar,.tprev,.tryrow,.term:has(#cmd),.term.nf,.btn,.chipbtn,.ctl,.drop,input.q,#q,#sl,#kh,#trbar,.rel,.jmore,.dirs,.live,.lang,dialog,.copy{display:none!important}
+.wrap{max-width:none!important;padding:0!important;margin:0!important}
+*{box-shadow:none!important;text-shadow:none!important;animation:none!important;transition:none!important}
+h1,h2,h3{color:#000!important;background:none!important;-webkit-text-fill-color:#000!important;break-after:avoid}
+h1{font-size:18pt;margin-top:0}h2{font-size:13pt}h3{font-size:11pt}
+p,li{orphans:3;widows:3}
+main a{color:#000!important;text-decoration:underline}
+main :is(p,li,dd) a[href^="http"]::after{content:" (" attr(href) ")";font-size:.85em;color:#444;word-break:break-all}
+pre,code{background:#fff!important;color:#000!important;border-color:#bbb!important;white-space:pre-wrap!important;overflow-wrap:anywhere;font-size:8.5pt}
+pre{border:1px solid #bbb;break-inside:avoid}
+.snip,.finding,.stat,.verdict,.chk li,.term,tr,.hubsec .lsrow,figure{break-inside:avoid}
+.snip,.finding,.stat,.stats,.verdict,.chartbox,.card,.feature,.job,.tfin,.tframe,.ls,.lsrow{background:#fff!important;border-color:#bbb!important;color:#000!important}
+#snips{display:block!important}#snips .snip{margin:0 0 10pt;padding:8pt 10pt}
+.snip[hidden],[hidden]{display:none!important}
+details{display:block}details>summary{list-style:none}details:not([open])>*:not(summary){display:block}
+table{border-collapse:collapse;width:100%}th,td{border:1px solid #bbb!important;color:#000!important;background:#fff!important;padding:3pt 5pt}
+thead{display:table-header-group}.tw{overflow:visible!important}
+input[type=checkbox]{-webkit-appearance:auto;appearance:auto;accent-color:#000}
+main::after{content:"admin-hub.xyz";display:block;margin-top:14pt;padding-top:6pt;border-top:1px solid #bbb;font-size:8pt;color:#444}
+}
+@media print{:root{color-scheme:light}h1::after,h1::before{display:none!important}.tframe.done .tfin,.tframe.done textarea{display:none!important}}
+@media print{.reveal,.reveal>*{opacity:1!important;transform:none!important}}

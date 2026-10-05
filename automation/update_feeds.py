@@ -124,7 +124,7 @@ def shell(site, title, desc, h1, inner, script=""):
     ver = "?v=" + mv.group(1) if mv else ""
     scr = "".join('<script src="%s.js%s" defer></script>' % (n, ver) for n in ("shell", "consent", "reveal", "pwa", "search-index", "search"))
     return ('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'
-            '<title>%s | admin_hub</title><meta name="description" content="%s"><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css%s"><link rel="canonical" href="https://admin-hub.xyz/%s.html"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png"></head><body><div class="wrap">%s<main>%s<h1>%s</h1>%s</main>%s</div>%s%s</body></html>'
+            '<title>%s | admin_hub</title><meta name="description" content="%s"><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css%s"><link rel="canonical" href="https://admin-hub.xyz/%s.html"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png"></head><body><a class="skip" href="#main">skip to content</a><div class="wrap">%s<main id="main" tabindex="-1">%s<h1>%s</h1>%s</main>%s</div>%s%s</body></html>'
             % (e(title), e(desc), ver, h1, head, crumb, h1, inner, foot, script, scr))
 
 
@@ -151,7 +151,7 @@ def render_news(site, items, stamp):
         for it in items:
             days.setdefault(it["d"].strftime("%Y-%m-%d"), []).append(it)
         inner = ('<p class="dim">Headlines from public security feeds with a link to the original article. Updated %s UTC.</p>'
-                 '<input id="q" class="q" type="search" placeholder="Filter headlines" autocomplete="off" spellcheck="false">' % stamp)
+                 '<input aria-label="Filter headlines" id="q" class="q" type="search" placeholder="Filter headlines" autocomplete="off" spellcheck="false">' % stamp)
         for day in sorted(days, reverse=True):
             inner += '<h2 class="ltr">%s</h2><ul class="feed nl">%s</ul>' % (day, "".join(news_row(i, "%H:%M") for i in days[day]))
         inner += ('<p class="note">Times are UTC. Articles belong to their publishers; this page only lists headlines and links. '
@@ -166,8 +166,8 @@ def render_news(site, items, stamp):
 def render_kev(site, vulns, total, stamp):
     if vulns:
         inner = ('<p class="dim">The most recent entries of the CISA Known Exploited Vulnerabilities catalog: flaws that attackers are exploiting now. '
-                 'Catalog size: %s. Updated %s UTC.</p><div class="ctl"><input id="q" class="q" style="flex:1 1 240px;width:auto" type="search" placeholder="Filter by CVE, vendor or product" autocomplete="off" spellcheck="false">'
-                 '<label><input type="checkbox" id="ms">Microsoft only</label></div><div id="kev">' % (total, stamp))
+                 'Catalog size: %s. Updated %s UTC.</p><div class="ctl"><input aria-label="Filter by CVE, vendor or product" id="q" class="q" style="flex:1 1 240px;width:auto" type="search" placeholder="Filter by CVE, vendor or product" autocomplete="off" spellcheck="false">'
+                 '<label><input type="checkbox" id="ms">Microsoft only</label></div><h2 class="sr">catalog entries</h2><div id="kev">' % (total, stamp))
         for v in vulns:
             cid = v.get("cveID", "")
             if not CVE.match(cid):
