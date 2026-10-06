@@ -1,9 +1,12 @@
 /* A small SQL engine for the playground page. It covers what the lessons teach:
-   SELECT with joins, grouping, ordering, subqueries in FROM and IN, WITH, and
-   INSERT, UPDATE, DELETE inside transactions. It is not a database. */
+   SELECT with joins, grouping, ordering, subqueries in FROM and IN, WITH,
+   window functions (OVER), and INSERT, UPDATE, DELETE inside transactions.
+   It is not a database. */
 (function(){"use strict";
 var KW={};"SELECT DISTINCT FROM WHERE GROUP BY HAVING ORDER LIMIT OFFSET AS JOIN INNER LEFT RIGHT FULL OUTER CROSS ON AND OR NOT IS NULL IN LIKE BETWEEN CASE WHEN THEN ELSE END ASC DESC TRUE FALSE WITH INSERT INTO VALUES UPDATE SET DELETE BEGIN COMMIT ROLLBACK TRANSACTION START UNION EXISTS OVER CREATE DROP ALTER TRUNCATE".split(" ").forEach(function(k){KW[k]=1});
 var AGG={COUNT:1,SUM:1,AVG:1,MIN:1,MAX:1,GROUP_CONCAT:1,STRING_AGG:1};
+var WIN={ROW_NUMBER:[0,0,"ROW_NUMBER()"],RANK:[0,0,"RANK()"],DENSE_RANK:[0,0,"DENSE_RANK()"],NTILE:[1,1,"NTILE(4)"],LAG:[1,3,"LAG(column), LAG(column, 2) or LAG(column, 2, 0)"],LEAD:[1,3,"LEAD(column), LEAD(column, 2) or LEAD(column, 2, 0)"],FIRST_VALUE:[1,1,"FIRST_VALUE(column)"],LAST_VALUE:[1,1,"LAST_VALUE(column)"],SUM:[1,1,"SUM(column)"],AVG:[1,1,"AVG(column)"],COUNT:[0,1,"COUNT(*) or COUNT(column)"],MIN:[1,1,"MIN(column)"],MAX:[1,1,"MAX(column)"]};
+var WINLIST="ROW_NUMBER, RANK, DENSE_RANK, NTILE, LAG, LEAD, FIRST_VALUE, LAST_VALUE, SUM, AVG, COUNT, MIN, MAX";
 function E(msg,pos){var e=new Error(msg);e.sql=true;e.pos=pos==null?-1:pos;return e}
 
 function lex(s){var t=[],i=0,n=s.length,j,v,c,m;
@@ -30,6 +33,8 @@ Parser.prototype={
  pos:function(){var x=this.pk();return x?x.p:this.s.length},
  isKw:function(k,o){var x=this.pk(o);return !!x&&x.k==="kw"&&x.v===k},
  isOp:function(k,o){var x=this.pk(o);return !!x&&x.k==="op"&&x.v===k},
+ isW:function(w,o){var x=this.pk(o);return !!x&&x.k==="id"&&!x.q&&x.v.toUpperCase()===w},
+ eatW:function(w){if(this.isW(w)){this.i++;return true}return false},
  eatKw:function(k){if(this.isKw(k)){this.i++;return true}return false},
  eatOp:function(k){if(this.isOp(k)){this.i++;return true}return false},
  say:function(x){return x?(x.k==="str"?"'"+x.v+"'":String(x.v)):"the end of the query"},
@@ -129,12 +134,31 @@ Parser.prototype={
     if(this.eatOp("*"))n.star=true;
     else if(!this.isOp(")")){if(this.eatKw("DISTINCT"))n.distinct=true;do{n.args.push(this.expr())}while(this.eatOp(","))}
     this.needOp(")");
-    if(this.isKw("OVER"))throw E("Window functions (OVER) are not part of this small engine.",this.pos());
+    if(this.isW("FILTER"))throw E("FILTER is not part of this small engine. Put a CASE inside the function: SUM(CASE WHEN ... THEN 1 ELSE 0 END).",this.pos());
+    if(this.isKw("OVER"))n.over=this.over();
     return N("fn",p,n,this)}
    this.i++;
    if(this.isOp(".")&&this.pk(1)&&this.pk(1).k==="id"){var c2=this.pk(1);this.i+=2;return N("col",p,{tb:x.v,name:c2.v},this)}
    return N("col",p,{tb:null,name:x.v,q:x.q||null},this)}
   throw E("Did not expect "+this.say(x)+" here.",p)},
+ over:function(){var o={part:[],order:[],frame:null},e,d;this.i++;
+  if(!this.eatOp("("))throw E("OVER needs brackets after it: OVER (PARTITION BY ... ORDER BY ...). Empty brackets, OVER (), mean all rows.",this.pos());
+  if(this.eatW("PARTITION")){this.needKw("BY");do{o.part.push(this.expr())}while(this.eatOp(","))}
+  if(this.eatKw("ORDER")){this.needKw("BY");do{e=this.expr();d=false;if(this.eatKw("DESC"))d=true;else this.eatKw("ASC");o.order.push({e:e,desc:d})}while(this.eatOp(","))}
+  if(this.isW("PARTITION"))throw E("Inside OVER (...), PARTITION BY comes first and ORDER BY second.",this.pos());
+  if(this.isW("ROWS")||this.isW("RANGE")||this.isW("GROUPS"))o.frame=this.frame();
+  if(!this.eatOp(")"))throw E("Expected ) to close OVER (...) here, found "+this.say(this.pk())+". Inside the brackets go PARTITION BY, then ORDER BY, then ROWS BETWEEN ... AND ...",this.pos());
+  return o},
+ frame:function(){var f={n:null,all:false},x,bad=E("This frame is not part of this small engine. Three forms work: ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW, ROWS BETWEEN 2 PRECEDING AND CURRENT ROW (with any whole number), and ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING.",this.pos());
+  if(!this.eatW("ROWS")||!this.eatKw("BETWEEN"))throw bad;
+  x=this.pk();
+  if(!this.eatW("UNBOUNDED")){if(x&&x.k==="num"&&x.v%1===0&&!x.fl){f.n=x.v;this.i++}else throw bad}
+  if(!this.eatW("PRECEDING")||!this.eatKw("AND"))throw bad;
+  if(this.eatW("CURRENT")){if(!this.eatW("ROW"))throw bad}
+  else if(f.n===null&&this.eatW("UNBOUNDED")&&this.eatW("FOLLOWING"))f.all=true;
+  else throw bad;
+  if(!this.isOp(")"))throw bad;
+  return f},
  insert:function(){this.i++;this.needKw("INTO");var st={t:"insert",table:this.name("a table name"),p:this.pos(),cols:null,rows:[]};
   if(this.eatOp("(")){st.cols=[];do{st.cols.push(this.name("a column name"))}while(this.eatOp(","));this.needOp(")")}
   if(this.isKw("SELECT"))throw E("INSERT ... SELECT is not part of this small engine. Use VALUES.",this.pos());
@@ -154,15 +178,18 @@ function kids(x){switch(x.t){
  case"in":return x.list?[x.a].concat(x.list):[x.a];
  case"like":return[x.a,x.b];case"between":return[x.a,x.lo,x.hi];
  case"case":var k=x.base?[x.base]:[];x.whens.forEach(function(w){k.push(w[0],w[1])});if(x.els)k.push(x.els);return k;
- case"fn":return x.args;case"ref":return[x.to];default:return[]}}
-function isAggFn(x){return x.t==="fn"&&AGG[x.name]&&!((x.name==="MIN"||x.name==="MAX")&&x.args.length>1)}
+ case"fn":return x.over?x.args.concat(x.over.part,x.over.order.map(function(o){return o.e})):x.args;case"ref":return[x.to];default:return[]}}
+function isAggFn(x){return x.t==="fn"&&!x.over&&AGG[x.name]&&!((x.name==="MIN"||x.name==="MAX")&&x.args.length>1)}
+function hasWin(x){if(x.t==="fn"&&x.over)return true;return kids(x).some(hasWin)}
+function noWin(x,where){if(hasWin(x))throw E("A window function cannot be used in "+where+". "+(where==="a JOIN condition"?"Work it out in a subquery (FROM (...) x) first, and join that.":"Window functions run after "+where+". Put the query in a subquery (FROM (...) x) and "+(where==="GROUP BY"?"group":"filter")+" outside."),winPos(x))}
+function winPos(x){if(x.t==="fn"&&x.over)return x.s;var k=kids(x),i,p;for(i=0;i<k.length;i++){p=winPos(k[i]);if(p>=0)return p}return -1}
 function hasAgg(x){if(isAggFn(x))return true;return kids(x).some(hasAgg)}
 function key(x){switch(x.t){
  case"num":return"n"+x.v;case"str":return"s"+JSON.stringify(x.v);case"null":return"null";
  case"col":return"c"+x.ti+"."+x.ci;case"ref":return key(x.to);case"sub":return"q"+x.s;
- default:return x.t+(x.op||x.name||"")+(x.not?"!":"")+(x.distinct?"d":"")+(x.star?"*":"")+"("+kids(x).map(key).join(",")+")"}}
+ default:return x.t+(x.op||x.name||"")+(x.not?"!":"")+(x.distinct?"d":"")+(x.star?"*":"")+(x.over?"w"+JSON.stringify([x.args.length,x.over.part.length,x.over.order.map(function(o){return o.desc}),x.over.frame]):"")+"("+kids(x).map(key).join(",")+")"}}
 
-function isFl(x){if(x.t==="num")return !!x.fl;if(x.t==="fn")return x.name==="AVG"||x.name==="ROUND"||((x.name==="COALESCE"||x.name==="SUM"||x.name==="MIN"||x.name==="MAX"||x.name==="ABS")&&x.args.some(isFl));if(x.t==="bin")return "+-*/".indexOf(x.op)>=0&&(isFl(x.a)||isFl(x.b));if(x.t==="un")return x.op==="-"&&isFl(x.a);if(x.t==="ref")return isFl(x.to);if(x.t==="case")return x.whens.some(function(w){return isFl(w[1])})||(!!x.els&&isFl(x.els));return false}
+function isFl(x){if(x.t==="num")return !!x.fl;if(x.t==="fn")return x.name==="AVG"||x.name==="ROUND"||((x.name==="COALESCE"||x.name==="SUM"||x.name==="MIN"||x.name==="MAX"||x.name==="ABS"||(x.over&&(x.name==="LAG"||x.name==="LEAD"||x.name==="FIRST_VALUE"||x.name==="LAST_VALUE")))&&x.args.some(isFl));if(x.t==="bin")return "+-*/".indexOf(x.op)>=0&&(isFl(x.a)||isFl(x.b));if(x.t==="un")return x.op==="-"&&isFl(x.a);if(x.t==="ref")return isFl(x.to);if(x.t==="case")return x.whens.some(function(w){return isFl(w[1])})||(!!x.els&&isFl(x.els));return false}
 function truth(v){if(v===null)return null;if(typeof v==="number")return v!==0;var n=Number(v);return !isNaN(n)&&n!==0}
 function numlike(s){return typeof s==="string"&&s.trim()!==""&&!isNaN(Number(s))}
 function cmp(a,b){var ta=typeof a,tb=typeof b;
@@ -220,8 +247,10 @@ function core(x,f,env){var a,b,v,i,l;
   else for(i=0;i<x.whens.length;i++)if(truth(f(x.whens[i][0]))===true)return f(x.whens[i][1]);
   return x.els?f(x.els):null;
  case"fn":
+  if(x.over){if(!env.wv||x._wi===undefined)throw E("A window function (OVER) only works in the SELECT list and in ORDER BY of a query.",x.s);return env.wv[x._wi][env.wi]}
+  if(WIN[x.name]&&!AGG[x.name])throw E(x.name+" is a window function and needs OVER (...) after it, for example "+WIN[x.name][2].split(",")[0].split(" or ")[0]+" OVER (ORDER BY id).",x.s);
   if((x.name==="MIN"||x.name==="MAX")&&x.args.length>1){l=x.args.map(f);if(l.indexOf(null)>=0)return null;return l.reduce(function(p,c){return (x.name==="MIN"?cmp(c,p)<0:cmp(c,p)>0)?c:p})}
-  if(!SCALAR[x.name]){if(NOCLOCK[x.name])throw E("Date functions differ in every database, and this engine has no clock. Dates are text here: compare with '2026-09-01', and cut with SUBSTR(opened, 1, 7) for the month.",x.s);throw E("There is no function "+x.name+" here. Available: COUNT, SUM, AVG, MIN, MAX, COALESCE, NULLIF, UPPER, LOWER, LENGTH, SUBSTR, TRIM, REPLACE, ROUND, ABS, CONCAT, GROUP_CONCAT.",x.s)}
+  if(!SCALAR[x.name]){if(NOCLOCK[x.name])throw E("Date functions differ in every database, and this engine has no clock. Dates are text here: compare with '2026-09-01', and cut with SUBSTR(opened, 1, 7) for the month.",x.s);throw E("There is no function "+x.name+" here. Available: COUNT, SUM, AVG, MIN, MAX, COALESCE, NULLIF, UPPER, LOWER, LENGTH, SUBSTR, TRIM, REPLACE, ROUND, ABS, CONCAT, GROUP_CONCAT. With OVER (...): "+WINLIST+".",x.s)}
   return SCALAR[x.name](x.args.map(f));
  case"sub":v=subq(x.q,env);if(v.cols.length!==1)throw E("A query used as a single value must return one column.",x.s);return v.rows.length?v.rows[0][0]:null;
  case"ref":return f(x.to)}
@@ -241,6 +270,38 @@ function aggregate(x,rows,evRow,env){var n=x.name,vals,i,v;
   case"MIN":return vals.length?vals.reduce(function(a,b){return cmp(b,a)<0?b:a}):null;
   case"MAX":return vals.length?vals.reduce(function(a,b){return cmp(b,a)>0?b:a}):null;
   default:var sep=",";if(x.args.length>1&&rows.length){sep=evRow(x.args[1],rows[0]);sep=sep===null?"":String(sep)}return vals.length?vals.join(sep):null}}
+
+function kcmp(a,b,order){for(var i=0;i<order.length;i++){var x=a[i],y=b[i],c=x===null?(y===null?0:-1):(y===null?1:cmp(x,y));if(c)return order[i].desc?-c:c}return 0}
+/* One window function for all rows (or groups) of a query. Returns one value per row. */
+function winVals(w,ctxs,evX,env){var o=w.over,n=w.name,a=w.args,d=WIN[n],res=new Array(ctxs.length),parts=[],pi={};
+ if(!d)throw E(n+" cannot be used with OVER. These can: "+WINLIST+".",w.s);
+ if(w.distinct)throw E("DISTINCT cannot be used inside a window function.",w.s);
+ if(w.star&&n!=="COUNT")throw E(n+"(*) does not exist. Only COUNT takes a star.",w.s);
+ if(a.length>d[1]||(a.length<d[0]&&!w.star))throw E(n+" is written like this: "+d[2]+", followed by OVER (...).",w.s);
+ ctxs.forEach(function(c,i){var k=JSON.stringify(o.part.map(function(e){return evX(e,c)}));if(pi[k]===undefined){pi[k]=parts.length;parts.push([])}parts[pi[k]].push(i)});
+ parts.forEach(function(ix){var m=ix.length,ks={},ps=[],pe=[],dr=[],vals=null,p,j,c,v,lo,hi,off,nb,sz,big,cl=-1,ch=-1,cv=null;
+  if(o.order.length){ix.forEach(function(i){ks[i]=o.order.map(function(k){return evX(k.e,ctxs[i])})});ix.sort(function(x,y){return kcmp(ks[x],ks[y],o.order)||x-y})}
+  for(p=0;p<m;p++){if(p>0&&(!o.order.length||kcmp(ks[ix[p]],ks[ix[p-1]],o.order)===0)){ps[p]=ps[p-1];dr[p]=dr[p-1]}else{ps[p]=p;dr[p]=p?dr[p-1]+1:1}}
+  for(p=m-1;p>=0;p--)pe[p]=p<m-1&&ps[p+1]===ps[p]?pe[p+1]:p;
+  if(n==="NTILE"){nb=evX(a[0],ctxs[ix[0]]);if(typeof nb!=="number"||nb%1!==0||nb<1)throw E("NTILE needs a whole number above zero: NTILE(4) makes four parts of equal size.",w.s);sz=Math.floor(m/nb);big=m%nb}
+  else if(AGG[n]||n==="FIRST_VALUE"||n==="LAST_VALUE")vals=ix.map(function(i){return a.length?evX(a[0],ctxs[i]):1});
+  for(p=0;p<m;p++){c=ctxs[ix[p]];
+   if(n==="ROW_NUMBER")v=p+1;
+   else if(n==="RANK")v=ps[p]+1;
+   else if(n==="DENSE_RANK")v=dr[p];
+   else if(n==="NTILE")v=p<big*(sz+1)?Math.floor(p/(sz+1))+1:big+Math.floor((p-big*(sz+1))/sz)+1;
+   else if(n==="LAG"||n==="LEAD"){off=a.length>1?evX(a[1],c):1;
+    if(off===null)v=null;
+    else{off=num(off);if(off<0||off%1!==0)throw E("The second value of "+n+" says how many rows to go "+(n==="LAG"?"back":"forward")+". It must be a whole number, zero or above.",w.s);
+     j=n==="LAG"?p-off:p+off;v=j>=0&&j<m?evX(a[0],ctxs[ix[j]]):(a.length>2?evX(a[2],c):null)}}
+   else{
+    if(o.frame){if(o.frame.all){lo=0;hi=m-1}else{lo=o.frame.n===null?0:Math.max(0,p-o.frame.n);hi=p}}
+    else{lo=0;hi=o.order.length?pe[p]:m-1}
+    if(n==="FIRST_VALUE")v=vals[lo];
+    else if(n==="LAST_VALUE")v=vals[hi];
+    else{if(lo!==cl||hi!==ch){cv=aggregate(w,vals.slice(lo,hi+1),function(_,x){return x},env);cl=lo;ch=hi}v=cv}}
+   res[ix[p]]=v}});
+ return res}
 
 function table(env,name,pos){var k=name.toLowerCase();if(env.ctes[k])return env.ctes[k];
  var t=env.db.tables;for(var n in t)if(n.toLowerCase()===k)return t[n];
@@ -264,7 +325,7 @@ function runSelect(q,env){var ctes=Object.create(env.ctes);env={db:env.db,ctes:c
    if(amap&&!x.tb){var al=amap[x.name.toLowerCase()];
     if(al!==undefined&&(mode==="order"||!resolve(x,true))){x.t="ref";x.to=items[al].e;return}
     if(x.ti!==undefined)return}
-   if(mode==="where"&&!x.tb&&q._amap&&q._amap[x.name.toLowerCase()]!==undefined&&!resolve(x,true))throw E("WHERE cannot use the name "+x.name+": it is given in SELECT, which runs later. Repeat the expression in WHERE"+(q.group.length?", or filter the groups with HAVING":"")+".",x.s);
+   if(mode==="where"&&!x.tb&&q._amap&&q._amap[x.name.toLowerCase()]!==undefined&&!resolve(x,true))throw E(hasWin(q._it[q._amap[x.name.toLowerCase()]].e)?"WHERE cannot use the name "+x.name+": it comes from a window function, and those are worked out after WHERE. Put the query in a subquery (FROM (...) x) and filter outside.":"WHERE cannot use the name "+x.name+": it is given in SELECT, which runs later. Repeat the expression in WHERE"+(q.group.length?", or filter the groups with HAVING":"")+".",x.s);
    resolve(x,false);return}
   if(mode==="where"&&isAggFn(x))throw E(x.name+" cannot be used in WHERE: WHERE looks at single rows, before they are grouped. Filter groups with HAVING.",x.s);
   if(mode==="on"&&isAggFn(x))throw E(x.name+" cannot be used in a JOIN condition.",x.s);
@@ -273,7 +334,7 @@ function runSelect(q,env){var ctes=Object.create(env.ctes);env={db:env.db,ctes:c
  q.from.forEach(function(f,fi){var t=f.sub?runSelect(f.sub,env):table(env,f.name,f.p);
   src.forEach(function(s){if(s.alias.toLowerCase()===f.alias.toLowerCase())throw E("Two tables in this query are both called "+f.alias+". Give each a short name: "+f.name+" a JOIN "+f.name+" b.",f.p)});
   src.push({alias:f.alias,name:f.name||null,cols:t.cols,lc:t.cols.map(function(c){return c.toLowerCase()})});
-  if(f.on)bind(f.on,"on");
+  if(f.on){bind(f.on,"on");noWin(f.on,"a JOIN condition")}
   var out=[],i,j,hit,cand;
   for(i=0;i<rows.length;i++){hit=false;
    for(j=0;j<t.rows.length;j++){cand=rows[i].concat([t.rows[j]]);if(!f.on||truth(ev(f.on,cand))===true){out.push(cand);hit=true}}
@@ -286,20 +347,23 @@ function runSelect(q,env){var ctes=Object.create(env.ctes);env={db:env.db,ctes:c
   src.forEach(function(s,ti){if(it.tb&&s.alias.toLowerCase()!==it.tb.toLowerCase())return;any=true;s.cols.forEach(function(c,ci){items.push({e:{t:"col",tb:s.alias,name:c,ti:ti,ci:ci,s:it.p,e:it.p},alias:null,name:c})})});
   if(!any)throw E("There is no table or short name "+it.tb+" in this query.",it.p)});
  var amap={};items.forEach(function(it,i){if(it.alias&&amap[it.alias.toLowerCase()]===undefined)amap[it.alias.toLowerCase()]=i});
- q._amap=amap;
- if(q.where){bind(q.where,"where");rows=rows.filter(function(r){return truth(ev(q.where,r))===true})}
+ q._amap=amap;q._it=items;
+ if(q.where){bind(q.where,"where");noWin(q.where,"WHERE");rows=rows.filter(function(r){return truth(ev(q.where,r))===true})}
  items.forEach(function(it){if(!it.name)bind(it.e,"select")});
  function positional(e,what){if(e.t==="num"&&e.v%1===0){if(e.v<1||e.v>items.length)throw E(what+" "+e.v+" points at column "+e.v+" of the result, which has "+items.length+".",e.s);return items[e.v-1].e}return null}
- var group=q.group.map(function(g){var p=positional(g,"GROUP BY");if(p)return p;bind(g,"group",amap,items);if(hasAgg(g))throw E("GROUP BY cannot contain COUNT, SUM and the like.",g.s);return g});
- if(q.having)bind(q.having,"having",amap,items);
+ var group=q.group.map(function(g){var p=positional(g,"GROUP BY");if(p){noWin(p,"GROUP BY");return p}bind(g,"group",amap,items);noWin(g,"GROUP BY");if(hasAgg(g))throw E("GROUP BY cannot contain COUNT, SUM and the like.",g.s);return g});
+ if(q.having){bind(q.having,"having",amap,items);noWin(q.having,"HAVING")}
  var order=q.order.map(function(o){var p=positional(o.e,"ORDER BY");if(p)return{e:p,desc:o.desc};bind(o.e,"order",amap,items);return o});
  var agg=group.length>0||!!q.having||items.some(function(it){return hasAgg(it.e)})||order.some(function(o){return hasAgg(o.e)});
  var cols=items.map(function(it){return it.alias||it.name||(it.e.t==="col"?it.e.name:env.db._src.slice(it.e.s,it.e.e).replace(/\s+/g," ").trim())});
- var out=[];
+ var out=[],wins=[],ctxs=rows,evX=ev;
+ var findWin=function(x,inside){if(x.t==="fn"&&x.over){if(inside)throw E("A window function cannot sit inside another one. Work out the inner one in a subquery (FROM (...) x) first.",x.s);if(wins.indexOf(x)<0)wins.push(x);kids(x).forEach(function(k){findWin(k,true)})}else kids(x).forEach(function(k){findWin(k,inside)})};
+ items.forEach(function(it){findWin(it.e,false)});order.forEach(function(o){findWin(o.e,false)});
  if(agg){
   var gk={};group.forEach(function(g){gk[key(g)]=1});
   var check=function(x,inAgg){if(!inAgg&&gk[key(x)])return;
-   if(isAggFn(x)){if(inAgg)throw E("A function like "+x.name+" cannot sit inside another one.",x.s);x.args.forEach(function(a){check(a,true)});return}
+   if(isAggFn(x)){if(inAgg)throw E("A function like "+x.name+" cannot sit inside another one.",x.s);x.args.forEach(function(a){check(a,x.name)});return}
+   if(x.over&&inAgg)throw E("A window function cannot sit inside "+inAgg+". Work it out in a subquery (FROM (...) x) first, then use "+inAgg+" outside.",x.s);
    if(x.t==="col"&&!inAgg)throw E(group.length?"The column "+x.name+" is neither in GROUP BY nor inside a function such as COUNT or MAX. With several rows in a group, the database cannot know which value you want.":"This query mixes a plain column ("+x.name+") with a function that sums up all rows. Add GROUP BY "+x.name+", or wrap the column in MIN or MAX.",x.s);
    kids(x).forEach(function(k){check(k,inAgg)})};
   items.forEach(function(it){check(it.e,false)});if(q.having)check(q.having,false);order.forEach(function(o){check(o.e,false)});
@@ -309,11 +373,11 @@ function runSelect(q,env){var ctes=Object.create(env.ctes);env={db:env.db,ctes:c
   var evA=function(x,rs){if(gk[key(x)])return rs.length?ev(x,rs[0]):null;
    if(isAggFn(x))return aggregate(x,rs,ev,env);
    return core(x,function(c){return evA(c,rs)},env)};
-  groups.forEach(function(rs){if(q.having&&truth(evA(q.having,rs))!==true)return;
-   out.push({r:items.map(function(it){return evA(it.e,rs)}),k:order.map(function(o){return evA(o.e,rs)})})})}
- else rows.forEach(function(r){out.push({r:items.map(function(it){return ev(it.e,r)}),k:order.map(function(o){return ev(o.e,r)})})});
+  ctxs=q.having?groups.filter(function(rs){return truth(evA(q.having,rs))===true}):groups;evX=evA}
+ if(wins.length){var wv=wins.map(function(w){return winVals(w,ctxs,evX,env)});wins.forEach(function(w,i){w._wi=i});env.wv=wv}
+ ctxs.forEach(function(c,i){env.wi=i;out.push({r:items.map(function(it){return evX(it.e,c)}),k:order.map(function(o){return evX(o.e,c)})})});
  if(q.distinct){var seen={};out=out.filter(function(o){var k=JSON.stringify(o.r);if(seen[k])return false;seen[k]=1;return true})}
- if(order.length){out.forEach(function(o,i){o.i=i});out.sort(function(a,b){for(var i=0;i<order.length;i++){var x=a.k[i],y=b.k[i],c=x===null?(y===null?0:-1):(y===null?1:cmp(x,y));if(c)return order[i].desc?-c:c}return a.i-b.i})}
+ if(order.length){out.forEach(function(o,i){o.i=i});out.sort(function(a,b){return kcmp(a.k,b.k,order)||a.i-b.i})}
  var res=out.map(function(o){return o.r}),off=q.offset||0;
  if(q.limit!==null)res=res.slice(off,off+q.limit);else if(off)res=res.slice(off);
  return{cols:cols,rows:res}}

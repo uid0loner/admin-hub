@@ -3,7 +3,7 @@
 How this works: the owner writes "WEITER", the next open item is built, tested and committed to `main`.
 Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not part of the published site.
 
-## Next: eight rounds to the masterpiece (plan of 2026-10-06)
+## Next: seven rounds to the masterpiece (plan of 2026-10-06)
 
 Owner's rules: the site is for an IT all-rounder and covers everything in IT, including hardware with drawings.
 Every round ("WEITER") adds a bit of everything, has one flagship piece that would normally cost money,
@@ -11,17 +11,6 @@ and may change design and GUI where it makes the site better. Colours stay. No a
 
 Each round = 1 flagship + hardware (with drawings) + network + Linux + Windows + cloud/M365 + security +
 data/automation + helpdesk + 1 design item. One round per "WEITER".
-
-### Round 6 (v64): the front door
-- Design: new home page (live mini terminal as hero, areas as a map instead of a list), tools hub as a launcher with an icon per tool and filters by area and by kind (fix, read, build, plan, practise)
-- Flagship: mail header reader (hops and delays as a timeline, SPF, DKIM, DMARC, ARC verdicts in plain words)
-- Hardware: storage upgrade planner with drawings (M.2 keys and lengths, SATA or NVMe, 2.5 inch heights, cloning steps)
-- Network: subnet and VLAN poster to print
-- Linux: systemd unit builder (service, timer, hardening options, explained line by line)
-- Windows Server: file server migration checklist (robocopy plan, shares, permissions, DFS, cut-over)
-- Security: phishing drill kit (plan, three sample mails, landing text, how to report results fairly)
-- Databases: SQL playground gets window functions (engine and six lessons)
-- Telephony: call quality walkthrough (jitter, loss, QoS, SIP ALG, headsets)
 
 ### Round 7 (v65): practise, do not read
 - Flagship: packet journey simulator (follow one request through DNS, ARP, switch, VLAN, router, NAT, firewall, TLS; break one step and see the symptom)
@@ -116,6 +105,7 @@ SNMP MIB browser, Exchange hybrid guide, print server migration, time and NTP tr
 
 ## Done
 
+- 2026-10-06: round 6, the front door: home page with areas map and refreshed features, tools hub with area icons and filter, mail header reader, storage upgrade planner (3 drawings), systemd unit builder, subnet and VLAN poster, phishing drill kit, call quality walkthrough, file server migration checklist, SQL playground window functions (engine + 6 lessons, 66 queries verified against SQLite), stamp v64
 - 2026-10-06: round five, larger pieces: Linux playground (own shell simulator, 13 missions), network diagram builder (SVG/PNG export, checks), PC build checker (scale drawing), asset inventory (CSV), DHCP walkthrough, password manager roll-out checklist, cheat sheets Let's Encrypt/certbot and SQL window functions, 9 glossary terms, stamp v63
 - 2026-10-06: mixed round four: cron and timer builder, DNS walkthrough, printer hardware guide (4 drawings), security posters to print (10), device management explained, monitoring baseline checklist, disk wiping cheat sheet, 11 glossary terms, stamp v62
 - 2026-10-06: mixed round three: BIOS and UEFI settings explained (27), Git fix-it (25 situations), Group Policy walkthrough, Wi-Fi channel planner, connection string builder, incident plan builder, wizard trees for monitors and docks, hardware buying guide, 10 glossary terms, stamp v61
