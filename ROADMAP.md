@@ -3,7 +3,7 @@
 How this works: the owner writes "WEITER", the next open item is built, tested and committed to `main`.
 Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not part of the published site.
 
-## Next: seven rounds to the masterpiece (plan of 2026-10-06)
+## Next: six rounds to the masterpiece (plan of 2026-10-06)
 
 Owner's rules: the site is for an IT all-rounder and covers everything in IT, including hardware with drawings.
 Every round ("WEITER") adds a bit of everything, has one flagship piece that would normally cost money,
@@ -11,17 +11,6 @@ and may change design and GUI where it makes the site better. Colours stay. No a
 
 Each round = 1 flagship + hardware (with drawings) + network + Linux + Windows + cloud/M365 + security +
 data/automation + helpdesk + 1 design item. One round per "WEITER".
-
-### Round 7 (v65): practise, do not read
-- Flagship: packet journey simulator (follow one request through DNS, ARP, switch, VLAN, router, NAT, firewall, TLS; break one step and see the symptom)
-- Design: one common frame for all practise pages (playground, simulator, quiz) with progress kept per tab
-- Hardware: notebook repair guide with drawings (opening, battery, keyboard, display cable, fan, thermal paste)
-- Network: switch port finder walkthrough (from wall socket to switch port)
-- Linux: log rotation and disk clean-up walkthrough, plus five new playground missions (users, cron, firewall)
-- Windows: PowerShell playground (objects and pipeline on pretend data, twelve missions)
-- Microsoft 365: guided "audit my tenant in an hour"
-- Security: incident simulator, second scenario (ransomware at 07:30 on a Monday)
-- Tools: regex tester with explanation of every part and a test list
 
 ### Round 8 (v66): the documentation kit
 - Flagship: IT documentation generator (network, servers, accounts, backups, contacts, emergency page; printable handbook, state kept in a file you save)
@@ -105,6 +94,7 @@ SNMP MIB browser, Exchange hybrid guide, print server migration, time and NTP tr
 
 ## Done
 
+- 2026-10-06: round 7, practise: packet journey (12 stations, 10 faults, quiz), PowerShell playground (own simulator, 48 cmdlets, 12 missions), Linux playground +5 missions (18), regex tester with explainer, incident simulator 4th scenario (13 decisions), switch port finder, disk full walkthrough, technician's toolkit (3 drawings; replaces the planned notebook repair guide, which the notebook hardware guide already covers), tenant audit in one hour, practise group in the tools hub with a shared progress bar, stamp v65
 - 2026-10-06: round 6, the front door: home page with areas map and refreshed features, tools hub with area icons and filter, mail header reader, storage upgrade planner (3 drawings), systemd unit builder, subnet and VLAN poster, phishing drill kit, call quality walkthrough, file server migration checklist, SQL playground window functions (engine + 6 lessons, 66 queries verified against SQLite), stamp v64
 - 2026-10-06: round five, larger pieces: Linux playground (own shell simulator, 13 missions), network diagram builder (SVG/PNG export, checks), PC build checker (scale drawing), asset inventory (CSV), DHCP walkthrough, password manager roll-out checklist, cheat sheets Let's Encrypt/certbot and SQL window functions, 9 glossary terms, stamp v63
 - 2026-10-06: mixed round four: cron and timer builder, DNS walkthrough, printer hardware guide (4 drawings), security posters to print (10), device management explained, monitoring baseline checklist, disk wiping cheat sheet, 11 glossary terms, stamp v62

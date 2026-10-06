@@ -1,0 +1,45 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Regex tester | admin_hub</title><meta name="description" content="Test a regular expression against your own text and get every part explained in plain words, with the usual mistakes pointed out and the same pattern written for grep, sed, PowerShell, Python and JavaScript."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=65"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="admin_hub">
+<meta property="og:title" content="Regex tester | admin_hub">
+<meta property="og:description" content="Test a regular expression against your own text and get every part explained in plain words, with the usual mistakes pointed out and the same pattern written for grep, sed, PowerShell, Python and JavaScript.">
+<meta property="og:image" content="https://admin-hub.xyz/og-regex-tester.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Regex tester | admin_hub">
+<meta name="twitter:description" content="Test a regular expression against your own text and get every part explained in plain words, with the usual mistakes pointed out and the same pattern written for grep, sed, PowerShell, Python and JavaScript.">
+<meta name="twitter:image" content="https://admin-hub.xyz/og-regex-tester.png">
+<link rel="canonical" href="https://admin-hub.xyz/regex-tester.html"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Regex tester", "url": "https://admin-hub.xyz/regex-tester.html", "description": "Test a regular expression against your own text and get every part explained in plain words, with the usual mistakes pointed out and the same pattern written for grep, sed, PowerShell, Python and JavaScript.", "applicationCategory": "SecurityApplication", "operatingSystem": "Any", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "inLanguage": "en"}</script>
+</head><body><a class="skip" href="#main">skip to content</a><div class="wrap"><header><a class="brand" href="index.html">admin_hub</a><nav aria-label="Main"><a href="tools.html" aria-current="page">tools</a><a href="cheat-sheets.html">cheat-sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a><a href="explainers.html">explainers</a><a href="news.html">news</a><a href="start-here.html">start-here</a><a href="about.html">about</a></nav><button class="btn sbtn" type="button" data-search aria-label="Search the site" title="Search (Ctrl+K)">search <kbd>Ctrl K</kbd></button></header><main id="main" tabindex="-1">
+
+<p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<a href="tools.html">tools</a>/<b>regex-tester</b><span class="cs">$</span></p>
+<h1>regex-tester</h1>
+<p class="dim">Regular expressions turn up in log searches, mail rules, grep, PowerShell and monitoring tools, and they are easier to write than to read. Type a pattern and some test text: the page shows what matches, says in plain words what each part of the pattern means, points out the usual mistakes, and writes the same pattern for other tools.</p>
+<div class="ctl rxchips" id="rx-chips" role="group" aria-label="Examples"></div>
+<p class="dim rxexnote" id="rx-exnote"></p>
+<div class="sim rxform">
+<label>Pattern<input class="sel" id="rx-pat" type="text" autocomplete="off" spellcheck="false" autocapitalize="off" autocorrect="off" translate="no"></label>
+<label>Replace with (optional)<input class="sel" id="rx-rep" type="text" placeholder="for example [$1]" autocomplete="off" spellcheck="false" autocapitalize="off" autocorrect="off" translate="no"></label>
+</div>
+<div class="rxflags" role="group" aria-labelledby="rx-fl"><span id="rx-fl">Flags</span>
+<label><input type="checkbox" id="rx-fg"> <span><code>g</code> find all matches</span></label>
+<label><input type="checkbox" id="rx-fi"> <span><code>i</code> ignore case</span></label>
+<label><input type="checkbox" id="rx-fm"> <span><code>m</code> ^ and $ at every line</span></label>
+<label><input type="checkbox" id="rx-fs"> <span><code>s</code> dot also matches line breaks</span></label>
+</div>
+<label class="rxtl" for="rx-text">Test text</label>
+<textarea class="rxta" id="rx-text" rows="6" spellcheck="false" autocapitalize="off" autocorrect="off" translate="no"></textarea>
+<div id="rx-out" aria-live="polite" style="margin-top:22px"></div>
+<h2 class="plain" style="margin-top:44px">what the pattern says</h2>
+<p class="dim">Every part of the pattern in order, with groups indented. Point at a line, or move to it with the Tab key, to see that part marked in the pattern.</p>
+<div id="rx-exp"></div>
+<h2 class="plain" style="margin-top:44px">traps</h2>
+<div id="rx-traps"></div>
+<h2 class="plain" style="margin-top:44px">the same pattern elsewhere</h2>
+<p class="dim">Regex dialects differ. This is how the pattern is written and quoted for the tools admins use most, and what each of them does not support.</p>
+<div id="rx-var"></div>
+<p class="note">Nothing you type leaves the browser. The link in the address bar holds the pattern, the flags and up to 2,000 characters of the test text, so you can share a test: do not put passwords or personal data in a link you pass on. Matching runs in your browser's JavaScript engine, so grep, sed, .NET and Python can decide differently in details. The table above names the known differences, not every one. The explanation covers the common syntax. It does not cover every corner, such as Unicode property escapes, the u and v flags or sticky matching. Related: <a href="regex-patterns-library.html">regex patterns library</a>, <a href="log-reader.html">log reader</a>, <a href="linux-playground.html">Linux playground</a>, <a href="powershell-cheat-sheet.html">PowerShell cheat sheet</a>, <a href="bash-scripting-cheat-sheet.html">Bash scripting cheat sheet</a>.</p>
+
+</main>
+<footer><div class="fcol"><b>analyze</b><a href="signin-analyzer.html">sign-in analyzer</a><a href="ca-analyzer.html">CA analyzer</a><a href="phish-analyzer.html">phish analyzer</a><a href="domain-check.html">domain check</a></div><div class="fcol"><b>plan and practise</b><a href="attack-map.html">attack map</a><a href="cockpit.html">cockpit</a><a href="incident-sim.html">incident simulator</a><a href="patch-tuesday.html">patch tuesday</a></div><div class="fcol"><b>reference</b><a href="tools.html">all tools</a><a href="cheat-sheets.html">cheat sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a></div><div class="fcol"><b>site</b><a href="about.html">about</a><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a></div><p class="fline">admin_hub, 2026. The tools run in your browser.</p></footer></div>
+<script src="regextest.js?v=65" defer></script>
+<script src="shell.js?v=65" defer></script><script src="consent.js?v=65" defer></script><script src="reveal.js?v=65" defer></script><script src="pwa.js?v=65" defer></script><script src="search-index.js?v=65" defer></script><script src="search.js?v=65" defer></script></body></html>

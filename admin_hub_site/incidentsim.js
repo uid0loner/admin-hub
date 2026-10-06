@@ -185,6 +185,133 @@ var S={
     return {dmg:(f.stopped?0:1)+(d||0),lines:lines};
   },
   links:[["onboarding-offboarding-checklist.html","offboarding checklist"],["mail-flow-cheat-sheet.html?q=forward","find forwarding"],["purview-compliance-cheat-sheet.html","Purview cheat sheet"],["kql-cheat-sheet.html","KQL cheat sheet"],["compromised-account-response-checklist.html","account response checklist"]]
+ },
+ monday:{
+  title:"Monday 07:30: the files will not open",kicker:"Small company · ransomware found in the morning · recovery",
+  brief:"You are the whole IT department of a planning office with 40 people. There is one small domain with a domain controller (DC1) and a file server (FS1), a NAS for the backups, and Microsoft 365 for mail. Your week starts with the phone.",
+  start:[7,30],unit:"working days lost",dmg0:0,mins:20,
+  beats:[
+   {feed:["07:30  Phone, three calls in five minutes: drawings and spreadsheets on the P: drive will not open.",
+          "07:31  The files have a new ending: plan_north.dwg.q7lock",
+          "07:32  In every folder there is a new file: HOW_TO_GET_YOUR_FILES_BACK.txt",
+          "07:33  FS1 stands in the room next to you. Its disk lights are busy."],
+    q:"This is ransomware, and the file server is still doing something. What do you do in the first five minutes?",
+    o:[["Pull the network cables of FS1 and DC1 but leave them running. Tell everyone by phone chain: stop working, unplug the network cable or switch Wi-Fi off, do not shut down, do not restart",5,3,"Cutting the network stops the spread and stops the encryption of shares at once, and it costs nothing you need later. A running machine still holds what is in memory: the running program, sometimes the key, and the traces of who is logged on. Investigators can only read that as long as the power stays on.",{iso:1}],
+       ["Hold the power button of FS1 until it is off",5,2,"The encryption stops, so this is not wrong, and when nothing else is possible it is the right call. The price: everything in memory is gone, files that were being written at that moment can be damaged beyond repair, and some systems hit in the middle of encryption do not start again. Pull the network first. Cut the power only if the disk is clearly still being encrypted and you cannot stop it any other way.",{iso:1,memlost:1}],
+       ["Sign in at the FS1 console with the domain administrator account and start a full virus scan",20,0,"You typed the most powerful password of the company into a machine the attacker controls, and the scan ran for twenty minutes while the encryption carried on. A virus scanner does not undo encryption.",{exposed:1,dmg:1}],
+       ["Tell the users to restart their computers and try again",5,0,"A restart reconnects the network drives, wipes the memory of machines that may hold evidence, and gives some ransomware the chance to finish its work at start-up. Two more PCs were encrypted this way.",{dmg:1}]]},
+   {feed:["By now the servers are off the network. The office is quiet and forty people are looking at you."],
+    ifFlag:{exposed:"FS1, event log: a new sign-in of the domain administrator at the console. That was you. Whatever watches this server has now seen that password."},
+    q:"Before you can decide anything you need to know how far this went. How do you find out?",
+    o:[["From a laptop that was not on the network over the weekend: write down which machines show the note or the new file ending, check whether files are still changing, look at who is the owner of the ransom notes, and look at DC1, the NAS and a sample of PCs. Keep a paper log with times",20,3,"Scope is three questions: which machines, is it still running, and which account did it. The owner of the ransom note files answers the third one without any special tool. The paper log looks old-fashioned and becomes the most used document of the week: insurer, police and the data protection authority all ask what you knew and when.",{scoped:1}],
+       ["Go from PC to PC with a rescue USB stick and scan each one",60,1,"You will find a few things after an hour, but you still do not know which account was used, or whether the domain controller and the NAS are affected. And a stick that travels from a suspect machine to the next one is its own risk.",{}],
+       ["The calls were all about the P: drive, so the problem is FS1. Concentrate on that",0,0,"Users report what they see. Nobody opens the domain controller or the backup NAS at 07:30. Both were touched, and you will find out at the worst possible moment.",{blind:1}]]},
+   {feed:["What you found:",
+          "  FS1: all shares encrypted. The last file was changed at 05:40. Nothing is changing any more.",
+          "  DC1: not encrypted. There is a folder C:\\PerfLogs\\x with tools nobody here installed.",
+          "  Three PCs that were left on over the weekend: local documents encrypted.",
+          "  Owner of every ransom note: the domain account 'administrator'.",
+          "  DC1 sign-in log: 'administrator' signed in on Sunday 02:10 from 10.87.250.14. That address belongs to the VPN pool."],
+    q:"The attacker came in through the VPN and has had the domain administrator account since Sunday night. The encryption is finished. What now?",
+    o:[["Switch off the VPN on the firewall completely, block the servers from reaching the internet, and disable the accounts you saw being used. Do it from the clean laptop or at the firewall itself",10,3,"The encryption is over, but the door is still open and the attacker still has working passwords. Closing remote access and cutting the servers off from the internet ends their access to the network today. It also means nobody works from home for now. That is the correct price.",{vpnOff:1}],
+       ["Change the password of the administrator account",5,1,"Necessary and far from enough. Someone who was domain administrator for a day and a half has copied every other password too, and may have created accounts of their own. And the VPN is still open.",{}],
+       ["Change nothing for now, so the attacker does not notice you are on to them",0,0,"They left a note in every folder. They know that you know. All that waiting does is leave the door open while they decide whether to come back for more.",{dmg:1}]]},
+   {feed:["The backups:",
+          "  FS1 writes a backup to the NAS every night, to the share \\\\nas01\\backup, with a password saved on FS1.",
+          "  NAS web interface: the backup share is full of *.q7lock files. Snapshots were never switched on.",
+          "  Rotation: every Friday the managing director, Ines, takes one of two USB disks home.",
+          "  Ines, on the phone: \"I forgot it last Friday. The one at my house is from ten days ago.\""],
+    q:"The server could reach the NAS, so the attacker could too. One USB disk was out of reach. What do you do with it?",
+    o:[["Take the NAS off the network and delete nothing on it. Have the USB disk brought in, and open it only on the clean laptop, with no network, to see whether it can be read. Then put it somewhere safe until there is a clean server to restore to",20,3,"A backup that the infected server can write to is not a backup in this situation, it is one more share. The disk in a drawer at home is now the most valuable object the company owns. It gets checked once, on a machine you trust, and is then kept away from everything else.",{backup:1}],
+       ["Have the USB disk brought in and plug it into FS1, to start restoring straight away",15,0,"FS1 is still the attacker's machine. The program that encrypts every drive it can see is still installed there, and it saw the new drive. The only clean copy is gone.",{usbLost:1}],
+       ["Delete the encrypted files on the NAS and run a new full backup of whatever still works",30,0,"You erased traces the investigators wanted, and wrote a copy of an infected environment over the space. Nobody has looked at the one disk that matters.",{}],
+       ["The backup program reported 'successful' every night last week, so there is a backup",0,0,"It was successful. It wrote every night to a place the attacker reached with a saved password. Successful and out of reach are two different properties, and only the second one counts today.",{}]]},
+   {feed:["08:20  Ines is in the office. \"Who do we call? What does this cost? Can you fix it by tomorrow?\"",
+          "In the folder with the insurance papers: a cyber policy. Page 2: an emergency number, staffed day and night.",
+          "Small print: report an incident without delay. No payments and no contractors without the insurer's agreement."],
+    ifFlag:{usbLost:"The USB disk that was plugged into FS1 now shows *.q7lock files as well."},
+    q:"There are many calls to make. Which one comes first?",
+    o:[["Ines calls the insurer's emergency number now, before anything is restored, paid or ordered. You give her the facts from your log. The insurer names an incident response firm and a lawyer. The police report comes right after",15,3,"The policy pays for specialists most small companies could never hire, and it sets conditions: tell us at once, and do not commit to costs without us. One call starts the response team and keeps the cover intact. It is management's call to make, and it needs your facts.",{insurer:1}],
+       ["Call the local IT shop you know and ask them to come and start reinstalling today",30,1,"More hands are welcome, and they mean well. But the insurer can refuse to pay for a contractor it did not approve, and a reinstall started now destroys what the investigators need in order to tell you how the attacker got in and what was taken.",{}],
+       ["Write to the address in the ransom note and ask what they want and whether they can prove they have the key",10,0,"You opened a negotiation without the insurer, a lawyer or the police. The attackers now know that someone is reading, and their deadline has started. This contact, if it happens at all, is a job for people who do it for a living.",{contacted:1}],
+       ["Keep it inside IT until you know more. Ines has enough to worry about",0,0,"This stopped being an IT problem at 07:30. Contracts, insurance, legal duties and money are management decisions, and every hour management does not know is an hour of deadline gone.",{dmg:1}]]},
+   {feed:["The response firm will dial in at 11:00.",
+          "On FS1 there were, among other things: the personnel folder with payroll and sick notes, and customer contracts with names and addresses.",
+          "The ransom note says: \"We have copied 60 GB of your data. If you do not pay, we publish it.\""],
+    q:"Personal data was on that server, and the attacker claims to have a copy. What about reporting?",
+    o:[["Write down when the company became aware: Monday 07:30. Management, with the data protection officer or the lawyer, assesses the duty to notify the data protection authority. Where the GDPR applies, that is due within 72 hours and can be sent with what is known so far and completed later. The police report is filed today",15,3,"The 72 hours run from the moment you know about the breach, not from the moment the investigation is finished. A first notification that says what happened, what is still unknown and when more will follow is exactly what the rule expects. Whether the affected people must be told as well is part of the same assessment. A police report costs nothing and is often needed for the insurance.",{reported:1}],
+       ["Wait for the forensic result on whether data really left the building, then decide",0,1,"The result takes a week or two. The deadline takes three days. Personal data that is encrypted and unavailable already counts as a breach, whether or not a copy left the building.",{}],
+       ["No report. The files are encrypted, not stolen, and a report only brings trouble",0,0,"You do not know that nothing was taken, and the note says the opposite. When the data appears on a leak site, the company has a breach and a missed deadline to explain.",{noreport:1}]]},
+   {feed:["09:00  Forty people stand in the kitchen. Some have switched their PCs back on \"just to check\".",
+          "Customers are calling the front desk: drawings due today have not arrived.",
+          "One project lead wants to tell his customer group chat that \"we were hacked, all data is gone\"."],
+    q:"Nobody has told anybody anything yet. What do staff and customers hear, and from whom?",
+    o:[["A short briefing for all staff: what happened, what is not known yet, leave PCs off the network, do not reuse the old password anywhere, and one named person speaks to the outside. Customers get a short honest message agreed with management: an attack has taken our systems down, here is how to reach us, we will be in touch about your project",20,3,"People who know what is going on follow instructions. People who do not, improvise. One voice to the outside keeps the message true and consistent. The customer message says what is certain and promises an update. It does not guess about stolen data before anyone knows.",{comms:1}],
+       ["Tell staff there are \"server problems\" and send them home",5,1,"The office is empty, which helps. But nobody was told to leave the PCs alone or to change the password they also use elsewhere, and by lunchtime three different versions of the story are with customers.",{}],
+       ["Tell customers it is planned maintenance, and tell them nothing else until everything works again",5,0,"It is not maintenance, and it will come out, at the latest when customers whose data was on the server have to be informed. From then on the story is no longer the attack. It is that the company lied about it.",{lied:1}]]},
+   {feed:["11:30  Ines has read the note properly now.",
+          "The demand: about EUR 180,000 in cryptocurrency. After five days the price doubles.",
+          "Ines: \"My brother-in-law says everybody just pays and is back at work in a day. Do we pay?\""],
+    ifFlag:{contacted:"A reply from the attackers has arrived at the address you wrote from: \"Good that you wrote. The clock is running.\""},
+    q:"She is asking you. What do you tell her?",
+    o:[["Give her the facts for a decision that belongs to management, together with the insurer, the lawyer and the police: what the backup situation is, what a rebuild will take, and what paying does not buy. A key is not guaranteed, decryption is slow and often incomplete, copied data stays copied, and paying some groups is against the law",10,3,"Police and security agencies advise against paying, for good reasons: it funds the next attack, and those who pay are attacked again more often. The decision is still not yours, and it should not be made at a kitchen table. What only you can provide is the fact that changes everything: whether the company can get back on its feet without the attackers.",{facts:1}],
+       ["Advise her to pay today from the company account, before the price doubles",0,0,"The transfer was made without the insurer, which then declined to cover it, and without anyone checking whether a payment to this group is legal. The key arrived three days later. The decryption tool failed on a third of the files, and the copied data is still with the attackers.",{paid:1}],
+       ["Answer the attackers yourself and try to bargain the price down, to buy time",15,0,"You are negotiating with professionals who do this every week, in the name of a company that has not decided to negotiate. Everything you write tells them how desperate you are.",{contacted:1}],
+       ["\"We never pay criminals.\" End of discussion",0,1,"In most cases that is where the decision ends up, and it is the official advice. But it is not IT's decision, and you ended the conversation before telling her the one thing she needs: can we recover without them, and how long will it take?",{}]]},
+   {feed:["13:00  The response firm, on the call: \"Before anything is wiped we need the disks of FS1 and DC1 as they are, and the logs of the firewall.\"",
+          "Ines: \"I need that server back tomorrow.\"",
+          "There is one server host. The firewall keeps its log for seven days."],
+    q:"Evidence or speed. The investigators want the machines untouched, the business wants them rebuilt.",
+    o:[["Both: export the firewall and VPN logs now. Take the old disks out, label them and lock them away, or have them imaged. Rebuild on new disks",30,3,"A set of new disks costs less than one hour of standstill for forty people. The old disks answer the questions that come later: how did they get in, what did they take, who has to be told. Logs that expire on their own are saved first.",{evidence:1}],
+       ["Wipe everything now and reinstall. Being back at work is what counts",10,0,"The server runs sooner, and nobody will ever know how the attacker got in or what left the building. For the notification you now have to assume the worst case, the insurer has questions about its claim, and the way in may still be open.",{noEvidence:1}],
+       ["Rebuild nothing until the forensic report is complete",0,1,"Careful, and far too slow. The report takes two weeks. The evidence is safe once the disks are in a cupboard, and from then on investigation and rebuild can run side by side.",{slow:1}]]},
+   {feed:["The exported VPN log of the firewall:",
+          "  For three weeks: failed sign-ins for 'administrator', 'scan', 'office' and 'ines' from hundreds of addresses",
+          "  Saturday 23:48: sign-in SUCCESS for 'scan' from 198.51.100.77",
+          "The account 'scan' belongs to the copier, for scan-to-folder. Its password has been the same since 2019.",
+          "Every domain account is allowed to use the VPN. There is no second factor."],
+    q:"That is the way in: a forgotten service account, a guessable password and a VPN without MFA. What has to change before anything goes back online?",
+    o:[["VPN only for named people and only with MFA. Service accounts get long random passwords and no right to use the VPN or to sign in at a desktop. Update the firewall, and check that no remote desktop port is forwarded from the internet",30,3,"The usual ways in at small companies are few: remote access without a second factor, remote desktop open to the internet, and an administrator who was phished. You close the one that was used and check the other two while you are there.",{entryFixed:1}],
+       ["Give 'scan' a new password and switch the VPN back on. People need to work from home",5,1,"The same door with a new key. Every other account can still be guessed at, and every other password of the domain was copied on Sunday.",{}],
+       ["Block the address 198.51.100.77 on the firewall",5,0,"The attacker has thousands of addresses, and used hundreds of them in the three weeks before.",{}]]},
+   {feed:["The response firm, after a first look at the DC1 disk:",
+          "  The attacker held domain administrator rights for about 30 hours.",
+          "  A tool for copying the password database of the domain was run on Sunday 02:25.",
+          "DC1 itself was not encrypted and would start normally."],
+    q:"The domain controller still works. Can you keep it?",
+    o:[["No. Treat every password in the domain as known. Build a clean domain controller as the response firm advises, reset the krbtgt key twice, and give every user, administrator and service account a new password, the local administrator accounts on the PCs included. Reset the Microsoft 365 passwords and sign-in sessions of all users as well",60,3,"Whoever has the password database has every account, and with the krbtgt key they can make their own Kerberos tickets for anyone, for as long as that key is valid. It is reset twice because the domain also accepts the previous key. If the same passwords are used for Microsoft 365, the mail is the next target. This is a long day, and it is the step that ends their access.",{domain:1}],
+       ["Reset all user passwords, but leave krbtgt and the service accounts alone. Something might break",30,1,"Something might break for an hour. With the old krbtgt key the attacker can still issue themselves a ticket as any user, however new that user's password is. And a service account was the way in.",{}],
+       ["DC1 was not encrypted, so it is clean. Change the administrator password and carry on",5,0,"Not encrypted only means they still had a use for it. Their tools were on it, the password database was copied from it, and you cannot know what else was changed. Four weeks later they signed in again.",{}]]},
+   {feed:["Day 2. New disks are in the server. The clean copy on the USB disk has been checked.",
+          "Everybody wants everything back, and everybody wants it first."],
+    ifFlag:{usbLost:"There is no clean copy. The response firm is trying to recover older file versions from the three undamaged PCs and from mail attachments."},
+    q:"In which order do you rebuild?",
+    o:[["Sign-in first: the clean domain controller and the new passwords. Then what the business earns its money with, here the project share and the accounting data, restored in a network that is cut off from the rest and scanned before anyone works on it. PCs are reinstalled before they reconnect. Archives and nice-to-haves come last",0,3,"Everything else trusts the directory, so it comes first. After that the order is a business decision, not a technical one: ask management what has to work for invoices to go out. The infected PCs come back only after a fresh install, because one of them is enough to start again.",{order:1}],
+       ["Restore everything in one go and reconnect all PCs as they are, so people can work on Wednesday",0,0,"The three PCs that were encrypted at the weekend still carried the attacker's program. On Wednesday afternoon the freshly restored share was encrypted for the second time.",{reinfect:1}],
+       ["Start with whoever shouts loudest: the scan archive and the PC of the boss",0,1,"Nothing breaks, but the people who write the invoices wait until Friday for their data. The order of the restore should follow what the business needs, and that has to be asked, not guessed.",{}]]},
+   {feed:["Three weeks later. Work is back to normal. The response firm's report is on the table.",
+          "Ines: \"What do we change, so that I never have a Monday like that again?\""],
+    q:"You can push one thing through first. Which?",
+    o:[["A backup the attacker cannot reach, with a restore test: one copy offline or write-protected, on a schedule that does not depend on one person remembering. Right after it, MFA for every access from outside, and a one-page emergency plan on paper with the phone numbers",0,3,"The company survived because of one USB disk that happened to be ten days old. The next attack has to meet a copy that is one day old and cannot be changed from the network. MFA would have stopped this attack at the door. The paper plan saves the first hour, when no screen works.",{}],
+       ["A more expensive antivirus product",0,1,"Better detection is worth having. But the attacker signed in with a valid password through the VPN and used the administrator's own tools for most of the work. There was little for an antivirus to object to.",{}],
+       ["Security awareness training for all staff. Somebody must have clicked on something",0,1,"Training is useful, and in this case nobody clicked on anything. The way in was a copier account with an old password. Blaming the staff points away from the things IT and management have to fix.",{}],
+       ["Nothing more. We have been through it now, it will not happen twice",0,0,"Companies that were hit once are hit again more often than others, sometimes by the same group, and usually through the same door.",{}]]}
+  ],
+  outcome:function(f,d){
+    var lines=[],days=4+(f.iso?0:1)+(f.vpnOff?0:1)+(f.usbLost?15:f.backup?0:2)+(f.slow?10:0)+(f.reinfect?4:0)+(f.order?0:1)+(d||0);
+    lines.push(f.usbLost?"The only clean backup was encrypted when it was plugged into the infected server. Most project data of the last years could not be recovered.":f.backup?"The USB disk from ten days before was the only clean copy, and it held. Ten days of work were entered again from mail, paper and memory.":"The clean USB disk was only looked at two days later. It held, and ten days of work were entered again.");
+    lines.push("It took "+days+" working days until the office worked normally again.");
+    if(f.paid)lines.push("EUR 180,000 were paid without the insurer's agreement. The insurer did not cover the payment, and the decryption tool failed on a third of the files.");
+    if(!f.insurer)lines.push("The insurer heard about the incident late and disputed part of the costs.");
+    if(f.noreport||!f.reported)lines.push("The 72-hour deadline for the data protection authority passed. The late notification became a second problem next to the breach itself.");
+    if(f.lied)lines.push("Customers learned from the breach notification that the \"maintenance\" had been an attack. Two of them ended their contracts.");
+    if(f.noEvidence)lines.push("The disks were wiped. Nobody could say what was taken, so every person in the personnel and customer files had to be treated as affected.");
+    lines.push(f.domain&&f.entryFixed?"The domain was rebuilt with new keys and the VPN now asks for a second factor. The attacker's access ended.":"The attacker kept a way back in: "+(f.domain?"the remote access was not properly closed.":"old credentials in the domain still worked.")+" A month later there were sign-ins at night again.");
+    if(f.reinfect)lines.push("The restored share was encrypted a second time by a PC that had been reconnected without a reinstall.");
+    if(f.exposed)lines.push("The administrator password you typed at the infected server had to be counted as known from that minute.");
+    return {dmg:days,lines:lines};
+  },
+  links:[["ransomware-backup-gap.html","war story: the backup gap"],["backup-disaster-recovery-checklist.html","backup checklist"],["backup-planner.html","backup planner"],["incident-plan-builder.html","incident plan builder"],["snapshot-is-not-a-backup.html","a snapshot is not a backup"],["kerberos-explained.html","Kerberos explained"]]
  }
 };
 
@@ -267,7 +394,7 @@ function finish(){
 var pick=$("is-list");
 Object.keys(S).forEach(function(id){
   var sc=S[id],b=el("button","fcard pickcard");b.type="button";
-  b.append(el("span","kick",sc.kicker),el("h3",null,sc.title),el("p",null,sc.brief),el("span","go",sc.beats.length+" decisions, about 10 minutes →"));
+  b.append(el("span","kick",sc.kicker),el("h3",null,sc.title),el("p",null,sc.brief),el("span","go",sc.beats.length+" decisions, about "+(sc.mins||10)+" minutes →"));
   b.addEventListener("click",function(){begin(id)});pick.append(b);
 });
 window.incidentSim={scenarios:S,state:function(){return st}};

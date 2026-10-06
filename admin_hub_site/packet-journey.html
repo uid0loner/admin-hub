@@ -1,0 +1,36 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Packet journey | admin_hub</title><meta name="description" content="Follow one web request from a PC to a server, station by station: DNS, subnet mask, ARP, switch, routing, firewall, NAT, TCP, TLS and HTTP, with the packet headers at each step. Break one thing and see where it stops, then guess faults from their symptoms."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=65"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="admin_hub">
+<meta property="og:title" content="Packet journey | admin_hub">
+<meta property="og:description" content="Follow one web request from a PC to a server, station by station: DNS, subnet mask, ARP, switch, routing, firewall, NAT, TCP, TLS and HTTP, with the packet headers at each step. Break one thing and see where it stops, then guess faults from their symptoms.">
+<meta property="og:image" content="https://admin-hub.xyz/og-packet-journey.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Packet journey | admin_hub">
+<meta name="twitter:description" content="Follow one web request from a PC to a server, station by station: DNS, subnet mask, ARP, switch, routing, firewall, NAT, TCP, TLS and HTTP, with the packet headers at each step. Break one thing and see where it stops, then guess faults from their symptoms.">
+<meta name="twitter:image" content="https://admin-hub.xyz/og-packet-journey.png">
+<link rel="canonical" href="https://admin-hub.xyz/packet-journey.html"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Packet journey", "url": "https://admin-hub.xyz/packet-journey.html", "description": "Follow one web request from a PC to a server, station by station: DNS, subnet mask, ARP, switch, routing, firewall, NAT, TCP, TLS and HTTP, with the packet headers at each step. Break one thing and see where it stops, then guess faults from their symptoms.", "applicationCategory": "SecurityApplication", "operatingSystem": "Any", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "inLanguage": "en"}</script>
+</head><body><a class="skip" href="#main">skip to content</a><div class="wrap"><header><a class="brand" href="index.html">admin_hub</a><nav aria-label="Main"><a href="tools.html" aria-current="page">tools</a><a href="cheat-sheets.html">cheat-sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a><a href="explainers.html">explainers</a><a href="news.html">news</a><a href="start-here.html">start-here</a><a href="about.html">about</a></nav><button class="btn sbtn" type="button" data-search aria-label="Search the site" title="Search (Ctrl+K)">search <kbd>Ctrl K</kbd></button></header><main id="main" tabindex="-1">
+
+<p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<a href="tools.html">tools</a>/<b>packet-journey</b><span class="cs">$</span></p>
+<h1>packet-journey</h1>
+<nav class="prbar" id="pr-bar" aria-label="Practise pages"></nav>
+<p class="dim">Somebody types an address and a page appears. In between, twelve things happen, and each one fails in its own way. Walk the request from the PC to the server and watch the packet change. Then break something and see where the journey stops and what the user would tell you on the phone. At the end, ten tickets wait: find the fault from the symptoms.</p>
+<div class="pj">
+<div class="pjtop"><label>Break something<select class="sel" id="pj-fault"><option value="">nothing: everything works</option></select></label><p id="pj-pos" class="dim" aria-live="polite"></p></div>
+<div id="pj-stage" class="pjstage"></div>
+<div class="pjgrid">
+<ol id="pj-list" class="pjlist" aria-label="Stations"></ol>
+<div><div id="pj-body" class="pjbody"></div>
+<div class="ctl" style="margin-top:18px"><button type="button" class="btn ghost" id="pj-prev">Back</button><button type="button" class="btn solid" id="pj-next">Next station</button><span class="dim" style="font-size:.82rem">or the arrow keys</span></div></div>
+</div></div>
+<h2 class="plain" id="tickets" style="margin-top:56px">guess the fault</h2>
+<p class="dim">Ten tickets. You get what the user reports and one check. Run more checks if you need them, then say what is broken.</p>
+<p id="pj-score" class="dim" style="margin:0;font-size:.85rem"></p><div class="lpprog" aria-hidden="true" style="max-width:420px"><i id="pj-qbar"></i></div>
+<div id="pj-quiz" class="pjquiz"></div>
+<p class="note" style="margin-top:44px">A model with one PC, one switch, one router and a server: real networks have more of each, the stations stay the same. Addresses are placeholders, the timings and hop counts are typical values, and the browser error texts are those of Chromium. Go deeper with the <a href="networking-cheat-sheet.html">networking cheat sheet</a>, the <a href="dns-not-resolving.html">DNS walkthrough</a>, the <a href="dhcp-not-working.html">DHCP walkthrough</a>, the <a href="firewall-rule-reviewer.html">firewall rule reviewer</a>, the <a href="certificate-decoder.html">certificate decoder</a>, the <a href="subnet-calculator.html">subnet calculator</a> and the <a href="diagnose.html#network">network wizard</a>. Draw your own path with the <a href="network-diagram-builder.html">network diagram builder</a>.</p>
+
+</main>
+<footer><div class="fcol"><b>analyze</b><a href="signin-analyzer.html">sign-in analyzer</a><a href="ca-analyzer.html">CA analyzer</a><a href="phish-analyzer.html">phish analyzer</a><a href="domain-check.html">domain check</a></div><div class="fcol"><b>plan and practise</b><a href="attack-map.html">attack map</a><a href="cockpit.html">cockpit</a><a href="incident-sim.html">incident simulator</a><a href="patch-tuesday.html">patch tuesday</a></div><div class="fcol"><b>reference</b><a href="tools.html">all tools</a><a href="cheat-sheets.html">cheat sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a></div><div class="fcol"><b>site</b><a href="about.html">about</a><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a></div><p class="fline">admin_hub, 2026. The tools run in your browser.</p></footer></div>
+<script src="packetjourney.js?v=65" defer></script>
+<script src="practise.js?v=65" defer></script>
+<script src="shell.js?v=65" defer></script><script src="consent.js?v=65" defer></script><script src="reveal.js?v=65" defer></script><script src="pwa.js?v=65" defer></script><script src="search-index.js?v=65" defer></script><script src="search.js?v=65" defer></script></body></html>

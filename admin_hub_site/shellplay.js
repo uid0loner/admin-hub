@@ -45,7 +45,22 @@ var M=[
  w:"rw-rw-rw- on a file with a password is how the web shell would have got to the database. 640 with the web server's group is enough for the shop to read it."},
 {id:"backup",t:"Make the backup script run",d:"Your own script in ~/scripts answers \"Permission denied\". Find out why, fix it, and run it.",
  h:"ls -l ~/scripts: the x is missing. chmod +x FILE adds it. Then call it with its path: ./scripts/backup.sh from your home folder.",s:["ls -l ~/scripts","chmod +x ~/scripts/backup.sh","~/scripts/backup.sh"],ok:function(){return !!file("/tmp/backup/shop")},
- w:"\"Permission denied\" on your own script nearly always means the execute bit. No sudo needed: it is your file."}
+ w:"\"Permission denied\" on your own script nearly always means the execute bit. No sudo needed: it is your file."},
+{id:"sudoers",t:"Find out who can become root",d:"You took this server over. Before anything else you should know who else has the keys. List the members of the sudo group.",
+ h:"getent group sudo prints the group with its members. grep sudo /etc/group does the same.",s:["getent group sudo"],ok:function(){return ran(/getent group( sudo)?$/)||ran(/grep\b.*sudo.*\/etc\/group/)||ran(/^(cat|less)\b.*\/etc\/group/)||ran(/^groups marek/)},
+ w:"anna and marek. The comment in /etc/passwd says marek left in June. An account of a former colleague with root rights is the first thing an attacker hopes for."},
+{id:"leaver",t:"Take the keys from the one who left",d:"marek left the company in June and can still log in and become root. Look in the auth log whether the account was used lately, then remove it from the sudo group and lock it.",
+ h:"sudo grep marek /var/log/auth.log shows logins. sudo deluser marek sudo removes the group. sudo usermod -L marek locks the password. Deleting the account can wait until somebody has looked at its files.",s:["sudo grep marek /var/log/auth.log","sudo deluser marek sudo","sudo usermod -L marek","sudo passwd -S marek"],ok:function(){return !!S.locked.marek&&/^sudo:x:27:anna\s*$/m.test((file("/etc/group")||{x:""}).x)},
+ w:"The log shows a password login for marek at 03:38 from the address with the 41 failed attempts, three minutes before the web shell appeared. That is how they got in. Lock first, then keep the account and its files as evidence."},
+{id:"cron",t:"Read what runs by itself",d:"Scheduled jobs are where things hide, and where the forgotten ones live. Read the system crontab and find the job that runs every five minutes.",
+ h:"cat /etc/crontab. The five fields are minute, hour, day, month, weekday. */5 in the first field means every five minutes.",s:["cat /etc/crontab","sudo crontab -l"],ok:function(){return ran(/^(sudo )?(cat|less|more|grep)\b.*\/etc\/crontab/)},
+ w:"The queue worker starts every five minutes as www-data, and the backup at 01:30 as root. After a break-in, compare this list with what you expect: an extra line here survives every reboot."},
+{id:"ports",t:"See what listens, and to whom",d:"Every open port is a door. List the listening ports and check whether the database can be reached from outside.",
+ h:"ss -tlnp lists listening TCP ports with the program behind each. 0.0.0.0 means every network card, 127.0.0.1 means only this machine itself.",s:["ss -tlnp"],ok:function(){return ran(/^(sudo )?(ss|netstat)\b/)},
+ w:"SSH and the web server listen on every interface, PostgreSQL only on 127.0.0.1. That is right: the shop talks to the database locally, nobody else needs to."},
+{id:"ufw",t:"Switch on the firewall without locking yourself out",d:"The firewall is off. Allow SSH and the web server, then enable it, and check the result. Mind the order.",
+ h:"sudo ufw status shows the state. sudo ufw allow 22/tcp and sudo ufw allow 80/tcp add rules. sudo ufw enable switches it on. Allow SSH before you enable, or the session you are typing in is cut.",s:["sudo ufw status","sudo ufw allow 22/tcp","sudo ufw allow 80/tcp","sudo ufw enable","sudo ufw status"],ok:function(){var f=S.ufw;function has(p){return f.rules.some(function(r){return (r.p===p||r.p===p+"/tcp")&&r.a!=="deny"})}return f.on&&has("22")&&has("80")},
+ w:"Rules first, enable second. Everybody who has run a remote server has cut their own SSH session once. ufw limit 22/tcp instead of allow would also slow down the password guessing."}
 ];
 function line(text,cls){var d=document.createElement("div");d.className="lpl"+(cls?" "+cls:"");d.textContent=text;log.appendChild(d);return d}
 function echoCmd(p,cmd){var d=document.createElement("div");d.className="lpl";var a=document.createElement("span");a.className="lpp";a.textContent=p+" ";var b=document.createElement("span");b.className="lpc";b.textContent=cmd;d.appendChild(a);d.appendChild(b);log.appendChild(d)}
