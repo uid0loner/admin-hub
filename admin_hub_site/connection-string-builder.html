@@ -1,0 +1,36 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Connection string builder | admin_hub</title><meta name="description" content="Build database connection strings for PostgreSQL, MySQL and MariaDB, SQL Server, SQLite, MongoDB and Redis: URL, .NET, JDBC, ODBC, Python and command line forms, with encryption options and correct escaping."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=61"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="admin_hub">
+<meta property="og:title" content="Connection string builder | admin_hub">
+<meta property="og:description" content="Build database connection strings for PostgreSQL, MySQL and MariaDB, SQL Server, SQLite, MongoDB and Redis: URL, .NET, JDBC, ODBC, Python and command line forms, with encryption options and correct escaping.">
+<meta property="og:image" content="https://admin-hub.xyz/og-connection-string-builder.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Connection string builder | admin_hub">
+<meta name="twitter:description" content="Build database connection strings for PostgreSQL, MySQL and MariaDB, SQL Server, SQLite, MongoDB and Redis: URL, .NET, JDBC, ODBC, Python and command line forms, with encryption options and correct escaping.">
+<meta name="twitter:image" content="https://admin-hub.xyz/og-connection-string-builder.png">
+<link rel="canonical" href="https://admin-hub.xyz/connection-string-builder.html"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Connection string builder", "url": "https://admin-hub.xyz/connection-string-builder.html", "description": "Build database connection strings for PostgreSQL, MySQL and MariaDB, SQL Server, SQLite, MongoDB and Redis: URL, .NET, JDBC, ODBC, Python and command line forms, with encryption options and correct escaping.", "applicationCategory": "SecurityApplication", "operatingSystem": "Any", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "inLanguage": "en"}</script>
+</head><body><a class="skip" href="#main">skip to content</a><div class="wrap"><header><a class="brand" href="index.html">admin_hub</a><nav aria-label="Main"><a href="tools.html" aria-current="page">tools</a><a href="cheat-sheets.html">cheat-sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a><a href="explainers.html">explainers</a><a href="news.html">news</a><a href="start-here.html">start-here</a><a href="about.html">about</a></nav><button class="btn sbtn" type="button" data-search aria-label="Search the site" title="Search (Ctrl+K)">search <kbd>Ctrl K</kbd></button></header><main id="main" tabindex="-1">
+
+<p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<a href="tools.html">tools</a>/<b>connection-string-builder</b><span class="cs">$</span></p>
+<h1>connection-string-builder</h1>
+<p class="dim">Every driver wants the same five facts in a different order with different punctuation. Fill them in once and get every common form, with special characters escaped where the format needs it.</p>
+<div class="sim">
+<label>Database<select class="sel" id="cs-eng"><option value="pg">PostgreSQL</option><option value="mysql">MySQL or MariaDB</option><option value="mssql">SQL Server</option><option value="sqlite">SQLite</option><option value="mongo">MongoDB</option><option value="redis">Redis</option></select></label>
+<label data-only="pg mysql mssql mongo redis">Server<input class="sel" id="cs-host" type="text" placeholder="db.example.internal" autocomplete="off" spellcheck="false"></label>
+<label data-only="pg mysql mssql mongo redis">Port<input class="sel" id="cs-port" type="text" inputmode="numeric" autocomplete="off"></label>
+<label id="cs-dbl">Database<input class="sel" id="cs-db" type="text" placeholder="mydb" autocomplete="off" spellcheck="false"></label>
+<label data-only="pg mysql mssql mongo redis">User<input class="sel" id="cs-user" type="text" placeholder="app" autocomplete="off" spellcheck="false"></label>
+<label data-only="pg mysql mssql mongo redis">Password<input class="sel" id="cs-pw" type="text" placeholder="leave empty for the placeholder PASSWORD" autocomplete="off" spellcheck="false"></label>
+<label data-only="pg mysql mssql mongo redis">Encryption<select class="sel" id="cs-tls"><option value="verify">encrypted and verified</option><option value="on" selected>encrypted</option><option value="off">none</option></select></label>
+<label data-only="mssql">Named instance (optional)<input class="sel" id="cs-inst" type="text" placeholder="SQLEXPRESS" autocomplete="off" spellcheck="false"></label>
+<label data-only="mssql" class="cschk"><input type="checkbox" id="cs-win"> Windows sign-in instead of user and password</label>
+</div>
+<div id="cs-out" aria-live="polite" style="margin-top:26px"></div>
+<h2 class="plain" style="margin-top:36px">good to know</h2>
+<ul class="prose" id="cs-notes"></ul>
+<p class="note">Nothing you type leaves the browser, and nothing is stored. Driver options change between versions: when a string is rejected, the error message usually names the keyword. Related: <a href="sql-playground.html">SQL playground</a>, <a href="postgresql-admin-cheat-sheet.html">PostgreSQL</a>, <a href="mysql-mariadb-admin-cheat-sheet.html">MySQL and MariaDB</a> and <a href="sql-server-admin-cheat-sheet.html">SQL Server</a> cheat sheets, <a href="database-slow.html">the database is slow</a>.</p>
+
+</main>
+<footer><div class="fcol"><b>analyze</b><a href="signin-analyzer.html">sign-in analyzer</a><a href="ca-analyzer.html">CA analyzer</a><a href="phish-analyzer.html">phish analyzer</a><a href="domain-check.html">domain check</a></div><div class="fcol"><b>plan and practise</b><a href="attack-map.html">attack map</a><a href="cockpit.html">cockpit</a><a href="incident-sim.html">incident simulator</a><a href="patch-tuesday.html">patch tuesday</a></div><div class="fcol"><b>reference</b><a href="tools.html">all tools</a><a href="cheat-sheets.html">cheat sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a></div><div class="fcol"><b>site</b><a href="about.html">about</a><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a></div><p class="fline">admin_hub, 2026. The tools run in your browser.</p></footer></div>
+<script src="connstr.js?v=61" defer></script>
+<script src="shell.js?v=61" defer></script><script src="consent.js?v=61" defer></script><script src="reveal.js?v=61" defer></script><script src="pwa.js?v=61" defer></script><script src="search-index.js?v=61" defer></script><script src="search.js?v=61" defer></script></body></html>

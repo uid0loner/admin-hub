@@ -1553,3 +1553,31 @@ p.prose{font-family:var(--sans);max-width:74ch;color:var(--dim);margin-top:12px}
 #dd-out td.ddok{color:var(--dim);font-family:var(--mono);font-size:.78rem}
 @media(max-width:900px){.rk{grid-template-columns:minmax(0,1fr)}.rkview{position:static;order:-1}#rk-draw{max-height:none}.rkb{padding:8px 12px}}
 @media print{.rkform .sim,.rkform .ctl,.rkform h2,.rkctl{display:none!important}#rk-draw{background:#fff!important;max-height:none}.rksvg text{fill:#000}}
+
+/* round 61: wifi planner, connection strings, incident plan, lookup commands */
+.rfpre{margin:14px 0 0;white-space:pre-wrap;font-size:.82rem}
+.wffig{margin-top:18px;border:1px solid var(--line);border-radius:10px;background:#050316;padding:12px;overflow-x:auto}
+.wfsvg{min-width:640px}
+.wfsvg .wfo{fill:rgba(77,163,255,.2);stroke:var(--blue);stroke-width:1.5}
+.wfsvg .wfd{fill:rgba(180,92,255,.2);stroke:var(--violet);stroke-width:1.5}
+.wfsvg .wfx{fill:rgba(138,134,201,.06);stroke:var(--line);stroke-width:1}
+.wfsvg .used{stroke-width:2.5}
+.wfsvg text{font-family:var(--mono);font-size:10px}.wfsvg text.wfn{fill:var(--hot);font-size:8px}
+.wfkey{margin-top:8px;font-size:.8rem}
+#wf-out h2{margin-top:36px}
+.csrow{margin-top:14px}.cshd{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cshd b{font-family:var(--mono);font-size:.78rem;font-weight:400;color:var(--violet)}
+.cshd .btn{font-size:.74rem;padding:4px 10px}
+.csrow pre{margin:6px 0 0;white-space:pre-wrap;overflow-wrap:anywhere;font-size:.82rem}
+.cschk{display:flex!important;align-items:center;gap:10px;color:var(--text)!important;font-family:var(--sans)}
+.cschk input{width:18px;height:18px;accent-color:var(--violet)}
+.ip2form textarea.sel{display:block;width:100%;margin-top:4px;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:10px;font:inherit;resize:vertical}
+.ip2plan{margin-top:14px;padding:30px 34px;border:1px solid var(--line);border-radius:10px;background:rgba(13,11,43,.55);max-width:820px;font-family:var(--sans)}
+.ip2plan h2.ip2t{margin:0;font-size:1.5rem;color:var(--text)}.ip2plan h2::before,.ip2plan h2::after{display:none!important}
+.ip2sub{margin:6px 0 0;color:var(--dim);font-size:.88rem}
+.ip2plan h3{margin:24px 0 6px;font-family:var(--mono);font-size:.84rem;font-weight:700;color:var(--hot)}
+.ip2plan ol,.ip2plan ul{margin:0;padding-left:1.3em}.ip2plan li{margin:6px 0;color:var(--text)}
+.ip2tbl{width:100%;margin:0}.ip2tbl th{width:32%;text-align:left;font-weight:500;color:var(--dim);vertical-align:top}.ip2tbl td{color:var(--text);overflow-wrap:anywhere}
+.ip2empty{color:var(--dim)!important;font-style:italic}
+.ip2foot{margin:26px 0 0;padding-top:12px;border-top:1px solid var(--line);color:var(--dim);font-size:.84rem}
+@media print{.noprint{display:none!important}.ip2plan{border:0;padding:0;background:#fff!important;max-width:none}.ip2plan h3{color:#000}.ip2plan li,.ip2tbl td,.ip2plan h2.ip2t{color:#000}.ip2empty{color:#777!important}.wffig{background:#fff!important}}
