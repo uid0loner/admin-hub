@@ -1840,3 +1840,11 @@ p.prose{font-family:var(--sans);max-width:74ch;color:var(--dim);margin-top:12px}
 .rxvar pre.rxcmd,.rxnotes{min-width:0}
 }
 @media print{.rxpat{position:static}}
+
+/* round 66: how-to cards */
+.hcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;margin-top:22px}
+.hcard{background:#fff;color:#111;border-radius:8px;padding:24px 24px 18px;font-family:var(--sans);display:flex;flex-direction:column}
+.hcard h2.hch{margin:0 0 10px;font-family:var(--sans);font-size:1.3rem;line-height:1.2;color:#111;background:none;-webkit-text-fill-color:#111;display:block}.hcard h2.hch::before,.hcard h2.hch::after{display:none!important}
+.hcard ol{margin:0;padding-left:1.3em;font-size:.9rem;line-height:1.45;color:#111}.hcard li{margin:7px 0}
+.hcard .hcf{margin:14px 0 0;padding:8px 12px;border-left:3px solid #111;font-size:.84rem;color:#111}.hcard .hcc{margin:auto 0 0;padding-top:12px;font-size:.78rem;color:#444}
+@media print{@page{margin:16mm}main:has(.hcards) h1,main:has(.hcards) .crumb{display:none!important}main:has(.hcards)::after{display:none!important}main:has(.hcards){margin:0!important;padding:0!important}.hcards{display:block;margin:0}.hcard{border-radius:0;padding:0;height:240mm;break-after:page;page-break-after:always}.hcard:last-child{break-after:auto;page-break-after:auto}.hcard h2.hch{font-size:30pt;margin-bottom:10mm}.hcard ol{font-size:17pt}.hcard li{margin:6mm 0}.hcard .hcf{font-size:14pt;margin-top:10mm;padding:4mm 5mm}.hcard .hcc{font-size:12pt;border-top:1px solid #111;padding-top:4mm}}

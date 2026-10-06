@@ -15,12 +15,9 @@ data/automation + helpdesk + 1 design item. One round per "WEITER".
 ### Round 8 (v66): the documentation kit
 - Flagship: IT documentation generator (network, servers, accounts, backups, contacts, emergency page; printable handbook, state kept in a file you save)
 - Design: print style for the whole site (every tool and sheet prints clean, black on white, with date and page numbers)
-- Hardware: cable guide with drawings (copper categories, fibre types and colours, DAC and AOC, lengths) and a voltage drop calculator
 - Network: cable and port label maker (labels and QR codes to print, own QR generator)
-- Procurement: licence and subscription tracker (renewal dates, cost per month, export)
 - Monitoring: status page template and a small collection of uptime check scripts
 - Windows: handover document for a domain (what to write down before you leave or take over)
-- Helpdesk: user how-to cards to print (MFA set-up, VPN, printer, password reset)
 - Peripherals: scanners, label printers and conference room gear, with drawings
 
 ### Round 9 (v67): security for small companies
@@ -94,6 +91,7 @@ SNMP MIB browser, Exchange hybrid guide, print server migration, time and NTP tr
 
 ## Done
 
+- 2026-10-06: round 8, part one (kept small on purpose): licence and subscription tracker, cable guide with voltage drop calculator (1 drawing), six user how-to cards to print, stamp v66. The rest of round 8 is still open.
 - 2026-10-06: round 7, practise: packet journey (12 stations, 10 faults, quiz), PowerShell playground (own simulator, 48 cmdlets, 12 missions), Linux playground +5 missions (18), regex tester with explainer, incident simulator 4th scenario (13 decisions), switch port finder, disk full walkthrough, technician's toolkit (3 drawings; replaces the planned notebook repair guide, which the notebook hardware guide already covers), tenant audit in one hour, practise group in the tools hub with a shared progress bar, stamp v65
 - 2026-10-06: round 6, the front door: home page with areas map and refreshed features, tools hub with area icons and filter, mail header reader, storage upgrade planner (3 drawings), systemd unit builder, subnet and VLAN poster, phishing drill kit, call quality walkthrough, file server migration checklist, SQL playground window functions (engine + 6 lessons, 66 queries verified against SQLite), stamp v64
 - 2026-10-06: round five, larger pieces: Linux playground (own shell simulator, 13 missions), network diagram builder (SVG/PNG export, checks), PC build checker (scale drawing), asset inventory (CSV), DHCP walkthrough, password manager roll-out checklist, cheat sheets Let's Encrypt/certbot and SQL window functions, 9 glossary terms, stamp v63
