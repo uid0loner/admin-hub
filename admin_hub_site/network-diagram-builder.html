@@ -1,0 +1,44 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Network diagram builder | admin_hub</title><meta name="description" content="Draw a network diagram in the browser: routers, firewalls, switches, access points, servers and clients, with labelled copper, fibre, Wi-Fi and VPN links. Checks the drawing for loose ends and duplicate addresses, exports SVG and PNG, and keeps everything in a shareable link."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=63"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="admin_hub">
+<meta property="og:title" content="Network diagram builder | admin_hub">
+<meta property="og:description" content="Draw a network diagram in the browser: routers, firewalls, switches, access points, servers and clients, with labelled copper, fibre, Wi-Fi and VPN links. Checks the drawing for loose ends and duplicate addresses, exports SVG and PNG, and keeps everything in a shareable link.">
+<meta property="og:image" content="https://admin-hub.xyz/og-network-diagram-builder.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Network diagram builder | admin_hub">
+<meta name="twitter:description" content="Draw a network diagram in the browser: routers, firewalls, switches, access points, servers and clients, with labelled copper, fibre, Wi-Fi and VPN links. Checks the drawing for loose ends and duplicate addresses, exports SVG and PNG, and keeps everything in a shareable link.">
+<meta name="twitter:image" content="https://admin-hub.xyz/og-network-diagram-builder.png">
+<link rel="canonical" href="https://admin-hub.xyz/network-diagram-builder.html"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Network diagram builder", "url": "https://admin-hub.xyz/network-diagram-builder.html", "description": "Draw a network diagram in the browser: routers, firewalls, switches, access points, servers and clients, with labelled copper, fibre, Wi-Fi and VPN links. Checks the drawing for loose ends and duplicate addresses, exports SVG and PNG, and keeps everything in a shareable link.", "applicationCategory": "SecurityApplication", "operatingSystem": "Any", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "inLanguage": "en"}</script>
+</head><body><a class="skip" href="#main">skip to content</a><div class="wrap"><header><a class="brand" href="index.html">admin_hub</a><nav aria-label="Main"><a href="tools.html" aria-current="page">tools</a><a href="cheat-sheets.html">cheat-sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a><a href="explainers.html">explainers</a><a href="news.html">news</a><a href="start-here.html">start-here</a><a href="about.html">about</a></nav><button class="btn sbtn" type="button" data-search aria-label="Search the site" title="Search (Ctrl+K)">search <kbd>Ctrl K</kbd></button></header><main id="main" tabindex="-1">
+
+<p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<a href="tools.html">tools</a>/<b>network-diagram-builder</b><span class="cs">$</span></p>
+<h1>network-diagram-builder</h1>
+<p class="dim noprint">The diagram every network should have and few do. Place devices, connect them, write names and addresses on them. The drawing is checked for loose ends and addresses used twice, and it lives in the link: copy it into your documentation, or save it as SVG or PNG. No account, nothing uploaded.</p>
+<div class="noprint">
+<div class="ndpal" id="nd-pal" role="group" aria-label="Add a device"></div>
+<div class="ctl ndctl"><label><input type="checkbox" id="nd-auto" checked> connect a new device to the selected one</label><span class="ndex">Start from: <button type="button" class="chipbtn" data-ex="office">small office</button><button type="button" class="chipbtn" data-ex="sites">two sites</button><button type="button" class="chipbtn" data-ex="lab">home lab</button><button type="button" class="chipbtn" id="nd-clear">empty</button></span></div>
+</div>
+<div class="nd">
+<div class="ndwrap noprint"><div id="nd-canvas" class="ndcanvas"></div></div>
+<aside class="ndside noprint"><div id="nd-panel" class="ndpanel"></div>
+<div class="ndexp"><label><input type="checkbox" id="nd-light"> export on white, for paper</label>
+<button type="button" class="btn solid" id="nd-svgdl">Save as SVG</button><button type="button" class="btn ghost" id="nd-pngdl">Save as PNG</button><button type="button" class="btn ghost" id="nd-link">Copy the link</button><button type="button" class="btn ghost" id="nd-print">Print</button></div>
+</aside>
+</div>
+<p id="nd-status" class="dim noprint" aria-live="polite" style="min-height:1.4em;margin-top:8px"></p>
+<div id="nd-printview" class="ndprint"></div>
+<div id="nd-out" style="margin-top:18px"></div>
+<h2 class="plain noprint" style="margin-top:40px">a diagram people will read</h2>
+<ul class="prose noprint">
+<li>Top to bottom, the way the traffic goes: internet, firewall, core, access, clients.</li>
+<li>One box for "12 PCs" is better than twelve boxes. Draw single devices only where it matters which one: servers, switches, firewalls, access points.</li>
+<li>Write on the links what the cable tester cannot tell you: VLAN, trunk, speed, which port.</li>
+<li>Put the date in the title. A diagram without a date is assumed to be wrong.</li>
+<li>Keep the link or the SVG where the next admin will look first, next to the <a href="ip-plan-builder.html">IP plan</a>.</li>
+</ul>
+<p class="note noprint">The checks look at the drawing only, not at your network. Addresses in the examples are placeholders. The drawing is stored in the address of this page and nowhere else: bookmark it or copy the link to keep it. Related: <a href="small-office-blueprint.html">small office blueprint</a>, <a href="rack-planner.html">rack planner</a>, <a href="ip-plan-builder.html">IP plan builder</a>, <a href="network-hardware-guide.html">network hardware guide</a>, <a href="switching-vlan-cheat-sheet.html">switching and VLAN cheat sheet</a>.</p>
+
+</main>
+<footer><div class="fcol"><b>analyze</b><a href="signin-analyzer.html">sign-in analyzer</a><a href="ca-analyzer.html">CA analyzer</a><a href="phish-analyzer.html">phish analyzer</a><a href="domain-check.html">domain check</a></div><div class="fcol"><b>plan and practise</b><a href="attack-map.html">attack map</a><a href="cockpit.html">cockpit</a><a href="incident-sim.html">incident simulator</a><a href="patch-tuesday.html">patch tuesday</a></div><div class="fcol"><b>reference</b><a href="tools.html">all tools</a><a href="cheat-sheets.html">cheat sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a></div><div class="fcol"><b>site</b><a href="about.html">about</a><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a></div><p class="fline">admin_hub, 2026. The tools run in your browser.</p></footer></div>
+<script src="netdraw.js?v=63" defer></script>
+<script src="shell.js?v=63" defer></script><script src="consent.js?v=63" defer></script><script src="reveal.js?v=63" defer></script><script src="pwa.js?v=63" defer></script><script src="search-index.js?v=63" defer></script><script src="search.js?v=63" defer></script></body></html>
