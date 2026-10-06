@@ -1,0 +1,39 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Cron and timer builder | admin_hub</title><meta name="description" content="Explain and build cron schedules: what a cron expression means in plain words, when it runs next, the common mistakes, and the same schedule as a systemd timer and a Windows scheduled task."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=62"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="admin_hub">
+<meta property="og:title" content="Cron and timer builder | admin_hub">
+<meta property="og:description" content="Explain and build cron schedules: what a cron expression means in plain words, when it runs next, the common mistakes, and the same schedule as a systemd timer and a Windows scheduled task.">
+<meta property="og:image" content="https://admin-hub.xyz/og-cron-builder.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cron and timer builder | admin_hub">
+<meta name="twitter:description" content="Explain and build cron schedules: what a cron expression means in plain words, when it runs next, the common mistakes, and the same schedule as a systemd timer and a Windows scheduled task.">
+<meta name="twitter:image" content="https://admin-hub.xyz/og-cron-builder.png">
+<link rel="canonical" href="https://admin-hub.xyz/cron-builder.html"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Cron and timer builder", "url": "https://admin-hub.xyz/cron-builder.html", "description": "Explain and build cron schedules: what a cron expression means in plain words, when it runs next, the common mistakes, and the same schedule as a systemd timer and a Windows scheduled task.", "applicationCategory": "SecurityApplication", "operatingSystem": "Any", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "inLanguage": "en"}</script>
+</head><body><a class="skip" href="#main">skip to content</a><div class="wrap"><header><a class="brand" href="index.html">admin_hub</a><nav aria-label="Main"><a href="tools.html" aria-current="page">tools</a><a href="cheat-sheets.html">cheat-sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a><a href="explainers.html">explainers</a><a href="news.html">news</a><a href="start-here.html">start-here</a><a href="about.html">about</a></nav><button class="btn sbtn" type="button" data-search aria-label="Search the site" title="Search (Ctrl+K)">search <kbd>Ctrl K</kbd></button></header><main id="main" tabindex="-1">
+
+<p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<a href="tools.html">tools</a>/<b>cron-builder</b><span class="cs">$</span></p>
+<h1>cron-builder</h1>
+<p class="dim">Five fields that everybody looks up every time. Type a cron expression or pick a schedule: you get what it means in plain words, when it runs next, the traps in it, and the same schedule as a systemd timer and as a Windows scheduled task.</p>
+<div class="sim">
+<label>Schedule (minute, hour, day of month, month, day of week)<input class="sel cnexpr" id="cn-expr" type="text" value="30 1 * * 1-5" autocomplete="off" spellcheck="false" autocapitalize="off"></label>
+<label>Command to run<input class="sel" id="cn-cmd" type="text" placeholder="/usr/local/bin/backup.sh" autocomplete="off" spellcheck="false"></label>
+<label>Name of the job<input class="sel" id="cn-name" type="text" placeholder="backup" autocomplete="off" spellcheck="false"></label>
+</div>
+<div class="cnchips" role="group" aria-label="Common schedules">
+<button type="button" class="cnchip" data-cron="*/15 * * * *">every 15 minutes</button><button type="button" class="cnchip" data-cron="0 * * * *">hourly</button><button type="button" class="cnchip" data-cron="0 2 * * *">daily at 02:00</button><button type="button" class="cnchip" data-cron="30 1 * * 1-5">weekdays at 01:30</button><button type="button" class="cnchip" data-cron="0 22 * * 0">Sundays at 22:00</button><button type="button" class="cnchip" data-cron="0 4 1 * *">first of the month</button><button type="button" class="cnchip" data-cron="0 8-17 * * mon-fri">hourly in office hours</button><button type="button" class="cnchip" data-cron="0 9 13 * 5">a trap: 0 9 13 * 5</button>
+</div>
+<div id="cn-out" aria-live="polite" style="margin-top:22px"></div>
+<h2 class="plain" style="margin-top:40px">the five fields</h2>
+<div class="tw"><table class="tbl"><thead><tr><th>Field</th><th>Values</th><th>Examples</th></tr></thead><tbody>
+<tr><td>Minute</td><td>0 to 59</td><td><code>0</code> on the hour, <code>*/15</code> every quarter, <code>5,35</code> twice an hour</td></tr>
+<tr><td>Hour</td><td>0 to 23</td><td><code>2</code> at night, <code>8-17</code> office hours, <code>*/6</code> four times a day</td></tr>
+<tr><td>Day of month</td><td>1 to 31</td><td><code>1</code> the first, <code>1,15</code> twice a month</td></tr>
+<tr><td>Month</td><td>1 to 12, or jan to dec</td><td><code>*</code> every month, <code>1,4,7,10</code> each quarter</td></tr>
+<tr><td>Day of week</td><td>0 to 7 (0 and 7 are Sunday), or sun to sat</td><td><code>1-5</code> Monday to Friday, <code>0</code> Sunday</td></tr>
+</tbody></table></div>
+<p class="note">Reads the classic five-field cron of Linux and macOS, with lists, ranges, steps, names and the @daily style shortcuts. The six- and seven-field forms of Quartz, Spring and cloud schedulers are different dialects. The next runs are worked out in your browser's time zone. Related: <a href="systemd-journalctl-cheat-sheet.html">systemd and journalctl cheat sheet</a>, <a href="bash-scripting-cheat-sheet.html">Bash scripting cheat sheet</a>, <a href="command-builder.html">command builder</a>, <a href="database-backup-restore-cheat-sheet.html">database backup cheat sheet</a>.</p>
+
+</main>
+<footer><div class="fcol"><b>analyze</b><a href="signin-analyzer.html">sign-in analyzer</a><a href="ca-analyzer.html">CA analyzer</a><a href="phish-analyzer.html">phish analyzer</a><a href="domain-check.html">domain check</a></div><div class="fcol"><b>plan and practise</b><a href="attack-map.html">attack map</a><a href="cockpit.html">cockpit</a><a href="incident-sim.html">incident simulator</a><a href="patch-tuesday.html">patch tuesday</a></div><div class="fcol"><b>reference</b><a href="tools.html">all tools</a><a href="cheat-sheets.html">cheat sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a></div><div class="fcol"><b>site</b><a href="about.html">about</a><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a></div><p class="fline">admin_hub, 2026. The tools run in your browser.</p></footer></div>
+<script src="cronbuild.js?v=62" defer></script>
+<script src="shell.js?v=62" defer></script><script src="consent.js?v=62" defer></script><script src="reveal.js?v=62" defer></script><script src="pwa.js?v=62" defer></script><script src="search-index.js?v=62" defer></script><script src="search.js?v=62" defer></script></body></html>

@@ -1581,3 +1581,25 @@ p.prose{font-family:var(--sans);max-width:74ch;color:var(--dim);margin-top:12px}
 .ip2empty{color:var(--dim)!important;font-style:italic}
 .ip2foot{margin:26px 0 0;padding-top:12px;border-top:1px solid var(--line);color:var(--dim);font-size:.84rem}
 @media print{.noprint{display:none!important}.ip2plan{border:0;padding:0;background:#fff!important;max-width:none}.ip2plan h3{color:#000}.ip2plan li,.ip2tbl td,.ip2plan h2.ip2t{color:#000}.ip2empty{color:#777!important}.wffig{background:#fff!important}}
+
+/* round 62: cron builder, posters, printer drawings */
+.cnexpr{font-family:var(--mono)!important;font-size:1.05rem!important;letter-spacing:.06em}
+.cnsay{margin:6px 0 0;font-family:var(--sans);font-size:1.25rem;color:var(--text);max-width:60ch}
+.cnnext{margin:8px 0 0;padding-left:1.4em;font-family:var(--mono);font-size:.86rem;color:var(--text)}.cnnext li{margin:4px 0}
+#cn-out h2{margin-top:34px}.crnote2{margin:6px 0 0;font-size:.84rem;max-width:74ch}
+.hwsvg .pgw{fill:#e8e8f0;stroke:var(--dim);stroke-width:1}
+.hwsvg .pgk{fill:none;stroke:#111;stroke-width:1.6}.hwsvg .pgk2{fill:none;stroke:#333;stroke-width:1.4}
+.hwsvg .pgl{fill:none;stroke:#b9b9c6;stroke-width:1.4}.hwsvg .pgf{fill:#111}.hwsvg .pgg{fill:#b4b4c0}.hwsvg .pgg2{fill:#c9c9d4}.hwsvg .pgsm{fill:rgba(40,40,50,.35)}
+.pslist{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:8px 22px;margin-top:18px}
+.pssheet{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin-top:14px}
+.poster{background:#fff;color:#111;border-radius:6px;padding:26px 24px 20px;font-family:var(--sans);aspect-ratio:210/297;display:flex;flex-direction:column}.poster>*{flex:none}
+.poster .pk{margin:0;font-family:var(--mono);font-size:.62rem;color:#555}
+.poster h2.ph{margin:8px 0 0;font-family:var(--sans);font-size:1.5rem;line-height:1.12;font-weight:700;color:#111;letter-spacing:-.01em}
+.poster h2.ph::before,.poster h2.ph::after{display:none!important}
+.poster .psub{margin:8px 0 0;font-size:.74rem;color:#444}
+.poster .pr{margin:14px 0 0;padding-left:1.2em;font-size:.72rem;line-height:1.4;color:#111}.poster .pr li{margin:6px 0}
+.poster .pf{margin:12px 0 0;padding:8px 10px;border-left:3px solid #111;font-size:.72rem;font-weight:600;color:#111}
+.poster .pc{margin:auto 0 0;padding-top:10px;border-top:1px solid #111;font-size:.66rem;color:#111}
+.poster .po{margin:4px 0 0;font-size:.58rem;color:#666}
+@media print{@page{margin:14mm}.pssheet{display:block;margin:0}main:has(#ps-sheet) h1,main:has(#ps-sheet) .crumb,main:has(#ip2-plan) h1{display:none!important}main:has(#ps-sheet)::after,main:has(#ip2-plan)::after{display:none!important}main:has(#ps-sheet){margin:0!important;padding:0!important}.poster{aspect-ratio:auto;height:255mm;overflow:hidden;border-radius:0;padding:10mm 6mm 6mm;break-after:page;page-break-after:always}.poster:last-child{break-after:auto;page-break-after:auto}
+ .poster .pk{font-size:11pt}.poster h2.ph{font-size:42pt;margin-top:8mm}.poster .psub{font-size:17pt;margin-top:7mm}.poster .pr{font-size:16.5pt;line-height:1.35;margin-top:9mm}.poster .pr li{margin:5mm 0}.poster .pf{font-size:16pt;margin-top:8mm;padding:4mm 5mm;border-left-width:2mm}.poster .pc{font-size:14pt;padding-top:5mm}.poster .po{font-size:10pt}}
