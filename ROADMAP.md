@@ -3,30 +3,102 @@
 How this works: the owner writes "WEITER", the next open item is built, tested and committed to `main`.
 Cloudflare Pages publishes `admin_hub_site/` automatically. This file is not part of the published site.
 
-## Next: second round for the all-rounder
+## Next: eight rounds to the masterpiece (plan of 2026-10-06)
 
-The first breadth round is done (calculators, certificate decoder, command builder, Linux, network, helpdesk,
-virtualisation and storage, log reader, scripting, small office blueprint, databases).
+Owner's rules: the site is for an IT all-rounder and covers everything in IT, including hardware with drawings.
+Every round ("WEITER") adds a bit of everything, has one flagship piece that would normally cost money,
+and may change design and GUI where it makes the site better. Colours stay. No ads, no cookies, no tracking.
 
-Owner's rule (2026-10-05): the site is for an IT all-rounder and should cover everything in IT, including hardware tips and tricks for servers, PCs and notebooks, with pictures. Every round ("WEITER") adds a bit of everything: one piece from several of the areas below, not one area at a time.
+Each round = 1 flagship + hardware (with drawings) + network + Linux + Windows + cloud/M365 + security +
+data/automation + helpdesk + 1 design item. One round per "WEITER".
 
-Areas, with what is next in each:
+### Round 6 (v64): the front door
+- Design: new home page (live mini terminal as hero, areas as a map instead of a list), tools hub as a launcher with an icon per tool and filters by area and by kind (fix, read, build, plan, practise)
+- Flagship: mail header reader (hops and delays as a timeline, SPF, DKIM, DMARC, ARC verdicts in plain words)
+- Hardware: storage upgrade planner with drawings (M.2 keys and lengths, SATA or NVMe, 2.5 inch heights, cloning steps)
+- Network: subnet and VLAN poster to print
+- Linux: systemd unit builder (service, timer, hardening options, explained line by line)
+- Windows Server: file server migration checklist (robocopy plan, shares, permissions, DFS, cut-over)
+- Security: phishing drill kit (plan, three sample mails, landing text, how to report results fairly)
+- Databases: SQL playground gets window functions (engine and six lessons)
+- Telephony: call quality walkthrough (jitter, loss, QoS, SIP ALG, headsets)
 
-- Hardware: cable length and voltage drop, storage upgrade planner
-- Network: a subnet and VLAN poster to print, a switch port finder walkthrough
-- Mail and web: mail deliverability from zero, registrar, DNS and certificates for a small site, a header reader for everyday mail problems
-- Linux and containers: a log rotation and disk clean-up walkthrough, a systemd unit builder
-- Windows Server on-premises: a file server migration checklist
-- Databases: SQL playground lessons on window functions
-- Monitoring: a status page template, a simple uptime check script collection
-- Phones, tablets and peripherals: scanners, label printers, conference room gear
-- Telephony and video: a call quality walkthrough, Teams and Zoom room problems
-- Procurement and lifecycle: a licence and subscription tracker
-- Security basics for small companies: password manager roll-out, phishing drill kit, a phishing drill kit
-- Microsoft 365 and Entra: guided "audit my tenant in an hour" flow, two more war stories
-- Cockpit for the new tools: keep results from the SMART reader, log reader, firewall and config reviewers, DMARC reader
+### Round 7 (v65): practise, do not read
+- Flagship: packet journey simulator (follow one request through DNS, ARP, switch, VLAN, router, NAT, firewall, TLS; break one step and see the symptom)
+- Design: one common frame for all practise pages (playground, simulator, quiz) with progress kept per tab
+- Hardware: notebook repair guide with drawings (opening, battery, keyboard, display cable, fan, thermal paste)
+- Network: switch port finder walkthrough (from wall socket to switch port)
+- Linux: log rotation and disk clean-up walkthrough, plus five new playground missions (users, cron, firewall)
+- Windows: PowerShell playground (objects and pipeline on pretend data, twelve missions)
+- Microsoft 365: guided "audit my tenant in an hour"
+- Security: incident simulator, second scenario (ransomware at 07:30 on a Monday)
+- Tools: regex tester with explanation of every part and a test list
 
-Still open from earlier: quality pass with real exports from the owner.
+### Round 8 (v66): the documentation kit
+- Flagship: IT documentation generator (network, servers, accounts, backups, contacts, emergency page; printable handbook, state kept in a file you save)
+- Design: print style for the whole site (every tool and sheet prints clean, black on white, with date and page numbers)
+- Hardware: cable guide with drawings (copper categories, fibre types and colours, DAC and AOC, lengths) and a voltage drop calculator
+- Network: cable and port label maker (labels and QR codes to print, own QR generator)
+- Procurement: licence and subscription tracker (renewal dates, cost per month, export)
+- Monitoring: status page template and a small collection of uptime check scripts
+- Windows: handover document for a domain (what to write down before you leave or take over)
+- Helpdesk: user how-to cards to print (MFA set-up, VPN, printer, password reset)
+- Peripherals: scanners, label printers and conference room gear, with drawings
+
+### Round 9 (v67): security for small companies
+- Flagship: firewall rule simulator (rules in, test packets through, first match shown, shadowed rules found)
+- Design: severity and status language unified across all analyzers (one legend, one set of icons, readable without colour)
+- Hardware: physical security and server room basics with drawings (locks, racks, climate, fire, power paths)
+- Network: guest Wi-Fi and IoT separation, explained with a diagram and a checklist
+- Linux and Windows: hardening compared side by side (the same twenty measures on both)
+- Backup: 3-2-1 checker and restore drill planner
+- Risk: risk register builder (ten typical risks pre-filled, printable for management)
+- Config reviewer: TLS settings for nginx, Apache and IIS, plus Postfix
+- Microsoft 365: two more war stories
+
+### Round 10 (v68): cloud and automation
+- Flagship: Docker Compose builder (services from a catalogue, volumes, networks, health checks, reviewed by the config reviewer)
+- Design: code blocks everywhere get copy, wrap, line numbers and "explain this line"
+- Explainers: Kubernetes in one diagram, CI pipeline in one diagram, infrastructure as code in one diagram
+- Reference: the same thing in Azure, AWS and Google Cloud (name map of 60 services)
+- Cheat sheets: kubectl, GitHub Actions, AWS CLI
+- Calculator: cloud or on-premises cost comparison for a small server
+- Scripts: script library with 30 reviewed admin scripts (Bash and PowerShell), each explained
+- Hardware: home lab guide with drawings (mini PCs, used servers, power cost, noise)
+- Git playground (commits, branches and the usual accidents, on a pretend repository)
+
+### Round 11 (v69): the server room
+- Flagship: virtualisation sizing calculator (hosts, cores, RAM, storage, failover reserve, licence count)
+- Design: all hardware drawings reworked to one level of detail, with zoom and a legend
+- Hardware: server deep dive with drawings (RAID controller and cache, backplane, redundant power, iDRAC, iLO, IPMI)
+- Calculators: storage performance (IOPS and throughput per RAID level), backup size and window, power and cooling per rack
+- Guide: moving from VMware to Proxmox or Hyper-V, step by step
+- Walkthroughs: a virtual machine is slow; a server does not boot
+- Windows: Hyper-V cluster and Storage Spaces checklist
+- Linux: ZFS and Ceph explained with diagrams
+- Network: 10 and 25 Gbit in practice (SFP types, DAC, compatibility)
+
+### Round 12 (v70): helpdesk and people
+- Flagship: onboarding kit generator (accounts, hardware, access, first-day sheet for the new colleague, printable)
+- Design: mobile pass (bottom bar, larger touch targets, wizard and walkthroughs usable one-handed at the desk under the table)
+- Helpdesk: ticket reply templates, remote support guide, ten more wizard trees (sound, camera, VPN, Outlook, Teams, slow Wi-Fi, USB, Bluetooth, battery, storage full)
+- Hardware: monitor and ergonomics guide with drawings; mobile phone repair triage
+- macOS for Windows admins; Windows for Mac admins
+- Telephony and video: Teams and Zoom room problems
+- Explainers: IT for non-IT (what a domain, DNS, backup and MFA are, one page each, to hand to management)
+- Career: skill map for the all-rounder with learning paths through the site
+
+### Round 13 (v71): polish
+- Cockpit 2: every analyzer and planner can keep its result, one overview page, export of everything as one file
+- Learning paths with progress, a first-visit tour, favourites and "recently used"
+- Search 2: results grouped by kind, typo tolerant, commands searchable down to the single line
+- Full accessibility pass (keyboard, screen reader, contrast), performance pass (size, first paint, offline), wording pass
+- German version check of the translated interface
+- Quality pass with real exports from the owner (see below)
+- Changelog page, about page with the method (how things are tested, what is not)
+
+Parked ideas: AD playground, Wireshark capture reader, GPO report reader, PowerShell transcript reader,
+SNMP MIB browser, Exchange hybrid guide, print server migration, time and NTP troubleshooting.
 
 ## Open questions
 
