@@ -1848,3 +1848,24 @@ p.prose{font-family:var(--sans);max-width:74ch;color:var(--dim);margin-top:12px}
 .hcard ol{margin:0;padding-left:1.3em;font-size:.9rem;line-height:1.45;color:#111}.hcard li{margin:7px 0}
 .hcard .hcf{margin:14px 0 0;padding:8px 12px;border-left:3px solid #111;font-size:.84rem;color:#111}.hcard .hcc{margin:auto 0 0;padding-top:12px;font-size:.78rem;color:#444}
 @media print{@page{margin:16mm}main:has(.hcards) h1,main:has(.hcards) .crumb{display:none!important}main:has(.hcards)::after{display:none!important}main:has(.hcards){margin:0!important;padding:0!important}.hcards{display:block;margin:0}.hcard{border-radius:0;padding:0;height:240mm;break-after:page;page-break-after:always}.hcard:last-child{break-after:auto;page-break-after:auto}.hcard h2.hch{font-size:30pt;margin-bottom:10mm}.hcard ol{font-size:17pt}.hcard li{margin:6mm 0}.hcard .hcf{font-size:14pt;margin-top:10mm;padding:4mm 5mm}.hcard .hcc{font-size:12pt;border-top:1px solid #111;padding-top:4mm}}
+/* it-documentation */
+.dgtabs{gap:6px;margin-bottom:6px}.dgtabs .btn{font-size:.8rem}.dgn{opacity:.75;font-size:.75em;margin-left:3px}
+.dgedit{border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:14px 16px 18px;margin-top:14px}
+.dgrow{border:1px solid var(--line);border-radius:8px;padding:10px 14px 12px;margin:12px 0 0;min-width:0}.dgrow legend{color:var(--dim);font-size:.8rem;padding:0 6px}.dgrow .ctl{margin-top:10px}.dgrow .ctl .btn{font-size:.75rem}
+.dgta{width:100%;resize:vertical;min-height:4.2em;font:inherit}
+.dgbook{border:1px solid var(--line);border-radius:10px;padding:6px 20px 20px;background:var(--panel)}
+.dgcover{padding:18px 0 22px;border-bottom:1px solid var(--line)}.dgk{color:var(--violet);text-transform:uppercase;letter-spacing:.14em;font-size:.75rem;margin:0}
+.dgtitle{font-size:1.8rem;margin:.2em 0 .4em}.dgdl{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:14px 0}.dgdl dt{color:var(--dim)}.dgdl dd{margin:0}
+.dgwarn{font-size:.85rem;border-left:3px solid var(--hot);padding-left:10px;margin-top:14px}
+.dgh{font-size:1.15rem;margin:26px 0 10px}.dgbox{border:1px solid var(--line);border-left:3px solid var(--hot);border-radius:6px;padding:8px 14px;margin:10px 0;break-inside:avoid}.dgbox h3{font-size:.9rem;margin:.3em 0}.dgbox p{margin:.3em 0 .5em}
+.dgtoc li{margin:3px 0}.dgtbl td{vertical-align:top;font-size:.85rem}.dgchk{list-style:none;padding:0}.dgchk li{margin:8px 0;line-height:1.5}
+@media print{
+ .dgbook{page:handbook;border:0;padding:0;background:#fff!important;color:#000}.dgbook *{color:#000!important}
+ .dgemerg,.dgpage{break-after:page}.dgcover{break-after:page;border:0;padding-top:30vh}.dgtitle{font-size:26pt}
+ .dgsec{break-inside:auto}.dgh{break-after:avoid;border-bottom:1px solid #000;padding-bottom:3px}
+ .dgtbl{border-collapse:collapse;width:100%}.dgtbl td,.dgtbl th{border:1px solid #999!important;font-size:8.5pt;padding:3px 5px;background:#fff!important}.dgtbl tr{break-inside:avoid}
+ .dgbox{border:1px solid #000;border-left:4pt solid #000;background:#fff!important}.dgwarn{border-left:3pt solid #000}
+ .dgchk .sevtag{border:0;padding:0;min-width:0}
+ .tw:has(.dgtbl){overflow:visible}
+}
+@page handbook{margin:16mm 14mm 18mm;@bottom-right{content:"page " counter(page) " of " counter(pages);font-size:8pt}@bottom-left{content:"IT handbook, confidential";font-size:8pt}}
