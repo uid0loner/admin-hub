@@ -1,0 +1,16 @@
+name: Check site
+on:
+  push:
+    paths: ["admin_hub_site/**", "automation/check_site.py", "automation/baseline.json"]
+  pull_request:
+  workflow_dispatch:
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Structure and preservation check
+        run: python3 automation/check_site.py
