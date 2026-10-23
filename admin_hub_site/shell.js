@@ -209,4 +209,20 @@ if(cur!=="en")loadTr(function(){window.ahTranslate.set(cur,false)});
   }
   q.addEventListener("input",function(){setTimeout(upd,40)});
 })();
+
+/* result header: copy the whole result as text, print it, and keep the verdict in view */
+(function(){
+  var m=document.getElementById("main");if(!m||!window.MutationObserver)return;
+  function deck(v){
+    if(v.querySelector(".vtools")||v.closest(".tprev,.peek,.finding"))return;
+    var box=v.parentNode,t=el("div","vtools");
+    var c=el("button",null,"copy result");c.type="button";c.title="Copy the whole result as plain text, for a ticket or a mail";
+    c.addEventListener("click",function(){var txt=box.innerText.replace(/\n?copy result\s*print\n?/,"\n").trim();
+      (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(function(){c.textContent="copied";c.classList.add("ok");setTimeout(function(){c.textContent="copy result";c.classList.remove("ok")},1500)},function(){c.textContent="select and copy"})});
+    var p=el("button",null,"print");p.type="button";p.addEventListener("click",function(){window.print()});
+    t.append(c,p);v.append(t);
+  }
+  function scan(){[].forEach.call(m.querySelectorAll(".verdict"),function(v){deck(v);if(!v.closest(".tprev,.peek,.finding")&&v.parentNode.querySelectorAll(".finding").length>2)v.classList.add("vstick")})}
+  new MutationObserver(function(){scan()}).observe(m,{childList:true,subtree:true});scan();
+})();
 })();

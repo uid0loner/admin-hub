@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>IP plan builder | admin_hub</title><meta name="description" content="Plan VLANs and subnets for a network: enter the address range and the segments with their host counts, get non-overlapping subnets with gateway, static and DHCP ranges, plus switch and DHCP configuration."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=78"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>IP plan builder | admin_hub</title><meta name="description" content="Plan VLANs and subnets for a network: enter the address range and the segments with their host counts, get non-overlapping subnets with gateway, static and DHCP ranges, plus switch and DHCP configuration."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=79"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="admin_hub">
 <meta property="og:title" content="IP plan builder | admin_hub">
@@ -14,7 +14,7 @@
 <p class="crumb"><span class="cu">sysop@hub</span>:<a href="index.html">~</a>/<a href="tools.html">tools</a>/<b>ip-plan-builder</b><span class="cs">$</span></p>
 <h1>ip-plan-builder</h1>
 <p class="dim">Give the page your address range and the segments you need. It cuts the range into subnets that do not overlap, sized for the hosts you expect, and hands you the plan as a table and as configuration for the switch and the DHCP server.</p>
-<h2 style="margin-top:30px">the range</h2>
+<h2 class="mt-6">the range</h2>
 <div class="sim">
 <label>Address range<input class="sel" id="ip-base" type="text" value="10.87.0.0/16" autocomplete="off" spellcheck="false" style="font-family:var(--mono)"></label>
 <label>Room to grow, in %<input class="sel" id="ip-head" type="number" min="0" max="300" value="30" inputmode="numeric"></label>
@@ -24,13 +24,13 @@
 <div class="ctl" style="align-items:center"><span class="dim">start from</span><button class="chipbtn" type="button" data-ippreset="office">small office</button><button class="chipbtn" type="button" data-ippreset="lab">home lab</button><button class="chipbtn" type="button" data-ippreset="school">school or large site</button></div>
 <div class="iphead" aria-hidden="true"><span></span><span>Name</span><span>VLAN ID</span><span>Hosts</span><span></span></div>
 <div id="ip-segs"></div>
-<div class="ctl" style="margin-top:12px"><button class="btn" id="ip-add" type="button">Add a segment</button></div>
-<details class="ipopt"><summary>Details for the DHCP exports</summary><div class="sim" style="margin-top:12px">
+<div class="ctl mt-3"><button class="btn" id="ip-add" type="button">Add a segment</button></div>
+<details class="ipopt"><summary>Details for the DHCP exports</summary><div class="sim mt-3">
 <label>DNS servers<input class="sel" id="ip-dns" type="text" placeholder="10.87.20.10, 10.87.20.11" autocomplete="off" spellcheck="false"></label>
 <label>DNS domain<input class="sel" id="ip-domain" type="text" placeholder="example.internal" autocomplete="off" spellcheck="false"></label>
 </div></details>
-<div id="ip-out" aria-live="polite" style="margin-top:30px"></div>
-<h2 style="margin-top:56px">rules of thumb</h2>
+<div id="ip-out" aria-live="polite" class="mt-6"></div>
+<h2 class="mt-7">rules of thumb</h2>
 <ul class="prose">
 <li><b>Separate by trust, not by department.</b> Servers, clients, guests, phones, printers and "things" (cameras, building control, TVs) each get a segment, because they deserve different firewall rules.</li>
 <li><b>Guests reach the internet and nothing else.</b> The guest segment must not reach any internal address, including the management interfaces of your own devices.</li>
@@ -43,5 +43,5 @@
 <p class="rel">Related: <a href="subnet-calculator.html">subnet calculator</a> <a href="switching-vlan-cheat-sheet.html">switching and VLAN cheat sheet</a> <a href="dns-dhcp-cheat-sheet.html">DNS and DHCP cheat sheet</a> <a href="firewall-rule-reviewer.html">firewall rule reviewer</a> <a href="wireguard-cheat-sheet.html">WireGuard cheat sheet</a></p>
 </main>
 <footer><div class="fcol"><b>analyze</b><a href="signin-analyzer.html">sign-in analyzer</a><a href="ca-analyzer.html">CA analyzer</a><a href="phish-analyzer.html">phish analyzer</a><a href="domain-check.html">domain check</a></div><div class="fcol"><b>plan and practise</b><a href="attack-map.html">attack map</a><a href="cockpit.html">cockpit</a><a href="incident-sim.html">incident simulator</a><a href="patch-tuesday.html">patch tuesday</a></div><div class="fcol"><b>reference</b><a href="tools.html">all tools</a><a href="cheat-sheets.html">cheat sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a></div><div class="fcol"><b>site</b><a href="about.html">about</a><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a></div><p class="fline">admin_hub, 2026. The tools run in your browser.</p></footer></div>
-<script src="ipplan.js?v=78" defer></script>
-<script src="shell.js?v=78" defer></script><script src="consent.js?v=78" defer></script><script src="reveal.js?v=78" defer></script><script src="pwa.js?v=78" defer></script><script src="search.js?v=78" defer></script></body></html>
+<script src="ipplan.js?v=79" defer></script>
+<script src="shell.js?v=79" defer></script><script src="consent.js?v=79" defer></script><script src="reveal.js?v=79" defer></script><script src="pwa.js?v=79" defer></script><script src="search.js?v=79" defer></script></body></html>

@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Transfer time calculator | admin_hub</title><meta name="description" content="How long a copy, upload or migration takes: enter the amount of data and the speed of the line or disk, with Mbit/s and MB/s told apart and a comparison of common links."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=78"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Transfer time calculator | admin_hub</title><meta name="description" content="How long a copy, upload or migration takes: enter the amount of data and the speed of the line or disk, with Mbit/s and MB/s told apart and a comparison of common links."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=79"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="admin_hub">
 <meta property="og:title" content="Transfer time calculator | admin_hub">
@@ -19,13 +19,13 @@
 <label>Speed<span class="pair"><input class="sel" id="tr-spd" type="number" min="0" step="any" value="50" inputmode="decimal" aria-label="Speed"><select class="sel" id="tr-sunit" aria-label="Unit"><option value="mbit" selected>Mbit/s (lines)</option><option value="gbit">Gbit/s</option><option value="mb">MB/s (disks, copy dialogs)</option></select></span></label>
 <label>Usable share of that speed, in %<input class="sel" id="tr-eff" type="number" min="1" max="100" value="90" inputmode="numeric"></label>
 </div>
-<p class="dim" style="margin-top:18px">or pick a link</p>
-<div id="tr-presets" class="ctl" style="margin-top:6px"></div>
-<div id="tr-out" aria-live="polite" style="margin-top:26px"></div>
-<p class="note" style="margin-top:32px">The slowest part decides: a 10 Gbit network does not help when the source is a single hard disk at 120 MB/s. Many small files are far slower than a few large ones, often by a factor of ten, because each file costs a round trip. Upload is usually much slower than download on DSL and cable. Sizes are decimal (1 GB = 1,000 MB).</p>
+<p class="dim mt-4">or pick a link</p>
+<div id="tr-presets" class="ctl mt-2"></div>
+<div id="tr-out" aria-live="polite" class="mt-5"></div>
+<p class="note mt-6">The slowest part decides: a 10 Gbit network does not help when the source is a single hard disk at 120 MB/s. Many small files are far slower than a few large ones, often by a factor of ten, because each file costs a round trip. Upload is usually much slower than download on DSL and cable. Sizes are decimal (1 GB = 1,000 MB).</p>
 <p class="rel">Related: <a href="backup-planner.html">backup planner</a> <a href="raid-calculator.html">RAID calculator</a> <a href="networking-cheat-sheet.html">networking cheat sheet</a></p>
 
 </main>
 <footer><div class="fcol"><b>analyze</b><a href="signin-analyzer.html">sign-in analyzer</a><a href="ca-analyzer.html">CA analyzer</a><a href="phish-analyzer.html">phish analyzer</a><a href="domain-check.html">domain check</a></div><div class="fcol"><b>plan and practise</b><a href="attack-map.html">attack map</a><a href="cockpit.html">cockpit</a><a href="incident-sim.html">incident simulator</a><a href="patch-tuesday.html">patch tuesday</a></div><div class="fcol"><b>reference</b><a href="tools.html">all tools</a><a href="cheat-sheets.html">cheat sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a></div><div class="fcol"><b>site</b><a href="about.html">about</a><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a></div><p class="fline">admin_hub, 2026. The tools run in your browser.</p></footer></div>
-<script src="calcs.js?v=78" defer></script>
-<script src="shell.js?v=78" defer></script><script src="consent.js?v=78" defer></script><script src="reveal.js?v=78" defer></script><script src="pwa.js?v=78" defer></script><script src="search.js?v=78" defer></script></body></html>
+<script src="calcs.js?v=79" defer></script>
+<script src="shell.js?v=79" defer></script><script src="consent.js?v=79" defer></script><script src="reveal.js?v=79" defer></script><script src="pwa.js?v=79" defer></script><script src="search.js?v=79" defer></script></body></html>

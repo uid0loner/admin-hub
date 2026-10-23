@@ -84,3 +84,38 @@ and a commit. Order follows the brief: foundation, home, then the rest of the pl
 - Elevation `--e-1 --e-2 --e-3`, `--glow-focus`, `--glow-live`.
 
 Rule for every later round: new and touched rules use tokens only, no new hex values, no new `!important`.
+
+## Before and after (2026-10-23, start a7924d0, end v79)
+
+What changed for visitors
+- Navigation: a real menu up to 1180 px instead of a sideways scrolling row that cut off; search as a command bar.
+- Home: two-column hero with the live terminal as the centrepiece, counts as an instrument strip, areas as a
+  discovery band, news as live panels, "new here" as a timeline.
+- Every page: one set of buttons, fields, chips and disclosure sections with all states; tables, stat strips and
+  verdicts as framed surfaces; one severity legend on every analyzer; a result header with "copy result" and
+  "print" that stays in view while reading findings.
+- Reading pages: table of contents beside the text from 1240 px, reading measure, code blocks with copy.
+- Directories: filter bar stays visible, empty state with a way to the full search; search results grouped.
+- Print: head line with title, address and date, page numbers, closed sections open.
+
+Numbers
+- Hard-coded colours outside the token layer: 200 hex values and 177 rgba tints before; 8 hex values left, all in
+  print or data URIs.
+- Inline style attributes: 329 before, 73 after (256 margins moved onto the 4 px spacing scale).
+- Search index: 622 KB (190 KB compressed) loaded on every page before; now only when search is about to be used.
+- Stylesheet: 153 KB before, 186 KB after (39 KB compressed); the growth is the component, navigation, home
+  and tool layers. `!important`: 129 before, 135 after, 99 of them in print rules where they are needed.
+- Accessibility: own audit of all 209 pages (contrast against the real background, names, labels, alt, ids,
+  heading order) with no findings; focus visible on the first 12 tab stops of 15 pages. axe-core could not be
+  installed in the build environment, so this is not a full WCAG audit.
+- Home tile corrected from 98 to 81 tools; the site check now keeps every home count equal to its directory.
+
+What was checked every round
+- `automation/check_site.py` (209 pages: links, anchors, assets, titles, descriptions, sitemap, preserved text,
+  script ids and links): green after every round.
+- Screenshots at desktop and phone widths, no horizontal overflow, no script errors on the tested pages.
+
+Left on purpose
+- Unused CSS rules: an automatic scan found 65 candidates (3.6 KB), but most are classes that scripts build at
+  run time ("k-" + kind, "rxm" + number). Removing them would break tools for a 2 % saving, so they stay.
+- The 37 `!important` outside print sit in older rules; each one needs a look at the page it serves.

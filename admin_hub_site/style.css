@@ -2067,7 +2067,7 @@ header>.sbtn,header>.lang,header>.menubtn{flex:none}
 .home .live .feed li:hover{background:rgb(var(--blue-rgb) / .06)}
 .home .live .feed li:last-child{border-bottom:0}
 .home .live .feed .hi{font-variant-numeric:tabular-nums;color:var(--dim)}
-.home #new{margin-top:var(--sp-6)!important;padding-top:var(--sp-5);border-top:1px solid var(--line)}
+.home #new{margin-top:var(--sp-6);padding-top:var(--sp-5);border-top:1px solid var(--line)}
 .home .newlist li{position:relative;grid-template-columns:18px 1fr;margin:0;padding:8px 0 12px;border:0;border-radius:0}
 .home .newlist li:hover{background:none}
 .home .newlist li::before{content:"";position:absolute;left:5px;top:16px;bottom:-8px;width:1px;background:var(--line)}
@@ -2210,3 +2210,16 @@ pre{background:var(--s-sunk);border:1px solid var(--line);border-radius:var(--r-
 .hubempty{margin:var(--sp-5) 0;padding:var(--sp-5);border:1px dashed var(--line);border-radius:var(--r-surf);text-align:center;color:var(--dim)}
 .hubempty p{margin:0 0 var(--sp-3)}
 .hubbar .q{max-width:560px}
+
+/* ==== V8 spacing utilities: the old inline margins, snapped to the 4 px scale ==== */
+.mt-2,#main .mt-2{margin-top:var(--sp-2)}.mt-3,#main .mt-3{margin-top:var(--sp-3)}.mt-4,#main .mt-4{margin-top:var(--sp-4)}
+.mt-5,#main .mt-5{margin-top:var(--sp-5)}.mt-6,#main .mt-6{margin-top:var(--sp-6)}.mt-7,#main .mt-7{margin-top:var(--sp-7)}
+
+/* ==== V8 result header: the verdict stays in view while you read the findings, with copy and print ==== */
+.vtools{display:flex;gap:6px;margin-left:auto;align-self:center}
+.vtools button{padding:3px 10px;border:1px solid var(--line);border-radius:var(--r-ctl);background:var(--bg);color:var(--dim);font:var(--fs-1)/1.5 var(--mono);cursor:pointer;transition:color var(--t-fast) var(--ease),border-color var(--t-fast) var(--ease)}
+.vtools button:hover{color:var(--blue);border-color:var(--blue)}
+.vtools button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.vtools button.ok{color:var(--ok);border-color:var(--ok)}
+@media (min-width:900px){.verdict.vstick{position:sticky;top:66px;z-index:15}}
+@media print{.vtools{display:none}.verdict.vstick{position:static}}

@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Backup planner | admin_hub</title><meta name="description" content="Plan a backup: retention with daily, weekly, monthly and yearly restore points, the storage it needs, how long backups and offsite uploads take, and a 3-2-1-1-0 check."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=78"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Backup planner | admin_hub</title><meta name="description" content="Plan a backup: retention with daily, weekly, monthly and yearly restore points, the storage it needs, how long backups and offsite uploads take, and a 3-2-1-1-0 check."><link rel="preload" href="plex-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="jbmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="style.css?v=79"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#07051a"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-180.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="admin_hub">
 <meta property="og:title" content="Backup planner | admin_hub">
@@ -21,7 +21,7 @@
 <label>Growth per year, in %<input class="sel" id="bk-grow" type="number" min="0" max="300" step="any" value="15" inputmode="decimal"></label>
 <label>Compression and deduplication<select class="sel" id="bk-red"><option value="1">none (1 : 1)</option><option value="1.5" selected>typical files (1.5 : 1)</option><option value="2">good (2 : 1)</option><option value="3">many similar machines (3 : 1)</option></select></label>
 </div>
-<h2 style="margin-top:32px">the schedule</h2>
+<h2 class="mt-6">the schedule</h2>
 <div class="sim">
 <label style="grid-column:1/-1">Method<select class="sel" id="bk-mode"><option value="forever">Incremental forever: one full, then only changes (most modern backup software)</option><option value="weekly">Weekly full plus daily incrementals (classic)</option><option value="daily">A full copy every time</option></select></label>
 <label>Daily points to keep<input class="sel" id="bk-d" type="number" min="0" max="3650" value="14" inputmode="numeric"></label>
@@ -31,7 +31,7 @@
 <label>Backup target speed, MB/s<input class="sel" id="bk-speed" type="number" min="1" step="any" value="100" inputmode="decimal"></label>
 <label>Internet upload, Mbit/s<input class="sel" id="bk-up" type="number" min="0.1" step="any" value="40" inputmode="decimal"></label>
 </div>
-<h2 style="margin-top:32px">the 3-2-1-1-0 rule</h2>
+<h2 class="mt-6">the 3-2-1-1-0 rule</h2>
 <p class="dim">Tick what is true today.</p>
 <div class="optlist">
 <label><input type="checkbox" id="bk-c3" checked> <span><b>3</b> copies of the data: the original and two backups</span></label>
@@ -40,11 +40,11 @@
 <label><input type="checkbox" id="bk-ci"> <span><b>1</b> copy is offline or immutable</span></label>
 <label><input type="checkbox" id="bk-c0"> <span><b>0</b> errors: restores are tested regularly</span></label>
 </div>
-<div id="bk-out" aria-live="polite" style="margin-top:30px"></div>
-<p class="note" style="margin-top:36px">A plan on paper. Real numbers depend on your data and your backup software, so compare with what the software reports after the first month. Sizes are decimal (1 TB = 1,000 GB). How long you must keep data can also be a legal question, for example for accounting records, and how long you may keep personal data as well.</p>
+<div id="bk-out" aria-live="polite" class="mt-6"></div>
+<p class="note mt-6">A plan on paper. Real numbers depend on your data and your backup software, so compare with what the software reports after the first month. Sizes are decimal (1 TB = 1,000 GB). How long you must keep data can also be a legal question, for example for accounting records, and how long you may keep personal data as well.</p>
 <p class="rel">Related: <a href="backup-disaster-recovery-checklist.html">backup and disaster recovery checklist</a> <a href="raid-calculator.html">RAID calculator</a> <a href="transfer-time-calculator.html">transfer time calculator</a> <a href="ransomware-backup-gap.html">war story: the backup gap</a></p>
 
 </main>
 <footer><div class="fcol"><b>analyze</b><a href="signin-analyzer.html">sign-in analyzer</a><a href="ca-analyzer.html">CA analyzer</a><a href="phish-analyzer.html">phish analyzer</a><a href="domain-check.html">domain check</a></div><div class="fcol"><b>plan and practise</b><a href="attack-map.html">attack map</a><a href="cockpit.html">cockpit</a><a href="incident-sim.html">incident simulator</a><a href="patch-tuesday.html">patch tuesday</a></div><div class="fcol"><b>reference</b><a href="tools.html">all tools</a><a href="cheat-sheets.html">cheat sheets</a><a href="checklists.html">checklists</a><a href="glossary.html">glossary</a></div><div class="fcol"><b>site</b><a href="about.html">about</a><a href="imprint.html">imprint</a><a href="privacy.html">privacy</a><a href="contact.html">contact</a></div><p class="fline">admin_hub, 2026. The tools run in your browser.</p></footer></div>
-<script src="calcs.js?v=78" defer></script>
-<script src="shell.js?v=78" defer></script><script src="consent.js?v=78" defer></script><script src="reveal.js?v=78" defer></script><script src="pwa.js?v=78" defer></script><script src="search.js?v=78" defer></script></body></html>
+<script src="calcs.js?v=79" defer></script>
+<script src="shell.js?v=79" defer></script><script src="consent.js?v=79" defer></script><script src="reveal.js?v=79" defer></script><script src="pwa.js?v=79" defer></script><script src="search.js?v=79" defer></script></body></html>
