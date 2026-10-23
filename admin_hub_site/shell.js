@@ -110,4 +110,23 @@ if(cur!=="en")loadTr(function(){window.ahTranslate.set(cur,false)});
   addEventListener("beforeprint",function(){head();document.querySelectorAll("main details:not([open])").forEach(function(d){d.open=true;opened.push(d)})});
   addEventListener("afterprint",function(){opened.forEach(function(d){d.open=false});opened=[]});
 })();
+
+/* mobile menu: the same links as the desktop bar, as a sheet under the header */
+(function(){
+  var hdr=document.querySelector("header"),nav=hdr&&hdr.querySelector("nav");if(!nav)return;
+  nav.id=nav.id||"mainnav";
+  var b=el("button","menubtn");b.type="button";b.setAttribute("aria-controls",nav.id);b.setAttribute("aria-expanded","false");b.setAttribute("aria-label","Menu");
+  b.append(el("i"),el("span",null,"menu"));hdr.append(b);
+  if(!nav.querySelector(".navx")){var x=el("span","navx","Ctrl K or / searches everything. Press ? for all keys.");nav.append(x)}
+  var root=document.documentElement;
+  function place(){root.style.setProperty("--hdr-b",Math.round(hdr.getBoundingClientRect().bottom)+"px")}
+  function set(open){
+    root.classList.toggle("navopen",open);b.setAttribute("aria-expanded",open?"true":"false");b.lastChild.textContent=open?"close":"menu";
+    if(open){place();var a=nav.querySelector("a");if(a)a.focus()}
+  }
+  b.addEventListener("click",function(){set(!root.classList.contains("navopen"))});
+  nav.addEventListener("click",function(e){if(e.target.closest("a"))set(false)});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&root.classList.contains("navopen")){set(false);b.focus()}});
+  matchMedia("(min-width:1181px)").addEventListener("change",function(m){if(m.matches)set(false)});
+})();
 })();
