@@ -195,4 +195,18 @@ if(cur!=="en")loadTr(function(){window.ahTranslate.set(cur,false)});
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",add);else add();
 })();
+
+/* directory filter: say so when nothing matches, and offer the full search */
+(function(){
+  var q=document.getElementById("hubq"),n=document.getElementById("hubn");if(!q||!n)return;
+  var box=null;
+  function upd(){
+    var none=/^0\b/.test(n.textContent.trim())&&q.value.trim();
+    if(none&&!box){box=el("div","hubempty");box.setAttribute("role","status");box.append(el("p",null,"Nothing on this page matches."));
+      var b=el("button","btn ghost","Search the whole site");b.type="button";b.setAttribute("data-search","");box.append(b);
+      var bar=q.closest(".hubbar")||q;bar.parentNode.insertBefore(box,bar.nextSibling)}
+    if(box)box.hidden=!none;
+  }
+  q.addEventListener("input",function(){setTimeout(upd,40)});
+})();
 })();

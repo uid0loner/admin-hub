@@ -16,7 +16,7 @@ V8 is done (the owner's earlier rule: design first, then content). One round per
 - Done 2026-10-23: V4 components: buttons (default, solid, ghost; hover, active, focus, disabled, busy with spinner via aria-busy), fields (sunken, hover, one focus ring, invalid after input, disabled, own select arrow), checkboxes and radios, chips and toggles (on, pressed, selected), segmented buttons, severity chips tinted and readable without colour, plain disclosure sections with chevron, one surface radius. Before and after compared on 5 component-heavy pages; 7 pages at 390 and 1280 px without overflow or script errors
 - Done 2026-10-23: V5 tool frame, part one: tool head (intro readable), tables as framed surfaces with a sunken head and tabular numbers, stat strips and verdict panels with depth, value chips in result lists, preview panels raised, one severity legend (critical act now, high this week, medium plan it, info good to know) placed automatically above the first findings of every analyzer. Tested with sample data on signin and intune analyzers, 6 tool pages at 390 px. Still open: sticky result header with copy and export per tool
 - Done 2026-10-23: V6 reading pages: table of contents beside the text from 1240 px (checklists, cheat sheets from their snippets, glossary, about, privacy, start-here; current section marked, filtered snippets hidden), reading measure 72ch, code blocks sunken with a copy button where the page had none. Pages with their own contents list (hardware guides, 16) and tool pages keep theirs
-- V7 Directories and search
+- Done 2026-10-23: V7 directories and search: filter bar stays under the header while scrolling (tools, cheat sheets, checklists, explainers), rows with icon tiles and hover, "new" as a tag, empty state with a button to search the whole site; search results grouped by kind (tools, walkthrough steps, glossary, lessons ...) with headers, arrow keys skip the headers, Enter opens. Tested on 4 directories at 1440 and 390 px
 - V8 Polish and proof: inline styles, !important, accessibility, performance, before and after report
 
 ## Later: six rounds to the masterpiece (plan of 2026-10-06)
@@ -107,6 +107,7 @@ SNMP MIB browser, Exchange hybrid guide, print server migration, time and NTP tr
 
 ## Open questions
 
+- The home page tile says 98 tools, the tools directory lists 84 rows. Check which tools are missing from tools.html or whether the tile counts more than the directory
 - CISA Advisories feed delivers no items to the news page. The run log is not readable from here, so it is unclear whether CISA blocks the request or simply published nothing in 14 days. Check the log of an "Update feeds" run in the Actions tab for a line starting with FAILED
 
 ## Needs real data from the owner
@@ -121,6 +122,7 @@ SNMP MIB browser, Exchange hybrid guide, print server migration, time and NTP tr
 
 ## Done
 
+- 2026-10-23: V7 directories and search, stamp v77
 - 2026-10-23: V6 reading pages, stamp v76
 - 2026-10-23: V5 tool frame, part one, stamp v75
 - 2026-10-23: V4 components, stamp v74

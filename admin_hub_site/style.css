@@ -2192,3 +2192,21 @@ pre{background:var(--s-sunk);border:1px solid var(--line);border-radius:var(--r-
 .precopy:hover{color:var(--blue);border-color:var(--blue)}
 .precopy.ok{color:var(--ok);border-color:var(--ok)}
 @media print{.precopy{display:none}}
+
+/* ==== V7 directories (DESIGN.md): sticky filter, rows that read as a list of software ==== */
+.hubbar{position:sticky;top:62px;z-index:20;box-sizing:border-box;width:auto;max-width:none;padding:var(--sp-2) 0;box-shadow:0 1px 0 rgb(var(--line-rgb) / .5);background:rgb(var(--bg-rgb) / .9);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.hubbar .q{background:var(--s-sunk)}
+#hubn{font:var(--fs-1)/1.4 var(--mono);white-space:nowrap}
+.ls.hub{border-top:0}
+.ls.hub .lsrow{border-radius:var(--r-ctl);border-bottom:1px solid rgb(var(--line-rgb) / .55);transition:background-color var(--t-fast) var(--ease)}
+.ls.hub .lsrow:hover,.ls.hub .lsrow:focus-visible{background:rgb(var(--blue-rgb) / .06)}
+.ls.hub .lsrow b{transition:color var(--t-fast) var(--ease)}
+.ls.hub .lsrow:hover b{color:var(--text)}
+.lsrow b .aico{width:22px;height:22px;padding:4px;margin-right:10px;vertical-align:-6px;border-radius:5px;background:rgb(var(--blue-rgb) / .08);box-shadow:inset 0 0 0 1px rgb(var(--blue-rgb) / .16);color:var(--blue)}
+.lsrow em{font-style:normal;padding:0 7px;border:1px solid rgb(var(--violet-rgb) / .45);border-radius:var(--r-pill);font:var(--fs-1)/1.6 var(--mono);color:var(--violet);align-self:center}
+.hubsec>h2{scroll-margin-top:130px}
+.areabar .chipbtn{display:inline-flex;align-items:center;gap:6px}
+@media (max-width:760px){.hubbar{top:54px}}
+.hubempty{margin:var(--sp-5) 0;padding:var(--sp-5);border:1px dashed var(--line);border-radius:var(--r-surf);text-align:center;color:var(--dim)}
+.hubempty p{margin:0 0 var(--sp-3)}
+.hubbar .q{max-width:560px}
