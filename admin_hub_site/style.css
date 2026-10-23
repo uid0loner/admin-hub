@@ -1869,3 +1869,45 @@ p.prose{font-family:var(--sans);max-width:74ch;color:var(--dim);margin-top:12px}
  .tw:has(.dgtbl){overflow:visible}
 }
 @page handbook{margin:16mm 14mm 18mm;@bottom-right{content:"page " counter(page) " of " counter(pages);font-size:8pt}@bottom-left{content:"IT handbook, confidential";font-size:8pt}}
+
+/* print, part two (v69): head line with title and date on every page, page numbers, closed sections printed open */
+.prhead{display:none}
+@page{@bottom-left{content:"admin-hub.xyz";font:8pt "JetBrains Mono",ui-monospace,monospace;color:#555}@bottom-right{content:"page " counter(page) " of " counter(pages);font:8pt "JetBrains Mono",ui-monospace,monospace;color:#555}}
+@media print{
+.prhead{display:flex;justify-content:space-between;gap:12pt;align-items:baseline;margin:0 0 8pt;padding:0 0 4pt;border-bottom:1px solid #000;font:8pt var(--mono);color:#000}
+.prhead b{font-weight:700}.prhead span{color:#444;white-space:nowrap}
+main:is(:has(#ps-sheet),:has(.poster2),:has(.hcards),:has(#ip2-plan))>.prhead{display:none!important}
+details::details-content{content-visibility:visible;display:block}
+main::after{display:none}
+body.has-sl{padding-bottom:0!important}
+img,svg,canvas{max-width:100%!important;break-inside:avoid}
+}
+
+/* label-maker (v69) */
+.lmtext{display:block;width:100%;min-height:150px;margin-top:4px;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:10px;font:.9rem/1.5 var(--mono);resize:vertical}
+.lmtext:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.lmseq{display:flex;flex-wrap:wrap;gap:8px;align-items:end;margin-top:10px}.lmseq label{color:var(--dim);font-size:.85rem}.lmseq input.sel{width:7.5em}
+.lmchk{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:12px;color:var(--dim);font-size:.9rem}
+#lm-out{margin-top:16px;display:flex;flex-direction:column;align-items:center;gap:14px;overflow:hidden}
+.lmpage{position:relative;background:#fff;color:#000;flex:none;box-shadow:0 0 0 1px var(--line),0 10px 40px rgba(0,0,0,.45);overflow:hidden}
+.lmsheetp{width:210mm;height:297mm;page:lmsheet}
+.lmtapep{page:lmtape;display:flex}
+.lmlab{position:absolute;box-sizing:border-box;overflow:hidden;font-family:"JetBrains Mono",ui-monospace,monospace;color:#000}
+.lmtapep .lmlab{position:relative}
+.lmb{outline:.2mm dashed #999;outline-offset:-.1mm}
+.lmempty{background:repeating-linear-gradient(45deg,transparent 0 2mm,#f1f1f4 2mm 4mm)}
+.lmin{box-sizing:border-box;width:100%;height:100%;display:flex;align-items:center;gap:1.2mm}
+.lmflag{display:flex;width:100%;height:100%}.lmhalf{flex:1;min-width:0;height:100%}.lmfold{width:0;border-left:.2mm dashed #888}
+.lmqr{flex:none}.lmqr svg{display:block;width:100%;height:100%}.lmerr{font-size:6pt;color:#b00}
+.lmtx{flex:1;min-width:0;align-self:stretch;display:flex;flex-direction:column;justify-content:center;line-height:1.15;overflow:hidden;white-space:nowrap}
+.lmtx span{overflow:hidden}.lmtx .lm1{font-weight:700}
+@media print{
+main:has(#lm-out)>:not(#lm-out){display:none!important}
+main:has(#lm-out){margin:0!important;padding:0!important}
+body:has(#lm-out),body:has(#lm-out) .wrap{margin:0!important;padding:0!important}
+#lm-out{display:block;margin:0;gap:0;overflow:visible}
+.lmpage{box-shadow:none!important;zoom:1!important;break-after:page;page-break-after:always}
+.lmpage:last-child{break-after:auto;page-break-after:auto}
+.lmempty{background:none!important}
+.lmsheetp .lmb{outline-color:#bbb}
+}

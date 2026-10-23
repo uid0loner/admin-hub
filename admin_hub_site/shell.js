@@ -94,4 +94,20 @@ if(sb){
   document.addEventListener("ahlang",function(e){cur=e.detail.lang;lb.textContent=cur.toUpperCase()});
 }
 if(cur!=="en")loadTr(function(){window.ahTranslate.set(cur,false)});
+
+/* print: head line with page title, address and date; closed sections open while printing */
+(function(){
+  var opened=[];
+  function day(){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+  function head(){
+    var m=document.getElementById("main");if(!m)return;
+    var h=m.querySelector(":scope>.prhead");
+    if(!h){h=el("div","prhead");h.setAttribute("aria-hidden","true");h.append(el("b"),el("span"));m.prepend(h)}
+    h.firstChild.textContent="admin_hub \u00b7 "+document.title.replace(/\s*\|\s*admin_hub\s*$/,"");
+    h.lastChild.textContent=(location.protocol==="file:"?"admin-hub.xyz/":location.host+location.pathname)+" \u00b7 printed "+day();
+  }
+  head();
+  addEventListener("beforeprint",function(){head();document.querySelectorAll("main details:not([open])").forEach(function(d){d.open=true;opened.push(d)})});
+  addEventListener("afterprint",function(){opened.forEach(function(d){d.open=false});opened=[]});
+})();
 })();
