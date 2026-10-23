@@ -71,3 +71,16 @@ and a commit. Order follows the brief: foundation, home, then the rest of the pl
   directories with grouping and filtering; search results grouped and keyboard first.
 - V8 Polish and proof: inline styles moved into classes, `!important` and dead rules removed,
   accessibility (contrast, focus, keyboard, screen reader) and performance pass, before and after report.
+
+## Token reference (V1, top of style.css)
+
+- Palette: `--bg --panel --line --text --dim --blue --violet --hot`, as channels for tints:
+  `rgb(var(--blue-rgb) / .3)` (also `--warn-rgb`, `--text-rgb`, `--dim-rgb`, `--line-rgb`, `--panel-rgb`, `--bg-rgb`).
+- Surfaces `--s-sunk --s-page --s-panel --s-raise --s-over`; lines `--line-1 --line-2 --line-hi`.
+- Meaning `--ok --warn --fail --info`.
+- Type `--fs-1` to `--fs-8`, `--fs-display`, `--lh-tight --lh-head --lh-body`, `--measure`.
+- Space `--sp-1` (4 px) to `--sp-9` (96 px). Shape `--r-ctl --r-surf --r-pill`. Widths `--w-prose --w-tool --w-dir`.
+- Motion `--ease --t-fast --t-med --t-slow` (all 0 under reduced motion).
+- Elevation `--e-1 --e-2 --e-3`, `--glow-focus`, `--glow-live`.
+
+Rule for every later round: new and touched rules use tokens only, no new hex values, no new `!important`.

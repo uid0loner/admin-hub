@@ -10,7 +10,7 @@ V8 is done (the owner's earlier rule: design first, then content). One round per
 `automation/check_site.py` green and screenshots at 1440 and 390 px.
 
 - Done 2026-10-23: audit, direction, plan (DESIGN.md); site check with preservation guard on every push
-- V1 Foundation: token layer, old values mapped onto it
+- Done 2026-10-23: V1 foundation: token layer at the top of style.css (palette as channels, surfaces, lines, ok/warn/fail, type scale, space, radii, widths, motion, elevation), 72 hard-coded colours and 169 rgba tints mapped onto tokens, pixel comparison of 11 pages at 1440 and 390 px: identical (differences under 0.05 %, from animation). Font sizes and radii are only defined, they get unified with the components in V4
 - V2 Navigation: mobile menu, desktop bar, command bar search, breadcrumb and status line
 - V3 Home: hero with the live terminal as centrepiece, discovery band, instrument strip
 - V4 Components: one set with every state
@@ -121,6 +121,7 @@ SNMP MIB browser, Exchange hybrid guide, print server migration, time and NTP tr
 
 ## Done
 
+- 2026-10-23: V1 foundation (design tokens), stamp v70
 - 2026-10-23: visual evolution started: audit and direction in DESIGN.md, site check with preservation guard (209 pages in the baseline) running on every push
 - 2026-10-23: round 8, part two: label maker (Avery sheets, plain paper, label tape 12/24/62 mm, cable flags, sequences, skip used labels, QR codes from own encoder), print head line with date and page numbers on every page, platform block added to the roadmap, stamp v69. Still open in round 8: status page and uptime scripts, domain handover document, peripherals guide.
 - 2026-10-20: round 8 flagship: IT documentation generator (9 sections incl. emergency page, gap checks incl. password detection, printable handbook with own page footer, JSON save and open, Markdown export, nothing in browser storage), stamp v68. Still open in round 8: print style for the whole site, label maker, status page and uptime scripts, domain handover document, peripherals guide.
