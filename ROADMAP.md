@@ -12,7 +12,7 @@ V8 is done (the owner's earlier rule: design first, then content). One round per
 - Done 2026-10-23: audit, direction, plan (DESIGN.md); site check with preservation guard on every push
 - Done 2026-10-23: V1 foundation: token layer at the top of style.css (palette as channels, surfaces, lines, ok/warn/fail, type scale, space, radii, widths, motion, elevation), 72 hard-coded colours and 169 rgba tints mapped onto tokens, pixel comparison of 11 pages at 1440 and 390 px: identical (differences under 0.05 %, from animation). Font sizes and radii are only defined, they get unified with the components in V4
 - Done 2026-10-23: V2 navigation: calm desktop bar (tinted hover and current page instead of glow sweeps), search as a command bar with icon, real menu up to 1180 px (sheet with 52 px rows, Esc, focus, closes on link), icon-only controls under 440 px, status line on tokens. Tested at 1440, 1340, 1260, 1200, 1181, 1000, 768, 430, 390, 320 px: no horizontal overflow
-- V3 Home: hero with the live terminal as centrepiece, discovery band, instrument strip
+- Done 2026-10-23: V3 home, part one: new hero (copy and counts left, the live terminal raised as the centrepiece right with layered panels and a status line, soft light behind it), counts as an instrument strip, mobile order copy, terminal, counts. Tested at 8 widths without overflow; terminal and example chips work. Still open for V3: area map as a discovery band, "new here" and live strip restyled
 - V4 Components: one set with every state
 - V5 Tool frame: input, result and help regions, one result panel, one table, one severity legend
 - V6 Reading pages: reading layout, table of contents, code blocks
@@ -121,6 +121,7 @@ SNMP MIB browser, Exchange hybrid guide, print server migration, time and NTP tr
 
 ## Done
 
+- 2026-10-23: V3 home hero, site check ignores the live feed blocks, stamp v72
 - 2026-10-23: V2 navigation with mobile menu, stamp v71
 - 2026-10-23: V1 foundation (design tokens), stamp v70
 - 2026-10-23: visual evolution started: audit and direction in DESIGN.md, site check with preservation guard (209 pages in the baseline) running on every push

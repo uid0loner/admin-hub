@@ -19,6 +19,7 @@ from urllib.parse import urlparse, unquote
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "admin_hub_site")
 BASE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "baseline.json")
 SITE = "https://admin-hub.xyz/"
+LIVE = {"news.html", "cve.html"}
 SKIP_TEXT = {"script", "style", "noscript", "svg", "template"}
 
 class Page(HTMLParser):
@@ -57,7 +58,9 @@ def scan():
     pages = {}
     for f in sorted(os.listdir(ROOT)):
         if f.endswith(".html"):
-            p = Page(); p.feed(open(os.path.join(ROOT, f), encoding="utf-8").read()); pages[f] = p
+            html = open(os.path.join(ROOT, f), encoding="utf-8").read()
+            html = re.sub(r"<!--(NEWS|KEV)_START-->.*?<!--\1_END-->", "", html, flags=re.S)  # live feed blocks change every run
+            p = Page(); p.feed(html); pages[f] = p
     return pages
 
 def main():
@@ -104,6 +107,7 @@ def main():
         for n, b in base.items():
             if n not in snap: errors.append(f"preserve: page {n} is gone"); continue
             s = snap[n]
+            if n in LIVE: continue  # rewritten by the feed bot
             if s["words"] < b["words"] * 0.97: errors.append(f"preserve: {n} lost text ({b['words']} -> {s['words']} words)")
             for i in sorted(set(b["ids"]) - set(s["ids"])): errors.append(f"preserve: {n} lost element #{i} that a script uses")
             for l in sorted(set(b["links"]) - set(s["links"])): errors.append(f"preserve: {n} lost the link {l}")

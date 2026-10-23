@@ -3681,11 +3681,6 @@
 "connector-identifier.html",
 "contact.html",
 "cve.html",
-"cve.html#CVE-2026-106931",
-"cve.html#CVE-2026-96652",
-"cve.html#CVE-2026-96654",
-"cve.html#CVE-2026-96655",
-"cve.html#CVE-2026-96656",
 "database-slow.html",
 "dcdiag-reader.html",
 "dhcp-not-working.html",
@@ -3745,7 +3740,7 @@
 "tools.html?a=windows",
 "windows-pc-slow.html"
 ],
-"words": 1344
+"words": 1136
 },
 "intune-analyzer.html": {
 "ids": [
@@ -4950,7 +4945,7 @@
 "start-here.html",
 "tools.html"
 ],
-"words": 2905
+"words": 2916
 },
 "nginx-apache-cheat-sheet.html": {
 "ids": [
