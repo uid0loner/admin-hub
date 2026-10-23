@@ -144,4 +144,55 @@ if(cur!=="en")loadTr(function(){window.ahTranslate.set(cur,false)});
   new MutationObserver(function(){legend()}).observe(m,{childList:true,subtree:true});
   legend();
 })();
+
+/* reading pages: table of contents beside the text, with the current section marked */
+(function(){
+  var m=document.getElementById("main");if(!m)return;
+  if(document.body.classList.contains("home")||m.querySelector(".toc,.hubbar,.amap,#sp-toc")||m.querySelector('.crumb a[href="tools.html"]'))return;
+  var nav=null,io=null;
+  function heads(){
+    var h=[].filter.call(m.querySelectorAll("h2"),function(x){return x.textContent.trim()&&!x.closest("[hidden],.finding,.term")});
+    if(h.length>=4&&h.length<=40)return h;
+    var s=m.querySelectorAll(".snip h3");return s.length>=6&&s.length<=60?[].slice.call(s):null;
+  }
+  function slug(t,i){return "s-"+(t.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,40)||i)}
+  function build(){
+    var hs=heads();if(!hs)return;
+    if(nav)nav.remove();if(io)io.disconnect();
+    nav=el("nav","sidetoc");nav.setAttribute("aria-label","On this page");nav.append(el("b",null,"on this page"));
+    var ol=el("ol"),links=[];
+    hs.forEach(function(h,i){
+      if(!h.id){var id=slug(h.textContent,i),n=id,k=2;while(document.getElementById(n))n=id+"-"+k++;h.id=n}
+      var li=el("li"),a=el("a",null,h.textContent.replace(/^#\s*/,"").trim());a.href="#"+h.id;li.append(a);ol.append(li);links.push(a);
+    });
+    m.addEventListener("input",function(){setTimeout(function(){hs.forEach(function(h,i){links[i].parentNode.hidden=h.offsetParent===null})},30)});
+    nav.append(ol);var t=el("a","totop","\u2191 top");t.href="#main";nav.append(t);
+    document.body.append(nav);document.documentElement.classList.add("hastoc");
+    if(window.IntersectionObserver){
+      var vis=new Map();
+      io=new IntersectionObserver(function(es){
+        es.forEach(function(e){vis.set(e.target,e.isIntersecting)});
+        var cur=null;for(var i=0;i<hs.length;i++){if(vis.get(hs[i])){cur=i;break}}
+        if(cur===null){for(i=hs.length-1;i>=0;i--){if(hs[i].getBoundingClientRect().top<120){cur=i;break}}}
+        links.forEach(function(a,i){if(i===cur)a.setAttribute("aria-current","true");else a.removeAttribute("aria-current")});
+      },{rootMargin:"-80px 0px -55% 0px"});
+      hs.forEach(function(h){io.observe(h)});
+    }
+  }
+  if(document.readyState==="complete")setTimeout(build,50);else addEventListener("load",function(){setTimeout(build,50)});
+})();
+
+/* code blocks without a copy button get one */
+(function(){
+  var m=document.getElementById("main");if(!m||!navigator.clipboard)return;
+  function add(){
+    [].forEach.call(m.querySelectorAll("pre:not([id])"),function(p){
+      if(p.closest(".snip,.prebox,.term,[id$='-out'],.lpscreen,.finding,.tframe,.mdout")||p.parentNode.querySelector(":scope>.btn,:scope>button"))return;
+      var box=el("div","prebox");p.parentNode.insertBefore(box,p);box.append(p);
+      var b=el("button","precopy","copy");b.type="button";b.setAttribute("aria-label","Copy this code");box.append(b);
+      b.addEventListener("click",function(){navigator.clipboard.writeText(p.textContent).then(function(){b.textContent="copied";b.classList.add("ok");setTimeout(function(){b.textContent="copy";b.classList.remove("ok")},1400)},function(){b.textContent="press Ctrl C"})});
+    });
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",add);else add();
+})();
 })();

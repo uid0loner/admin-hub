@@ -2166,3 +2166,29 @@ main:has(>.crumb a[href="tools.html"])>h1+p.dim{max-width:72ch;font-size:var(--f
 .sevlegend span{display:inline-flex;align-items:center;gap:7px}
 .sevlegend .sevtag{min-width:0;padding:1px 6px}
 @media print{.sevlegend{border-color:#999;color:#000}}
+
+/* ==== V6 reading pages (DESIGN.md): side table of contents, reading measure, code blocks ==== */
+.sidetoc{display:none}
+@media (min-width:1240px){
+  html.hastoc main{padding-right:250px}
+  html.hastoc main :is(p,li,dd){max-width:72ch}
+  .sidetoc{display:block;position:fixed;z-index:30;top:92px;left:calc(50% + 290px);width:220px;max-height:calc(100vh - 140px);overflow-y:auto;padding:var(--sp-3) 0 var(--sp-3) var(--sp-4);border-left:1px solid var(--line);font-size:var(--fs-2);scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+  .sidetoc b{display:block;margin:0 0 var(--sp-2);font:500 var(--fs-1)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+  .sidetoc ol{list-style:none;margin:0;padding:0}
+  .sidetoc a{position:relative;display:block;padding:5px 0 5px var(--sp-2);color:var(--dim);font-family:var(--sans);line-height:1.35;border-radius:var(--r-ctl);transition:color var(--t-fast) var(--ease)}
+  .sidetoc a:hover{color:var(--text)}
+  .sidetoc a[aria-current="true"]{color:var(--text)}
+  .sidetoc a[aria-current="true"]::before{content:"";position:absolute;left:calc(var(--sp-4) * -1 - 1px);top:4px;bottom:4px;width:2px;border-radius:2px;background:linear-gradient(var(--blue),var(--violet))}
+  .sidetoc .totop{display:inline-block;margin-top:var(--sp-3);font:var(--fs-1)/1.4 var(--mono);color:var(--dim)}
+  .sidetoc .totop:hover{color:var(--blue)}
+}
+@media print{.sidetoc{display:none!important}html.hastoc main{padding-right:0!important}}
+/* code blocks: sunken, calm, with a copy button where the page has none */
+pre{background:var(--s-sunk);border:1px solid var(--line);border-radius:var(--r-surf);padding:14px 16px;line-height:1.6;tab-size:2;box-shadow:inset 0 1px 3px rgb(0 0 0 / .35);scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.prebox{position:relative;margin-top:8px}
+.prebox>pre{margin:0;padding-right:72px}
+.precopy{position:absolute;top:8px;right:8px;padding:3px 10px;border:1px solid var(--line);border-radius:var(--r-ctl);background:var(--panel);color:var(--dim);font:var(--fs-1)/1.5 var(--mono);cursor:pointer;opacity:.75;transition:opacity var(--t-fast) var(--ease),color var(--t-fast) var(--ease),border-color var(--t-fast) var(--ease)}
+.prebox:hover .precopy,.precopy:focus-visible{opacity:1}
+.precopy:hover{color:var(--blue);border-color:var(--blue)}
+.precopy.ok{color:var(--ok);border-color:var(--ok)}
+@media print{.precopy{display:none}}
