@@ -129,4 +129,19 @@ if(cur!=="en")loadTr(function(){window.ahTranslate.set(cur,false)});
   document.addEventListener("keydown",function(e){if(e.key==="Escape"&&root.classList.contains("navopen")){set(false);b.focus()}});
   matchMedia("(min-width:1181px)").addEventListener("change",function(m){if(m.matches)set(false)});
 })();
+
+/* one severity legend: shown once above the first group of findings a tool produces */
+(function(){
+  var m=document.getElementById("main");if(!m||!window.MutationObserver)return;
+  var L=[["crit","critical","act now"],["high","high","this week"],["med","medium","plan it"],["info","info","good to know"]];
+  function legend(){
+    var f=m.querySelector(".finding.f-crit,.finding.f-high,.finding.f-med,.finding.f-info");
+    if(!f||m.querySelector(".sevlegend"))return;
+    var d=el("div","sevlegend");d.setAttribute("role","note");d.append(el("b",null,"severity"));
+    L.forEach(function(x){var s=el("span");s.append(el("span","sevtag s-"+x[0],x[1]),document.createTextNode(x[2]));d.append(s)});
+    f.parentNode.insertBefore(d,f);
+  }
+  new MutationObserver(function(){legend()}).observe(m,{childList:true,subtree:true});
+  legend();
+})();
 })();

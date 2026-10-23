@@ -2136,3 +2136,33 @@ main details:not([class]):not([id])[open]{padding-bottom:var(--sp-3)}
 .finding:hover{border-top-color:var(--line-2);border-right-color:var(--line-2);border-bottom-color:var(--line-2)}
 /* surfaces: one radius */
 :is(.card,.fcard,.feature,.term,.stats,.verdict,.chartbox,.tframe,.ls,.peek,.asform,.snip,.isfeed,.kv){border-radius:var(--r-surf)}
+
+/* ==== V5 tool frame (DESIGN.md): head, tables, stat strips, result panels, one severity legend ==== */
+/* head of a tool page */
+main:has(>.crumb a[href="tools.html"])>h1{margin-bottom:var(--sp-4)}
+main:has(>.crumb a[href="tools.html"])>h1+p.dim{max-width:72ch;font-size:var(--fs-4);color:var(--text);opacity:.82}
+/* tables: a framed surface with a sunken head */
+.tw{border:1px solid var(--line);border-radius:var(--r-surf);background:rgb(var(--panel-rgb) / .55);box-shadow:var(--e-1)}
+.tw>.tbl{margin:0}
+.tbl{font-variant-numeric:tabular-nums}
+.tbl th{position:relative;background:var(--s-sunk);color:var(--dim);font:500 var(--fs-1)/1.4 var(--mono);letter-spacing:.06em;border-bottom:1px solid var(--line-2);padding:9px 12px}
+.tbl td{border-bottom:1px solid rgb(var(--line-rgb) / .6);padding:9px 12px}
+.tbl tbody tr:last-child td{border-bottom:0}
+.tbl tbody tr:hover{background:rgb(var(--blue-rgb) / .06)}
+.finding .tw{background:var(--bg);box-shadow:none}
+/* stat strips */
+.stats{border-radius:var(--r-surf);box-shadow:var(--e-1)}
+.stat{background:linear-gradient(180deg,var(--s-raise),var(--panel) 70%)}
+.stat-k{font-family:var(--mono);letter-spacing:.08em}
+.stat-v{font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+/* result panels */
+.verdict{border-radius:var(--r-surf);background:linear-gradient(180deg,var(--s-raise),var(--panel));box-shadow:var(--e-2)}
+.kvrow{align-items:center}
+.kvrow code{padding:2px 8px;border:1px solid rgb(var(--blue-rgb) / .3);border-radius:var(--r-ctl);background:rgb(var(--blue-rgb) / .08);font-variant-numeric:tabular-nums}
+.tframe>.tprev{border-radius:var(--r-surf);box-shadow:var(--e-2)}
+/* one severity legend, placed by shell.js above the first list of findings */
+.sevlegend{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;margin:var(--sp-4) 0 var(--sp-2);padding:8px 12px;border:1px dashed var(--line);border-radius:var(--r-ctl);font-size:var(--fs-1);color:var(--dim)}
+.sevlegend b{font:500 var(--fs-1)/1.4 var(--mono);color:var(--dim);letter-spacing:.06em;margin-right:2px}
+.sevlegend span{display:inline-flex;align-items:center;gap:7px}
+.sevlegend .sevtag{min-width:0;padding:1px 6px}
+@media print{.sevlegend{border-color:#999;color:#000}}
