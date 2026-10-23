@@ -93,6 +93,15 @@ def main():
             r = local(src)
             if r and r[0] and not os.path.exists(os.path.join(ROOT, r[0].split("?")[0])):
                 errors.append(f"{name}: missing asset {src}")
+
+    # the counts on the home page must match the directories they link to
+    home = open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
+    for key, hub in (("tools", "tools.html"), ("cheat", "cheat-sheets.html"), ("checklists", "checklists.html"), ("explainers", "explainers.html")):
+        m = re.search(r'data-count="%s">(\d+)<' % key, home)
+        if not m or not os.path.exists(os.path.join(ROOT, hub)): continue
+        rows = {h.split("#")[0] for h in re.findall(r'class="lsrow"[^>]*href="([^"]+)"', open(os.path.join(ROOT, hub), encoding="utf-8").read())}
+        if rows and int(m.group(1)) != len(rows):
+            errors.append(f"index.html: tile {key} says {m.group(1)}, {hub} lists {len(rows)}")
     sm = open(os.path.join(ROOT, "sitemap.xml"), encoding="utf-8").read()
     locs = {l.replace(SITE, "") or "index.html" for l in re.findall(r"<loc>([^<]+)</loc>", sm)}
     for l in sorted(locs - set(pages)): errors.append(f"sitemap: {l} does not exist")

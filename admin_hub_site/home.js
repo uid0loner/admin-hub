@@ -1,3 +1,5 @@
+/* the home terminal opens pages by name: fetch the search index once the page is idle */
+(function(){function go(){if(window.ahLoadIndex)window.ahLoadIndex()}if(window.requestIdleCallback)requestIdleCallback(go,{timeout:2500});else setTimeout(go,1200)})();
 (function(){
 var inp=document.getElementById("cmd"),out=document.getElementById("tout");if(!inp)return;
 var H=[],hi=0,SEC={"tools":"tools.html","cheat-sheets":"cheat-sheets.html","checklists":"checklists.html","glossary":"glossary.html","explainers":"explainers.html","news":"news.html","cve":"cve.html","admin-links":"admin-links.html","start-here":"start-here.html"};
